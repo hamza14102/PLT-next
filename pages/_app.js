@@ -69,6 +69,8 @@ import { AuthProvider, AuthConsumer } from "context/auth-context";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createCache({ key: "css", prepend: true });
 
+const SplashScreen = () => null;
+
 function Main({ Component, pageProps }) {
   const [controller, dispatch] = useMaterialUIController();
   const {
@@ -213,7 +215,13 @@ function MyApp({
             <link rel="apple-touch-icon" sizes="76x76" href={appleIcon.src} />
             <title>Next Material Dashboard 2 PRO</title>
           </Head>
-          <Main Component={Component} pageProps={pageProps} />
+          <AuthConsumer>{
+            (auth) => auth.isLoading
+              ? <SplashScreen />
+              :
+              <Main Component={Component} pageProps={pageProps} />
+          }
+          </AuthConsumer>
         </AuthProvider>
       </CacheProvider>
     </MaterialUIControllerProvider>

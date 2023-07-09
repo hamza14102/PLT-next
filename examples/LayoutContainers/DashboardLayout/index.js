@@ -26,7 +26,7 @@ import MDBox from "/components/MDBox";
 // NextJS Material Dashboard 2 PRO context
 import { useMaterialUIController, setLayout } from "/context";
 
-import { AuthGuard } from "guards/auth-guard";
+import { withAuthGuard } from "guards/auth-guard";
 
 function DashboardLayout({ children }) {
   const [controller, dispatch] = useMaterialUIController();
@@ -38,24 +38,22 @@ function DashboardLayout({ children }) {
   }, [dispatch, pathname]);
 
   return (
-    <AuthGuard>
-      <MDBox
-        sx={({ breakpoints, transitions, functions: { pxToRem } }) => ({
-          p: 3,
-          position: "relative",
+    <MDBox
+      sx={({ breakpoints, transitions, functions: { pxToRem } }) => ({
+        p: 3,
+        position: "relative",
 
-          [breakpoints.up("xl")]: {
-            marginLeft: miniSidenav ? pxToRem(120) : pxToRem(274),
-            transition: transitions.create(["margin-left", "margin-right"], {
-              easing: transitions.easing.easeInOut,
-              duration: transitions.duration.standard,
-            }),
-          },
-        })}
-      >
-        {children}
-      </MDBox>
-    </AuthGuard>
+        [breakpoints.up("xl")]: {
+          marginLeft: miniSidenav ? pxToRem(120) : pxToRem(274),
+          transition: transitions.create(["margin-left", "margin-right"], {
+            easing: transitions.easing.easeInOut,
+            duration: transitions.duration.standard,
+          }),
+        },
+      })}
+    >
+      {children}
+    </MDBox>
   );
 }
 
@@ -64,4 +62,4 @@ DashboardLayout.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default DashboardLayout;
+export default withAuthGuard(DashboardLayout);
