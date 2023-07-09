@@ -26,6 +26,8 @@ import MDBox from "/components/MDBox";
 // NextJS Material Dashboard 2 PRO context
 import { useMaterialUIController, setLayout } from "/context";
 
+import { AuthGuard } from "guards/auth-guard";
+
 function DashboardLayout({ children }) {
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav } = controller;
@@ -36,22 +38,24 @@ function DashboardLayout({ children }) {
   }, [dispatch, pathname]);
 
   return (
-    <MDBox
-      sx={({ breakpoints, transitions, functions: { pxToRem } }) => ({
-        p: 3,
-        position: "relative",
+    <AuthGuard>
+      <MDBox
+        sx={({ breakpoints, transitions, functions: { pxToRem } }) => ({
+          p: 3,
+          position: "relative",
 
-        [breakpoints.up("xl")]: {
-          marginLeft: miniSidenav ? pxToRem(120) : pxToRem(274),
-          transition: transitions.create(["margin-left", "margin-right"], {
-            easing: transitions.easing.easeInOut,
-            duration: transitions.duration.standard,
-          }),
-        },
-      })}
-    >
-      {children}
-    </MDBox>
+          [breakpoints.up("xl")]: {
+            marginLeft: miniSidenav ? pxToRem(120) : pxToRem(274),
+            transition: transitions.create(["margin-left", "margin-right"], {
+              easing: transitions.easing.easeInOut,
+              duration: transitions.duration.standard,
+            }),
+          },
+        })}
+      >
+        {children}
+      </MDBox>
+    </AuthGuard>
   );
 }
 
