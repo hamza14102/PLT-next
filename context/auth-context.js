@@ -10,7 +10,7 @@ import {
 
 const poolData = {
   UserPoolId: 'us-east-2_9g6Z4Hijn',
-  ClientId: '4un6gf56p2lk5n1h0b3ik10c1c',
+  ClientId: 'r5bbahnt3ftl9sf85b27osptp',
   AutoConfirmUser: true,
   AutoVerifyEmail: true,
 };
