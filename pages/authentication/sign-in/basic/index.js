@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import Link from "next/link";
 
@@ -39,15 +39,45 @@ import BasicLayout from "/pagesComponents/authentication/components/BasicLayout"
 
 // Images
 import bgImage from "/assets/images/bg-sign-in-basic.jpeg";
+// import { async } from "regenerator-runtime";
+import { useAuth } from "hooks/use-auth";
+import { useRouter } from 'next/navigation';
+
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const auth = useAuth();
+  const router = useRouter();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log('submitting');
+
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    try {
+      await auth.signIn(email, password);
+      router.push('/');
+    } catch (err) {
+      // helpers.setStatus({ success: false });
+      // helpers.setErrors({ submit: err.message });
+      // helpers.setSubmitting(false);
+      console.log(err);
+    }
+
+    // Do something with the email and password values
+  };
+
   return (
     <BasicLayout image={bgImage}>
       <Card>
+        {/* <form onSubmit={handleSubmit}> */}
         <MDBox
           variant="gradient"
           bgColor="dark"
@@ -103,10 +133,10 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput type="email" label="Email" fullWidth inputRef={emailRef} />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput type="password" label="Password" fullWidth inputRef={passwordRef} />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -121,7 +151,7 @@ function Basic() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="dark" fullWidth>
+              <MDButton variant="gradient" color="dark" fullWidth type="submit" onClick={handleSubmit}>
                 sign in
               </MDButton>
             </MDBox>
@@ -142,6 +172,7 @@ function Basic() {
             </MDBox>
           </MDBox>
         </MDBox>
+        {/* </form> */}
       </Card>
     </BasicLayout>
   );

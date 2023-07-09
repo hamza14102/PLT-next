@@ -203,6 +203,11 @@ export const AuthProvider = (props) => {
                 email: attributes.find(attr => attr.getName() === 'email').getValue()
               };
               console.log(user);
+              try {
+                window.sessionStorage.setItem('authenticated', 'true');
+              } catch (err) {
+                console.error(err);
+              }
 
               dispatch({
                 type: HANDLERS.SIGN_IN,
