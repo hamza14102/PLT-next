@@ -219,11 +219,11 @@ export const AuthProvider = (props) => {
           window.sessionStorage.setItem('decodedPayload', decodedPayload);
 
           // Store the tokens in session storage
-          window.sessionStorage.setItem('accessToken', accessToken, { expires: expirationTime });
-          window.sessionStorage.setItem('idToken', idToken, { expires: expirationTime });
+          // window.sessionStorage.setItem('accessToken', accessToken, { expires: expirationTime });
+          // window.sessionStorage.setItem('idToken', idToken, { expires: expirationTime });
           // storing as cookie
-          Cookies.set('accessToken', accessToken);
-          Cookies.set('idToken', idToken);
+          Cookies.set('accessToken', accessToken, { expires: expirationTime });
+          Cookies.set('idToken', idToken, { expires: expirationTime });
 
           // Get the user attributes
           cognitoUser.getUserAttributes((err, attributes) => {
