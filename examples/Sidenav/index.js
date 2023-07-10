@@ -49,6 +49,8 @@ import {
   setWhiteSidenav,
 } from "/context";
 
+import { withAuthGuard } from "guards/auth-guard";
+
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const [openCollapse, setOpenCollapse] = useState(false);
   const [openNestedCollapse, setOpenNestedCollapse] = useState(false);
@@ -139,7 +141,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             open={openNestedCollapse === key}
             onClick={({ currentTarget }) =>
               openNestedCollapse === key &&
-              currentTarget.classList.contains("MuiListItem-root")
+                currentTarget.classList.contains("MuiListItem-root")
                 ? setOpenNestedCollapse(false)
                 : setOpenNestedCollapse(key)
             }
@@ -335,4 +337,4 @@ Sidenav.propTypes = {
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default Sidenav;
+export default withAuthGuard(Sidenav);
