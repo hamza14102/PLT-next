@@ -36,6 +36,59 @@ import { useRouter } from 'next/navigation';
 
 import { useState, useRef } from "react";
 
+// import { useState } from "react";
+
+// formik components
+import { Formik, Form } from "formik";
+
+// @mui material components
+import Grid from "@mui/material/Grid";
+// import Card from "@mui/material/Card";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+
+// NextJS Material Dashboard 2 PRO components
+// import MDBox from "/components/MDBox";
+// import MDButton from "/components/MDButton";
+
+// NextJS Material Dashboard 2 PRO examples
+import DashboardLayout from "/examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "/examples/Navbars/DashboardNavbar";
+import Footer from "/examples/Footer";
+
+// NewUser page components
+import UserInfo from "/pagesComponents/pages/users/new-user/components/UserInfo";
+import Address from "/pagesComponents/pages/users/new-user/components/Address";
+import Socials from "/pagesComponents/pages/users/new-user/components/Socials";
+import Profile from "/pagesComponents/pages/users/new-user/components/Profile";
+
+// NewUser layout schemas for form and form feilds
+import validations from "/pagesComponents/pages/users/new-user/schemas/validations";
+import form from "/pagesComponents/pages/users/new-user/schemas/form";
+import initialValues from "/pagesComponents/pages/users/new-user/schemas/initialValues";
+import MDSnackbar from "/components/MDSnackbar";
+
+function getSteps() {
+  return ["User Info", "Profile"];
+}
+
+function getStepContent(stepIndex, formData) {
+  switch (stepIndex) {
+    case 0:
+      return <UserInfo formData={formData} />;
+    // case 1:
+    //   return <Address formData={formData} />;
+    // case 2:
+    //   return <Socials formData={formData} />;
+    case 1:
+      return <Profile formData={formData} />;
+    default:
+      return null;
+  }
+}
+
+
 function Cover() {
   const [errors, setErrors] = useState("");
 
@@ -46,45 +99,106 @@ function Cover() {
   const auth = useAuth();
   const router = useRouter();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log('submitting');
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   console.log('submitting');
 
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-    const name = nameRef.current.value;
+  //   const email = emailRef.current.value;
+  //   const password = passwordRef.current.value;
+  //   const name = nameRef.current.value;
 
-    if (!email || !password || !name) {
-      setErrors('Please fill in all fields');
-      return;
-    }
-    // check valid regex for email
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      setErrors('Please enter a valid email');
-      return;
-    }
-    // ensure password is at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character
-    if (!/^(?=.*[0-9])(?=.*[!@#$%.^&*])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]/.test(password)) {
-      setErrors('Password must be at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character');
-      return;
-    }
+  //   if (!email || !password || !name) {
+  //     setErrors('Please fill in all fields');
+  //     return;
+  //   }
+  //   // check valid regex for email
+  //   if (!/\S+@\S+\.\S+/.test(email)) {
+  //     setErrors('Please enter a valid email');
+  //     return;
+  //   }
+  //   // ensure password is at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character
+  //   if (!/^(?=.*[0-9])(?=.*[!@#$%.^&*])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]/.test(password)) {
+  //     setErrors('Password must be at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character');
+  //     return;
+  //   }
 
+  //   try {
+  //     await auth.signUp(email, name, password);
+  //     router.push('/');
+  //   } catch (err) {
+  //     // helpers.setStatus({ success: false });
+  //     // helpers.setErrors({ submit: err.message });
+  //     // helpers.setSubmitting(false);
+  //     console.log(err);
+  //     setErrors(err.message);
+  //   }
+
+  //   // Do something with the email and password values
+  // };
+
+  // NextJS Material Dashboard 2 PRO components
+
+
+
+  const [show, setShow] = useState(false);
+  const toggleSnackbar = () => setShow(!show);
+  const [activeStep, setActiveStep] = useState(0);
+  const steps = getSteps();
+  const { formId, formField } = form;
+  const currentValidation = validations[activeStep];
+  const isLastStep = activeStep === steps.length - 1;
+
+  const sleep = (ms) =>
+    new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  const handleBack = () => setActiveStep(activeStep - 1);
+
+  const submitForm = async (values, actions) => {
+    // await sleep(1000);
+
+    // eslint-disable-next-line no-alert
+    // alert(JSON.stringify(values, null, 2));
+    // console.log(values);
+    // console.log(values.email);
+    // console.log(values.password);
+    // console.log(values.firstName + " " + values.lastName);
+    // actions.resetForm();
+
+    // setActiveStep(0);
     try {
-      await auth.signUp(email, name, password);
+      await auth.signUp(values.email, values.firstName + " " + values.lastName, values.password);
       router.push('/');
     } catch (err) {
-      // helpers.setStatus({ success: false });
-      // helpers.setErrors({ submit: err.message });
-      // helpers.setSubmitting(false);
-      console.log(err);
+      // console.log(err);
       setErrors(err.message);
+      // alert();
+      toggleSnackbar();
     }
 
-    // Do something with the email and password values
+    actions.setSubmitting(false);
+  };
+
+  const handleSubmit = (values, actions) => {
+    if (isLastStep) {
+      submitForm(values, actions);
+    } else {
+      setActiveStep(activeStep + 1);
+      actions.setTouched({});
+      actions.setSubmitting(false);
+    }
   };
 
   return (
     <CoverLayout image={bgImage} style={{ paddingBottom: '10vh' }}>
+      <MDSnackbar
+        icon="notifications"
+        title="Error Encountered"
+        content={errors}
+        open={show}
+        color="warning"
+        close={toggleSnackbar}
+      />
       <Card>
         <MDBox
           variant="gradient"
@@ -101,75 +215,76 @@ function Cover() {
             Join us today
           </MDTypography>
           <MDTypography display="block" variant="button" color="white" my={1}>
-            Enter your email and password to register
+            Enter your details to register and wait for confirmation
           </MDTypography>
         </MDBox>
-        <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form">
-            <MDBox mb={2}>
-              <MDInput type="text" label="Name" variant="standard" fullWidth inputRef={nameRef} />
-            </MDBox>
-            <MDBox mb={2}>
-              <MDInput
-                type="email"
-                label="Email"
-                variant="standard"
-                fullWidth
-                inputRef={emailRef}
-              />
-            </MDBox>
-            <MDBox mb={2}>
-              <MDInput
-                type="password"
-                label="Password"
-                variant="standard"
-                fullWidth
-                inputRef={passwordRef}
-              />
-            </MDBox>
-            <MDTypography color="warning" variant="caption">{errors}</MDTypography>
-            {/* <MDBox display="flex" alignItems="center" ml={-1}>
-              <Checkbox />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
+        <MDBox mb={5}>
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            sx={{ height: "100%", mt: 8 }}
+          >
+            <Grid item xs={12} lg={8}>
+              <Formik
+                initialValues={initialValues}
+                validationSchema={currentValidation}
+                onSubmit={handleSubmit}
               >
-                &nbsp;&nbsp;I agree the&nbsp;
-              </MDTypography>
-              <MDTypography
-                component="a"
-                href="#"
-                variant="button"
-                fontWeight="bold"
-                color="dark"
-                textGradient
-              >
-                Terms and Conditions
-              </MDTypography>
-            </MDBox> */}
-            <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="dark" fullWidth onClick={handleSubmit}>
-                sign up
-              </MDButton>
-            </MDBox>
-            <MDBox mt={3} mb={1} textAlign="center">
-              <MDTypography variant="button" color="text">
-                Already have an account?{" "}
-                <Link href="/authentication/sign-in/basic">
-                  <MDTypography
-                    variant="button"
-                    color="dark"
-                    fontWeight="medium"
-                    textGradient
-                  >
-                    Sign In
-                  </MDTypography>
-                </Link>
-              </MDTypography>
-            </MDBox>
-          </MDBox>
+                {({ values, errors, touched, isSubmitting }) => (
+                  <Form id={formId} autoComplete="off">
+                    <Card sx={{ height: "100%" }}>
+                      <MDBox mx={2} mt={-3}>
+                        <Stepper activeStep={activeStep} alternativeLabel>
+                          {steps.map((label) => (
+                            <Step key={label}>
+                              <StepLabel>{label}</StepLabel>
+                            </Step>
+                          ))}
+                        </Stepper>
+                      </MDBox>
+                      <MDBox p={3}>
+                        <MDBox>
+                          {getStepContent(activeStep, {
+                            values,
+                            touched,
+                            formField,
+                            errors,
+                          })}
+                          <MDBox
+                            mt={2}
+                            width="100%"
+                            display="flex"
+                            justifyContent="space-between"
+                          >
+                            {activeStep === 0 ? (
+                              <MDBox />
+                            ) : (
+                              <MDButton
+                                variant="gradient"
+                                color="light"
+                                onClick={handleBack}
+                              >
+                                back
+                              </MDButton>
+                            )}
+                            <MDButton
+                              disabled={isSubmitting}
+                              type="submit"
+                              variant="gradient"
+                              color="dark"
+                            >
+                              {isLastStep ? "send" : "next"}
+                            </MDButton>
+                          </MDBox>
+                        </MDBox>
+                      </MDBox>
+                    </Card>
+                  </Form>
+                )}
+              </Formik>
+            </Grid>
+          </Grid>
         </MDBox>
       </Card>
     </CoverLayout>

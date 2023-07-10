@@ -28,12 +28,12 @@ import FormField from "/pagesComponents/pages/users/new-user/components/FormFiel
 
 function UserInfo({ formData }) {
   const { formField, values, errors, touched } = formData;
-  const { firstName, lastName, company, email, password, repeatPassword } =
+  const { firstName, lastName, department, email, password, repeatPassword } =
     formField;
   const {
     firstName: firstNameV,
     lastName: lastNameV,
-    company: companyV,
+    department: departmentV,
     email: emailV,
     password: passwordV,
     repeatPassword: repeatPasswordV,
@@ -75,11 +75,13 @@ function UserInfo({ formData }) {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <FormField
-              type={company.type}
-              label={company.label}
-              name={company.name}
-              value={companyV}
-              placeholder={company.placeholder}
+              type={department.type}
+              label={department.label}
+              name={department.name}
+              value={departmentV}
+              placeholder={department.placeholder}
+              error={errors.department && touched.department}
+              success={departmentV.length > 0 && !errors.department}
             />
           </Grid>
           <Grid item xs={12} sm={6}>

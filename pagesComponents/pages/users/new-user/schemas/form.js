@@ -28,10 +28,11 @@ const form = {
       type: "text",
       errorMsg: "Last name is required.",
     },
-    company: {
-      name: "company",
-      label: "Company",
+    department: {
+      name: "department",
+      label: "Department",
       type: "text",
+      errorMsg: "Department is required.",
     },
     email: {
       name: "email",
@@ -45,7 +46,7 @@ const form = {
       label: "Password",
       type: "password",
       errorMsg: "Password is required.",
-      invalidMsg: "Your password should be more than 6 characters.",
+      invalidMsg: "Your password should be more than 8 characters, with at least 1 upper case, and 1 number, and one special character.",
     },
     repeatPassword: {
       name: "repeatPassword",

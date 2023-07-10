@@ -19,7 +19,7 @@ const {
   formField: {
     firstName,
     lastName,
-    company,
+    department,
     email,
     password,
     repeatPassword,
@@ -38,7 +38,7 @@ const {
 const initialValues = {
   [firstName.name]: "",
   [lastName.name]: "",
-  [company.name]: "",
+  [department.name]: "",
   [email.name]: "",
   [password.name]: "",
   [repeatPassword.name]: "",

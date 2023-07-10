@@ -77,7 +77,7 @@ function CoverLayout({ coverHeight, image, children }) {
         mx="auto"
       >
         <Grid container spacing={1} justifyContent="center">
-          <Grid item xs={11} sm={9} md={5} lg={4} xl={3}>
+          <Grid item xs={18} sm={14} md={10} lg={9} xl={7}>
             {children}
           </Grid>
         </Grid>
