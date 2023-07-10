@@ -13,9 +13,9 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-import Link from "next/link";
+// import Link from "next/link";
 import { useRouter } from "next/router";
 
 // prop-types is a library for typechecking of props.
@@ -36,6 +36,7 @@ import MDBadge from "/components/MDBadge";
 // NextJS Material Dashboard 2 PRO examples
 import Breadcrumbs from "/examples/Breadcrumbs";
 import NotificationItem from "/examples/Items/NotificationItem";
+import { useAuth } from "hooks/use-auth";
 
 // Custom styles for DashboardNavbar
 import {
@@ -103,6 +104,20 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
 
+  // const { anchorEl, onClose, open } = props;
+
+  const auth = useAuth();
+  const router = useRouter();
+
+  const handleSignOut = useCallback(
+    () => {
+      // onClose?.();
+      auth.signOut();
+      router.push('/authentication/sign-in/basic');
+    },
+    [auth, router]
+  );
+
   // Render the notifications menu
   const renderMenu = () => (
     <Menu
@@ -123,10 +138,13 @@ function DashboardNavbar({ absolute, light, isMini }) {
       />
       <NotificationItem
         icon={<Icon>shopping_cart</Icon>}
-        title="Payment successfully completed"
+        title="Log Out"
+        onClick={handleSignOut}
       />
     </Menu>
   );
+
+
 
   // Styles for the navbar icons
   const iconsStyle = ({
