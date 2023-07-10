@@ -161,7 +161,7 @@ function Cover() {
             Enter your details to register and wait for confirmation
           </MDTypography>
         </MDBox>
-        <MDBox mb={5}>
+        <MDBox mb={2}>
           <Grid
             container
             justifyContent="center"
@@ -232,6 +232,21 @@ function Cover() {
               </Formik>
             </Grid>
           </Grid>
+        </MDBox>
+        <MDBox mb={3} textAlign="center">
+          <MDTypography variant="button" color="text">
+            Already have an account?{" "}
+            <Link href="/authentication/sign-in/basic">
+              <MDTypography
+                variant="button"
+                color="dark"
+                fontWeight="medium"
+                textGradient
+              >
+                Sign In
+              </MDTypography>
+            </Link>
+          </MDTypography>
         </MDBox>
       </Card>
     </CoverLayout>
