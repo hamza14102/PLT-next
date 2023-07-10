@@ -42,13 +42,14 @@ import Icon from "@mui/material/Icon";
 
 // Images
 import profilePicture from "/assets/images/team-3.jpg";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const routes = [
   {
     type: "collapse",
-    name: "Brooklyn Alice",
-    key: "brooklyn-alice",
-    icon: <MDAvatar src={profilePicture.src} alt="Brooklyn Alice" size="sm" />,
+    name: "Account",
+    key: "account",
+    icon: <MDAvatar src={AccountCircleIcon.src} alt="Account" size="sm" />,
     collapse: [
       {
         name: "My Profile",
