@@ -181,11 +181,19 @@ function DashboardNavbar({ absolute, light, isMini }) {
               <MDInput label="Search here" />
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
-              <Link href="/authentication/sign-in/basic" passHref>
-                <IconButton sx={navbarIconButton} size="small" disableRipple>
-                  <Icon sx={iconsStyle}>account_circle</Icon>
-                </IconButton>
-              </Link>
+              {/* <Link href="/authentication/sign-in/basic" passHref> */}
+              <IconButton size="small"
+                disableRipple
+                color="inherit"
+                sx={navbarIconButton}
+                aria-controls="notification-menu"
+                aria-haspopup="true"
+                variant="contained"
+                onClick={handleOpenMenu}>
+                <Icon sx={iconsStyle}>account_circle</Icon>
+                {renderMenu()}
+              </IconButton>
+              {/* </Link> */}
               <IconButton
                 size="small"
                 disableRipple
