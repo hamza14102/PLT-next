@@ -42,6 +42,19 @@ import bgImage from "/assets/images/bg-sign-in-basic.jpeg";
 // import { async } from "regenerator-runtime";
 import { useAuth } from "hooks/use-auth";
 import { useRouter } from 'next/navigation';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+
+const SignInSchema = Yup.object().shape({
+  email: Yup
+    .string()
+    .email('Must be a valid email')
+    .max(255)
+    .required('Email is required'),
+  password: Yup.string()
+    .max(255)
+    .required('Password is required'),
+});
 
 
 function Basic() {
@@ -54,21 +67,14 @@ function Basic() {
   const auth = useAuth();
   const router = useRouter();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log('submitting');
-
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-
+  const handleSubmit = async (values, helpers) => {
     try {
-      await auth.signIn(email, password);
+      await auth.signIn(values.email, values.password);
       router.push('/');
     } catch (err) {
-      // helpers.setStatus({ success: false });
-      // helpers.setErrors({ submit: err.message });
-      // helpers.setSubmitting(false);
-      console.log(err);
+      helpers.setStatus({ success: false });
+      helpers.setErrors({ submit: err.message });
+      helpers.setSubmitting(false);
     }
 
     // Do something with the email and password values
@@ -131,46 +137,69 @@ function Basic() {
           </Grid>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form">
-            <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth inputRef={emailRef} />
-            </MDBox>
-            <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth inputRef={passwordRef} />
-            </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
-              <Switch checked={rememberMe} onChange={handleSetRememberMe} />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                onClick={handleSetRememberMe}
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-              >
-                &nbsp;&nbsp;Remember me
-              </MDTypography>
-            </MDBox>
-            <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="dark" fullWidth type="submit" onClick={handleSubmit}>
-                sign in
-              </MDButton>
-            </MDBox>
-            <MDBox mt={3} mb={1} textAlign="center">
-              <MDTypography variant="button" color="text">
-                Don&apos;t have an account?{" "}
-                <Link href="/authentication/sign-up/cover">
-                  <MDTypography
-                    variant="button"
-                    color="dark"
-                    fontWeight="medium"
-                    textGradient
-                  >
-                    Sign up
-                  </MDTypography>
-                </Link>
-              </MDTypography>
-            </MDBox>
-          </MDBox>
+          <Formik initialValues={{ email: '', password: '' }} validationSchema={SignInSchema} onSubmit={handleSubmit}>
+            {({ isSubmitting, errors, touched }) => (
+              <Form>
+                <MDBox component="form" role="form">
+                  <MDBox mb={2}>
+                    <Field
+                      as={MDInput}
+                      type="email"
+                      name="email"
+                      label="Email"
+                      fullWidth
+                      error={touched.email && errors.email}
+                      helperText={touched.email && errors.email}
+                    />
+                  </MDBox>
+                  <MDBox mb={2}>
+                    <Field
+                      as={MDInput}
+                      type="password"
+                      name="password"
+                      label="Password"
+                      fullWidth
+                      error={touched.password && errors.password}
+                      helperText={touched.password && errors.password}
+                    />
+                  </MDBox>
+                  <MDBox display="flex" alignItems="center" ml={-1}>
+                    <Switch checked={rememberMe} onChange={handleSetRememberMe} />
+                    <MDTypography
+                      variant="button"
+                      fontWeight="regular"
+                      color="text"
+                      onClick={handleSetRememberMe}
+                      sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
+                    >
+                      &nbsp;&nbsp;Remember me
+                    </MDTypography>
+                  </MDBox>
+                  {errors.submit && <div className="error">{errors.submit}</div>}
+                  <MDBox mt={4} mb={1}>
+                    <MDButton variant="gradient" color="dark" fullWidth type="submit" onClick={handleSubmit}>
+                      sign in
+                    </MDButton>
+                  </MDBox>
+                  <MDBox mt={3} mb={1} textAlign="center">
+                    <MDTypography variant="button" color="text">
+                      Don&apos;t have an account?{" "}
+                      <Link href="/authentication/sign-up/cover">
+                        <MDTypography
+                          variant="button"
+                          color="dark"
+                          fontWeight="medium"
+                          textGradient
+                        >
+                          Sign up
+                        </MDTypography>
+                      </Link>
+                    </MDTypography>
+                  </MDBox>
+                </MDBox>
+              </Form>
+            )}
+          </Formik>
         </MDBox>
         {/* </form> */}
       </Card>
