@@ -42,6 +42,7 @@ import bgImage from "/assets/images/bg-sign-in-basic.jpeg";
 // import { async } from "regenerator-runtime";
 import { useAuth } from "hooks/use-auth";
 import { useRouter } from 'next/navigation';
+import { CircularProgress } from "@mui/material";
 
 
 function Basic() {
@@ -54,6 +55,8 @@ function Basic() {
   const passwordRef = useRef(null);
   const auth = useAuth();
   const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -70,7 +73,7 @@ function Basic() {
       setErrors('Please enter a valid email');
       return;
     }
-
+    setLoading(true);
     try {
       await auth.signIn(email, password);
       router.push('/');
@@ -81,6 +84,7 @@ function Basic() {
       console.log(err);
       setErrors(err.message);
     }
+    setLoading(false);
 
     // Do something with the email and password values
   };
@@ -164,9 +168,13 @@ function Basic() {
             </MDBox>
             <MDTypography color="warning" variant="caption">{errors}</MDTypography>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="dark" fullWidth type="submit" onClick={handleSubmit}>
-                sign in
-              </MDButton>
+              {loading ? (
+                <CircularProgress />
+              ) : (
+                <MDButton variant="gradient" color="dark" fullWidth type="submit" onClick={handleSubmit}>
+                  sign in
+                </MDButton>
+              )}
             </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
