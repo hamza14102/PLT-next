@@ -216,7 +216,7 @@ export const AuthProvider = (props) => {
           // set cookie timeout to match token expiration
           const expirationTime = new Date(decodedPayload.exp * 1000);
 
-          window.sessionStorage.setItem('decodedPayload', decodedPayload);
+          // window.sessionStorage.setItem('decodedPayload', decodedPayload);
 
           // Store the tokens in session storage
           // window.sessionStorage.setItem('accessToken', accessToken, { expires: expirationTime });
