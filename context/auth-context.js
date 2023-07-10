@@ -1,5 +1,6 @@
-import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
+import { createContext, useContext, useEffect, useReducer, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import Cookies from 'js-cookie';
 
 import {
   CognitoUserPool,
@@ -73,9 +74,13 @@ const reducer = (state, action) => (
 
 // The role of this context is to propagate authentication state through the App tree.
 
-export const AuthContext = createContext({ undefined });
+export const AuthContext = createContext({
+  authenticated: false,
+  setAuthenticated: () => { },
+});
 
 export const AuthProvider = (props) => {
+  const [authenticated, setAuthenticated] = useState(false);
   const { children } = props;
   const [state, dispatch] = useReducer(reducer, initialState);
   const initialized = useRef(false);
@@ -88,15 +93,16 @@ export const AuthProvider = (props) => {
 
     initialized.current = true;
 
-    let isAuthenticated = false;
+    // let isAuthenticated = false;
 
-    try {
-      isAuthenticated = window.sessionStorage.getItem('authenticated') === 'true';
-    } catch (err) {
-      console.error(err);
-    }
-
-    if (isAuthenticated) {
+    // try {
+    //   isAuthenticated = window.sessionStorage.getItem('authenticated') === 'true';
+    // } catch (err) {
+    //   console.error(err);
+    // }
+    const cookie = Cookies.get('authenticated');
+    if (cookie) {
+      setAuthenticated(true);
       const user = {
         id: '5e86809283e28b96d2d38537',
         avatar: '/assets/avatars/avatar-anika-visser.png',
@@ -113,6 +119,24 @@ export const AuthProvider = (props) => {
         type: HANDLERS.INITIALIZE
       });
     }
+
+    // if (isAuthenticated) {
+    //   const user = {
+    //     id: '5e86809283e28b96d2d38537',
+    //     avatar: '/assets/avatars/avatar-anika-visser.png',
+    //     name: 'Anika Visser',
+    //     email: 'anika.visser@devias.io'
+    //   };
+
+    //   dispatch({
+    //     type: HANDLERS.INITIALIZE,
+    //     payload: user
+    //   });
+    // } else {
+    //   dispatch({
+    //     type: HANDLERS.INITIALIZE
+    //   });
+    // }
   };
 
   useEffect(
@@ -187,10 +211,19 @@ export const AuthProvider = (props) => {
         onSuccess: (result) => {
           const accessToken = result.getAccessToken().getJwtToken();
           const idToken = result.getIdToken().getJwtToken();
+          const payload = accessToken.split('.')[1];
+          const decodedPayload = JSON.parse(atob(payload));
+          // set cookie timeout to match token expiration
+          const expirationTime = new Date(decodedPayload.exp * 1000);
+
+          window.sessionStorage.setItem('decodedPayload', decodedPayload);
 
           // Store the tokens in session storage
-          window.sessionStorage.setItem('accessToken', accessToken);
-          window.sessionStorage.setItem('idToken', idToken);
+          window.sessionStorage.setItem('accessToken', accessToken, { expires: expirationTime });
+          window.sessionStorage.setItem('idToken', idToken, { expires: expirationTime });
+          // storing as cookie
+          Cookies.set('accessToken', accessToken);
+          Cookies.set('idToken', idToken);
 
           // Get the user attributes
           cognitoUser.getUserAttributes((err, attributes) => {
@@ -203,11 +236,13 @@ export const AuthProvider = (props) => {
                 email: attributes.find(attr => attr.getName() === 'email').getValue()
               };
               console.log(user);
-              try {
-                window.sessionStorage.setItem('authenticated', 'true');
-              } catch (err) {
-                console.error(err);
-              }
+              // try {
+              //   window.sessionStorage.setItem('authenticated', 'true');
+              // } catch (err) {
+              //   console.error(err);
+              // }
+              Cookies.set('authenticated', true, { expires: expirationTime });
+              setAuthenticated(true);
 
               dispatch({
                 type: HANDLERS.SIGN_IN,
@@ -275,12 +310,16 @@ export const AuthProvider = (props) => {
     console.log('signing out');
     if (cognitoUser) {
       cognitoUser.signOut();
-      try {
-        console.log('clearing session storage');
-        window.sessionStorage.clear();
-      } catch (err) {
-        console.error(err);
-      }
+      // try {
+      //   console.log('clearing session storage');
+      //   window.sessionStorage.clear();
+      // } catch (err) {
+      //   console.error(err);
+      // }
+      Cookies.remove('authenticated');
+      Cookies.remove('idToken');
+      Cookies.remove('accessToken');
+      setAuthenticated(false);
     }
     dispatch({
       type: HANDLERS.SIGN_OUT
