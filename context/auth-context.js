@@ -271,8 +271,16 @@ export const AuthProvider = (props) => {
 
   const signOut = () => {
     const cognitoUser = userPool.getCurrentUser();
+    console.log(cognitoUser);
+    console.log('signing out');
     if (cognitoUser) {
       cognitoUser.signOut();
+      try {
+        console.log('clearing session storage');
+        window.sessionStorage.clear();
+      } catch (err) {
+        console.error(err);
+      }
     }
     dispatch({
       type: HANDLERS.SIGN_OUT
