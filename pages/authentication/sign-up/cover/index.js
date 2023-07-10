@@ -84,7 +84,7 @@ function Cover() {
   };
 
   return (
-    <CoverLayout image={bgImage}>
+    <CoverLayout image={bgImage} style={{ paddingBottom: '10vh' }}>
       <Card>
         <MDBox
           variant="gradient"
