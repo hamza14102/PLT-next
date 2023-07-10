@@ -66,6 +66,11 @@ function Basic() {
       return;
     }
 
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setErrors('Please enter a valid email');
+      return;
+    }
+
     try {
       await auth.signIn(email, password);
       router.push('/');

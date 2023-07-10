@@ -31,7 +31,58 @@ import CoverLayout from "/pagesComponents/authentication/components/CoverLayout"
 // Images
 import bgImage from "/assets/images/bg-sign-up-cover.jpeg";
 
+import { useAuth } from "hooks/use-auth";
+import { useRouter } from 'next/navigation';
+
+import { useState, useRef } from "react";
+
 function Cover() {
+  const [errors, setErrors] = useState("");
+
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const nameRef = useRef(null);
+
+  const auth = useAuth();
+  const router = useRouter();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log('submitting');
+
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    const name = nameRef.current.value;
+
+    if (!email || !password || !name) {
+      setErrors('Please fill in all fields');
+      return;
+    }
+    // check valid regex for email
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setErrors('Please enter a valid email');
+      return;
+    }
+    // ensure password is at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character
+    if (!/^(?=.*[0-9])(?=.*[!@#$%.^&*])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]/.test(password)) {
+      setErrors('Password must be at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character');
+      return;
+    }
+
+    try {
+      await auth.signUp(email, name, password);
+      router.push('/');
+    } catch (err) {
+      // helpers.setStatus({ success: false });
+      // helpers.setErrors({ submit: err.message });
+      // helpers.setSubmitting(false);
+      console.log(err);
+      setErrors(err.message);
+    }
+
+    // Do something with the email and password values
+  };
+
   return (
     <CoverLayout image={bgImage}>
       <Card>
@@ -56,7 +107,7 @@ function Cover() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="text" label="Name" variant="standard" fullWidth />
+              <MDInput type="text" label="Name" variant="standard" fullWidth inputRef={nameRef} />
             </MDBox>
             <MDBox mb={2}>
               <MDInput
@@ -64,6 +115,7 @@ function Cover() {
                 label="Email"
                 variant="standard"
                 fullWidth
+                inputRef={emailRef}
               />
             </MDBox>
             <MDBox mb={2}>
@@ -72,9 +124,11 @@ function Cover() {
                 label="Password"
                 variant="standard"
                 fullWidth
+                inputRef={passwordRef}
               />
             </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
+            <MDTypography color="warning" variant="caption">{errors}</MDTypography>
+            {/* <MDBox display="flex" alignItems="center" ml={-1}>
               <Checkbox />
               <MDTypography
                 variant="button"
@@ -94,10 +148,10 @@ function Cover() {
               >
                 Terms and Conditions
               </MDTypography>
-            </MDBox>
+            </MDBox> */}
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="dark" fullWidth>
-                sign in
+              <MDButton variant="gradient" color="dark" fullWidth onClick={handleSubmit}>
+                sign up
               </MDButton>
             </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">
