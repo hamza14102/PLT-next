@@ -103,7 +103,7 @@ function Cover() {
             <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
                 Already have an account?{" "}
-                <Link href="/authentication/sign-in/cover">
+                <Link href="/authentication/sign-in/basic">
                   <MDTypography
                     variant="button"
                     color="dark"
