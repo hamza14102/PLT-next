@@ -42,7 +42,7 @@ function Footer({ light }) {
           alignItems="center"
           px={1.5}
         >
-          <MDBox
+          {/* <MDBox
             display="flex"
             justifyContent="center"
             alignItems="center"
@@ -72,7 +72,7 @@ function Footer({ light }) {
               </MDTypography>
             </Link>
             for a better web.
-          </MDBox>
+          </MDBox> */}
           <MDBox
             component="ul"
             sx={({ breakpoints }) => ({
@@ -90,7 +90,7 @@ function Footer({ light }) {
               },
             })}
           >
-            <MDBox component="li" pr={2} lineHeight={1}>
+            {/* <MDBox component="li" pr={2} lineHeight={1}>
               <Link href="https://www.creative-tim.com/" target="_blank">
                 <MDTypography
                   variant="button"
@@ -100,22 +100,22 @@ function Footer({ light }) {
                   Creative Tim
                 </MDTypography>
               </Link>
-            </MDBox>
+            </MDBox> */}
             <MDBox component="li" px={2} lineHeight={1}>
-              <Link
+              {/* <Link
                 href="https://www.creative-tim.com/presentation"
                 target="_blank"
+              > */}
+              <MDTypography
+                variant="button"
+                fontWeight="regular"
+                color={light ? "white" : "dark"}
               >
-                <MDTypography
-                  variant="button"
-                  fontWeight="regular"
-                  color={light ? "white" : "dark"}
-                >
-                  About Us
-                </MDTypography>
-              </Link>
+                About Us
+              </MDTypography>
+              {/* </Link> */}
             </MDBox>
-            <MDBox component="li" px={2} lineHeight={1}>
+            {/* <MDBox component="li" px={2} lineHeight={1}>
               <Link href="https://www.creative-tim.com/blog" target="_blank">
                 <MDTypography
                   variant="button"
@@ -125,17 +125,17 @@ function Footer({ light }) {
                   Blog
                 </MDTypography>
               </Link>
-            </MDBox>
+            </MDBox> */}
             <MDBox component="li" pl={2} lineHeight={1}>
-              <Link href="https://www.creative-tim.com/license" target="_blank">
-                <MDTypography
-                  variant="button"
-                  fontWeight="regular"
-                  color={light ? "white" : "dark"}
-                >
-                  License
-                </MDTypography>
-              </Link>
+              {/* <Link href="https://www.creative-tim.com/license" target="_blank"> */}
+              <MDTypography
+                variant="button"
+                fontWeight="regular"
+                color={light ? "white" : "dark"}
+              >
+                License
+              </MDTypography>
+              {/* </Link> */}
             </MDBox>
           </MDBox>
         </MDBox>

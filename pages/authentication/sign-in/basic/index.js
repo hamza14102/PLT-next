@@ -87,7 +87,8 @@ function Basic() {
 
   return (
     <BasicLayout image={bgImage}>
-      <Card>
+      {/* inline style for margin */}
+      <Card style={{ marginTop: '10vh', marginBottom: '10vh' }}>
         {/* <form onSubmit={handleSubmit}> */}
         <MDBox
           variant="gradient"
@@ -103,7 +104,7 @@ function Basic() {
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
             Sign in
           </MDTypography>
-          <Grid
+          {/* <Grid
             container
             spacing={3}
             justifyContent="center"
@@ -139,7 +140,7 @@ function Basic() {
                 <GoogleIcon color="inherit" />
               </MDTypography>
             </Grid>
-          </Grid>
+          </Grid> */}
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
