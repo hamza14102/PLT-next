@@ -97,12 +97,12 @@ const form = {
     },
     publicEmail: {
       name: "publicEmail",
-      label: "Public Email",
-      type: "email",
+      label: "Job Title",
+      type: "text",
     },
     bio: {
       name: "bio",
-      label: "Bio",
+      label: "Other Information",
     },
   },
 };
