@@ -68,6 +68,7 @@ import validations from "/pagesComponents/pages/users/new-user/schemas/validatio
 import form from "/pagesComponents/pages/users/new-user/schemas/form";
 import initialValues from "/pagesComponents/pages/users/new-user/schemas/initialValues";
 import MDSnackbar from "/components/MDSnackbar";
+import { CircularProgress } from "@mui/material";
 
 function getSteps() {
   return ["User Info", "Profile"];
@@ -77,10 +78,6 @@ function getStepContent(stepIndex, formData) {
   switch (stepIndex) {
     case 0:
       return <UserInfo formData={formData} />;
-    // case 1:
-    //   return <Address formData={formData} />;
-    // case 2:
-    //   return <Socials formData={formData} />;
     case 1:
       return <Profile formData={formData} />;
     default:
@@ -99,47 +96,6 @@ function Cover() {
   const auth = useAuth();
   const router = useRouter();
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   console.log('submitting');
-
-  //   const email = emailRef.current.value;
-  //   const password = passwordRef.current.value;
-  //   const name = nameRef.current.value;
-
-  //   if (!email || !password || !name) {
-  //     setErrors('Please fill in all fields');
-  //     return;
-  //   }
-  //   // check valid regex for email
-  //   if (!/\S+@\S+\.\S+/.test(email)) {
-  //     setErrors('Please enter a valid email');
-  //     return;
-  //   }
-  //   // ensure password is at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character
-  //   if (!/^(?=.*[0-9])(?=.*[!@#$%.^&*])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]/.test(password)) {
-  //     setErrors('Password must be at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character');
-  //     return;
-  //   }
-
-  //   try {
-  //     await auth.signUp(email, name, password);
-  //     router.push('/');
-  //   } catch (err) {
-  //     // helpers.setStatus({ success: false });
-  //     // helpers.setErrors({ submit: err.message });
-  //     // helpers.setSubmitting(false);
-  //     console.log(err);
-  //     setErrors(err.message);
-  //   }
-
-  //   // Do something with the email and password values
-  // };
-
-  // NextJS Material Dashboard 2 PRO components
-
-
-
   const [show, setShow] = useState(false);
   const toggleSnackbar = () => setShow(!show);
   const [activeStep, setActiveStep] = useState(0);
@@ -155,24 +111,11 @@ function Cover() {
   const handleBack = () => setActiveStep(activeStep - 1);
 
   const submitForm = async (values, actions) => {
-    // await sleep(1000);
-
-    // eslint-disable-next-line no-alert
-    // alert(JSON.stringify(values, null, 2));
-    // console.log(values);
-    // console.log(values.email);
-    // console.log(values.password);
-    // console.log(values.firstName + " " + values.lastName);
-    // actions.resetForm();
-
-    // setActiveStep(0);
     try {
       await auth.signUp(values.email, values.firstName + " " + values.lastName, values.password);
       router.push('/');
     } catch (err) {
-      // console.log(err);
       setErrors(err.message);
-      // alert();
       toggleSnackbar();
     }
 
@@ -268,14 +211,18 @@ function Cover() {
                                 back
                               </MDButton>
                             )}
-                            <MDButton
-                              disabled={isSubmitting}
-                              type="submit"
-                              variant="gradient"
-                              color="dark"
-                            >
-                              {isLastStep ? "send" : "next"}
-                            </MDButton>
+                            {isSubmitting ? (
+                              <CircularProgress />
+                            ) : (
+                              <MDButton
+                                disabled={isSubmitting}
+                                type="submit"
+                                variant="gradient"
+                                color="dark"
+                              >
+                                {isLastStep ? "send" : "next"}
+                              </MDButton>
+                            )}
                           </MDBox>
                         </MDBox>
                       </MDBox>
