@@ -76,12 +76,12 @@ const routes = [
     icon: <Icon fontSize="medium">dashboard</Icon>,
     collapse: [
       {
-        name: "Analytics",
+        name: "your dashboard",
         key: "analytics",
         route: "/dashboards/analytics",
       },
       {
-        name: "Sales",
+        name: "leaderboard",
         key: "sales",
         route: "/dashboards/sales",
       },
