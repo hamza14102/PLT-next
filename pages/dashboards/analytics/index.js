@@ -132,13 +132,13 @@ function Analytics() {
               <MDBox mb={1.5}>
                 <ComplexStatisticsCard
                   color="dark"
-                  icon="weekend"
-                  title="Bookings"
+                  icon="output"
+                  title="Today's Output"
                   count={281}
                   percentage={{
                     color: "success",
-                    amount: "+55%",
-                    label: "than lask week",
+                    amount: "+15%",
+                    label: "than yesterday",
                   }}
                 />
               </MDBox>
@@ -147,13 +147,13 @@ function Analytics() {
               <MDBox mb={1.5}>
                 <ComplexStatisticsCard
                   color="info"
-                  icon="leaderboard"
-                  title="Today's Users"
-                  count="2,300"
+                  icon="person_add"
+                  title="Manpower Today"
+                  count="230"
                   percentage={{
-                    color: "success",
-                    amount: "+3%",
-                    label: "than last month",
+                    color: "warning",
+                    amount: "+5%",
+                    label: "than yesterday",
                   }}
                 />
               </MDBox>
@@ -162,12 +162,12 @@ function Analytics() {
               <MDBox mb={1.5}>
                 <ComplexStatisticsCard
                   color="success"
-                  icon="store"
-                  title="Revenue"
-                  count="34k"
+                  icon="leaderboard"
+                  title="Cost Efficiency"
+                  count="103.5%"
                   percentage={{
-                    color: "success",
-                    amount: "+1%",
+                    color: "warning",
+                    amount: "-1%",
                     label: "than yesterday",
                   }}
                 />
@@ -177,13 +177,13 @@ function Analytics() {
               <MDBox mb={1.5}>
                 <ComplexStatisticsCard
                   color="primary"
-                  icon="person_add"
-                  title="Followers"
-                  count="+91"
+                  icon="move_to_inbox"
+                  title="Upcoming Products"
+                  count="+3"
                   percentage={{
                     color: "success",
-                    amount: "",
-                    label: "Just updated",
+                    amount: "2",
+                    label: "in next week",
                   }}
                 />
               </MDBox>
