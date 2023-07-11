@@ -17,15 +17,17 @@ const reportsLineChartData = {
   sales: {
     labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: {
-      label: "Mobile apps",
+      label: "Output",
       data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
     },
+    profit: 12,
+    updatedAt: "updated 4 days ago",
   },
   tasks: {
-    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: {
-      label: "Desktop apps",
-      data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+      label: "Tasks",
+      data: [2, 3, 2, 5, 1, 4, 2],
     },
   },
 };

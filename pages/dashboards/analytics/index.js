@@ -85,8 +85,8 @@ function Analytics() {
               <MDBox mb={3}>
                 <ReportsBarChart
                   color="dark"
-                  title="Weekly Output"
-                  description="Department output by week"
+                  title="Daily Output"
+                  description="Department output this week"
                   date={reportsBarChartData.updated}
                   chart={reportsBarChartData}
                 />
@@ -95,14 +95,20 @@ function Analytics() {
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
                 <ReportsLineChart
-                  color="success"
-                  title="daily sales"
+                  color={sales.profit > 0 ? "success" : "warning"}
+                  title="Monthly Production"
                   description={
-                    <>
-                      (<strong>+15%</strong>) increase in today sales.
-                    </>
+                    sales.profit > 0 ? (
+                      <>
+                        (<strong>+{sales.profit}%</strong>) increase this month.
+                      </>
+                    ) : (
+                      <>
+                        (<strong>{Math.abs(sales.profit)}%</strong>) decrease this month.
+                      </>
+                    )
                   }
-                  date="updated 4 min ago"
+                  date={sales.updatedAt}
                   chart={sales}
                 />
               </MDBox>
@@ -112,7 +118,7 @@ function Analytics() {
                 <ReportsLineChart
                   color="info"
                   title="completed tasks"
-                  description="Last Campaign Performance"
+                  description="Your tasks for this week"
                   date="just updated"
                   chart={tasks}
                 />
