@@ -49,6 +49,7 @@ import salesTableData from "/pagesComponents/dashboards/sales/data/salesTableDat
 import dataTableData from "/pagesComponents/dashboards/sales/data/dataTableData";
 import ComplexProjectCard from "/examples/Cards/ProjectCards/ComplexProjectCard";
 import profile1 from "assets/images/team-2.jpg";
+import profile2 from "assets/images/team-4.jpg";
 
 function Sales() {
   // DefaultStatisticsCard state for the dropdown value
@@ -123,7 +124,8 @@ function Sales() {
               <ComplexProjectCard
                 image={profile1.src}
                 title="employee of the week"
-                description="+45% productivity boost"
+                description="Employee Name"
+                remark="+45% productivity boost"
               // dateTime="02.03.22"
               // members={[
               //   "https://bit.ly/3KxVWll",
@@ -138,7 +140,7 @@ function Sales() {
               />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <DefaultStatisticsCard
+              {/* <DefaultStatisticsCard
                 title="employee of the month"
                 count="Employee Name"
                 percentage={{
@@ -150,6 +152,23 @@ function Sales() {
               //   action: openCustomersDropdown,
               //   menu: renderMenu(customersDropdown, closeCustomersDropdown),
               //   value: customersDropdownValue,
+              // }}
+              /> */}
+              <ComplexProjectCard
+                image={profile2.src}
+                title="employee of the month"
+                description="Employee Name"
+                remark="33% cost reduction"
+              // dateTime="02.03.22"
+              // members={[
+              //   "https://bit.ly/3KxVWll",
+              //   "https://bit.ly/3pW8Bqu",
+              //   "https://bit.ly/3tRaxSb",
+              //   "https://bit.ly/3t0yuaf"
+              // ]}
+              // dropdown={{
+              //   action: func,
+              //   menu: node,
               // }}
               />
             </Grid>
@@ -229,7 +248,7 @@ function Sales() {
               <Card>
                 <MDBox pt={3} px={3}>
                   <MDTypography variant="h6" fontWeight="medium">
-                    Top Selling Products
+                    Top Performers
                   </MDTypography>
                 </MDBox>
                 <MDBox py={1}>
@@ -237,7 +256,7 @@ function Sales() {
                     table={dataTableData}
                     entriesPerPage={false}
                     showTotalEntries={false}
-                    isSorted={false}
+                    isSorted={true}
                     noEndBorder
                   />
                 </MDBox>

@@ -35,6 +35,7 @@ function ComplexProjectCard({
   description,
   members,
   dropdown,
+  remark,
 }) {
   const renderMembers = members.map((member, key) => {
     const memberKey = `member-${key}`;
@@ -136,7 +137,19 @@ function ComplexProjectCard({
                 Participants
               </MDTypography>
             </MDBox>
-          ) : null}
+          ) : <MDBox display="flex" flexDirection="column" lineHeight={0}>
+            {/* <MDTypography variant="button" fontWeight="medium">
+              {members.length}
+            </MDTypography> */}
+            <MDTypography
+              variant="button"
+              fontWeight="regular"
+              color="secondary"
+            >
+              {remark}
+            </MDTypography>
+          </MDBox>
+          }
           {dateTime ? (
             <MDBox display="flex" flexDirection="column" lineHeight={0}>
               <MDTypography variant="button" fontWeight="medium">
