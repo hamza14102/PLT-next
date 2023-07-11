@@ -39,9 +39,9 @@ import reportsBarChartData from "/pagesComponents/dashboards/analytics/data/repo
 import reportsLineChartData from "/pagesComponents/dashboards/analytics/data/reportsLineChartData";
 
 // Images
-import booking1 from "/assets/images/products/product-1-min.jpg";
-import booking2 from "/assets/images/products/product-2-min.jpg";
-import booking3 from "/assets/images/products/product-3-min.jpg";
+import product1 from "/assets/images/ecommerce/yellow-chair.jpeg";
+import product2 from "/assets/images/ecommerce/chair-wood.jpeg";
+import product3 from "/assets/images/ecommerce/chair-steel.jpeg";
 
 function Analytics() {
   const { sales, tasks } = reportsLineChartData;
@@ -195,11 +195,11 @@ function Analytics() {
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mt={3}>
                 <BookingCard
-                  image={booking1}
-                  title="Cozy 5 Stars Apartment"
-                  description='The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Barcelona.'
-                  price="$899/night"
-                  location="Barcelona, Spain"
+                  image={product1}
+                  title="Product 1 Name"
+                  description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
+                  // price="$899/night"
+                  location="Target"
                   action={actionButtons}
                 />
               </MDBox>
@@ -207,11 +207,11 @@ function Analytics() {
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mt={3}>
                 <BookingCard
-                  image={booking2}
-                  title="Office Studio"
-                  description='The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the night life in London, UK.'
-                  price="$1.119/night"
-                  location="London, UK"
+                  image={product2}
+                  title="Product 2 Name"
+                  description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
+                  // price="$1.119/night"
+                  location="WSI"
                   action={actionButtons}
                 />
               </MDBox>
@@ -219,11 +219,11 @@ function Analytics() {
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mt={3}>
                 <BookingCard
-                  image={booking3}
-                  title="Beautiful Castle"
-                  description='The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.'
-                  price="$459/night"
-                  location="Milan, Italy"
+                  image={product3}
+                  title="Product 3 Name"
+                  description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
+                  // price="$459/night"
+                  location="H&M"
                   action={actionButtons}
                 />
               </MDBox>
