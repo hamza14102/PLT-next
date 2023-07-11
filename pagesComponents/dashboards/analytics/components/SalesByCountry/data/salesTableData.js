@@ -21,25 +21,25 @@ import BR from "/assets/images/icons/flags/BR.png";
 
 const salesTableData = [
   {
-    department: "Packing",
+    department: "Hudson Marble",
     output: 2500,
     // value: "$230,900",
     rejection: "29.9%",
   },
   {
-    department: "Metal",
-    output: "3.900",
+    department: "Bulletin Board",
+    output: 3900,
     // value: "$440,000",
     rejection: "40.22%",
   },
   {
-    department: "Wood",
-    output: "1.400",
+    department: "Trellis Mirror",
+    output: 1400,
     // value: "$190,700",
     rejection: "23.44%",
   },
   {
-    department: "Marble",
+    department: "Rhodes chair",
     output: 562,
     // value: "$143,960",
     rejection: "32.14%"

@@ -106,7 +106,7 @@ function SalesByCountry() {
           </Icon>
         </MDBox>
         <MDTypography variant="h6" sx={{ mt: 2, mb: 1, ml: 2 }}>
-          Production by Department
+          Production by Product
         </MDTypography>
       </MDBox>
       <MDBox p={2}>
