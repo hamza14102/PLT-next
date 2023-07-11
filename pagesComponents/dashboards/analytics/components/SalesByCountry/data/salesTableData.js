@@ -21,25 +21,25 @@ import BR from "/assets/images/icons/flags/BR.png";
 
 const salesTableData = [
   {
-    department: "united state",
+    department: "Packing",
     output: 2500,
     // value: "$230,900",
     rejection: "29.9%",
   },
   {
-    department: "germany",
+    department: "Metal",
     output: "3.900",
     // value: "$440,000",
     rejection: "40.22%",
   },
   {
-    department: "great britain",
+    department: "Wood",
     output: "1.400",
     // value: "$190,700",
     rejection: "23.44%",
   },
   {
-    department: "brasil",
+    department: "Marble",
     output: 562,
     // value: "$143,960",
     rejection: "32.14%"
