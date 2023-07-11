@@ -189,7 +189,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
             disableRipple
           >
             <Icon fontSize="medium" sx={iconsStyle}>
-              {miniSidenav ? "menu_open" : "menu"}
+              {!miniSidenav ? "menu_open" : "menu"}
             </Icon>
           </IconButton>
         </MDBox>
@@ -220,7 +220,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 onClick={handleMiniSidenav}
               >
                 <Icon sx={iconsStyle} fontSize="medium">
-                  {miniSidenav ? "menu_open" : "menu"}
+                  {!miniSidenav ? "menu_open" : "menu"}
                 </Icon>
               </IconButton>
               <IconButton
