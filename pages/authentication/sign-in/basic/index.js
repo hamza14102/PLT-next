@@ -182,7 +182,7 @@ function Basic() {
                 <Link href="/authentication/sign-up/cover">
                   <MDTypography
                     variant="button"
-                    color="dark"
+                    color="light"
                     fontWeight="medium"
                     textGradient
                   >
