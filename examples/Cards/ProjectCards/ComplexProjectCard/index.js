@@ -117,12 +117,13 @@ function ComplexProjectCard({
           </MDTypography>
         </MDBox>
         <Divider />
+        {/* if members is not none then reder */}
         <MDBox
           display="flex"
           justifyContent="space-between"
           alignItems="center"
         >
-          {members.length > -1 ? (
+          {members.length > 0 ? (
             <MDBox display="flex" flexDirection="column" lineHeight={0}>
               <MDTypography variant="button" fontWeight="medium">
                 {members.length}

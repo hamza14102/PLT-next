@@ -104,7 +104,7 @@ const routes = [
   //     },
   //   ],
   // },
-  { type: "title", title: "Pages", key: "title-pages" },
+  { type: "title", title: "Tools", key: "title-pages" },
   {
     type: "collapse",
     name: "Pages",
