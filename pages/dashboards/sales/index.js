@@ -105,50 +105,50 @@ function Sales() {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={4}>
               <DefaultStatisticsCard
-                title="sales"
-                count="$230,220"
+                title="employee of the week"
+                count="Employee Name"
                 percentage={{
                   color: "success",
                   value: "+55%",
-                  label: "since last month",
+                  label: "productivity boost",
                 }}
-                dropdown={{
-                  action: openSalesDropdown,
-                  menu: renderMenu(salesDropdown, closeSalesDropdown),
-                  value: salesDropdownValue,
-                }}
+              // dropdown={{
+              //   action: openSalesDropdown,
+              //   menu: renderMenu(salesDropdown, closeSalesDropdown),
+              //   value: salesDropdownValue,
+              // }}
               />
             </Grid>
             <Grid item xs={12} sm={4}>
               <DefaultStatisticsCard
-                title="customers"
-                count="3.200"
+                title="employee of the month"
+                count="Employee Name"
                 percentage={{
                   color: "success",
-                  value: "+12%",
-                  label: "since last month",
+                  value: "33%",
+                  label: "cost reduction",
                 }}
-                dropdown={{
-                  action: openCustomersDropdown,
-                  menu: renderMenu(customersDropdown, closeCustomersDropdown),
-                  value: customersDropdownValue,
-                }}
+              // dropdown={{
+              //   action: openCustomersDropdown,
+              //   menu: renderMenu(customersDropdown, closeCustomersDropdown),
+              //   value: customersDropdownValue,
+              // }}
               />
             </Grid>
             <Grid item xs={12} sm={4}>
               <DefaultStatisticsCard
-                title="avg. revenue"
-                count="$1.200"
+                title="Department of the month"
+                count="Department Name"
                 percentage={{
-                  color: "secondary",
-                  value: "+$213",
-                  label: "since last month",
+                  color: "success",
+                  value: "100%",
+                  label: "on time delivery",
                 }}
-                dropdown={{
-                  action: openRevenueDropdown,
-                  menu: renderMenu(revenueDropdown, closeRevenueDropdown),
-                  value: revenueDropdownValue,
-                }}
+              // dropdown={{
+              //   action: openRevenueDropdown,
+              //   menu: renderMenu(revenueDropdown, closeRevenueDropdown),
+              //   value: revenueDropdownValue,
+              // }}
               />
             </Grid>
           </Grid>

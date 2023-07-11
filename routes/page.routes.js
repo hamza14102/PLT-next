@@ -39,19 +39,36 @@ const pageRoutes = [
     columns: 3,
     rowsPerColumn: 2,
     collapse: [
+      // {
+      //   name: "dashboards",
+      //   icon: <Icon>dashboard</Icon>,
+      //   collapse: [
+      //     {
+      //       name: "Your Dashboard",
+      //       route: "/dashboards/analytics",
+      //     },
+      //     {
+      //       name: "Leaderboard",
+      //       route: "/dashboards/sales",
+      //     },
+      //   ],
+      // },
+      // { type: "title", title: "Dashboards", key: "title-pages" },
       {
-        name: "dashboards",
-        icon: <Icon>dashboard</Icon>,
-        collapse: [
-          {
-            name: "Your Dashboard",
-            route: "/dashboards/analytics",
-          },
-          {
-            name: "leaderboard",
-            route: "/dashboards/sales",
-          },
-        ],
+        type: "collapse",
+        name: "Your Dashboard",
+        key: "analytics",
+        route: "/dashboards/analytics",
+        icon: <Icon fontSize="medium">dashboard</Icon>,
+        noCollapse: true,
+      },
+      {
+        type: "collapse",
+        name: "Leaderboard",
+        key: "sales",
+        route: "/dashboards/sales",
+        icon: <Icon fontSize="medium">emoji_events</Icon>,
+        noCollapse: true,
       },
       {
         name: "users",

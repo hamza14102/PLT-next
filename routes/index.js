@@ -69,24 +69,41 @@ const routes = [
     ],
   },
   { type: "divider", key: "divider-0" },
+  { type: "title", title: "Dashboards", key: "title-pages" },
   {
     type: "collapse",
-    name: "Dashboards",
-    key: "dashboards",
+    name: "Your Dashboard",
+    key: "analytics",
+    route: "/dashboards/analytics",
     icon: <Icon fontSize="medium">dashboard</Icon>,
-    collapse: [
-      {
-        name: "your dashboard",
-        key: "analytics",
-        route: "/dashboards/analytics",
-      },
-      {
-        name: "leaderboard",
-        key: "sales",
-        route: "/dashboards/sales",
-      },
-    ],
+    noCollapse: true,
   },
+  {
+    type: "collapse",
+    name: "Leaderboard",
+    key: "sales",
+    route: "/dashboards/sales",
+    icon: <Icon fontSize="medium">emoji_events</Icon>,
+    noCollapse: true,
+  },
+  // {
+  //   type: "collapse",
+  //   name: "Dashboards",
+  //   key: "dashboards",
+  //   icon: <Icon fontSize="medium">dashboard</Icon>,
+  //   collapse: [
+  //     {
+  //       name: "Your Dashboard",
+  //       key: "analytics",
+  //       route: "/dashboards/analytics",
+  //     },
+  //     {
+  //       name: "Leaderboard",
+  //       key: "sales",
+  //       route: "/dashboards/sales",
+  //     },
+  //   ],
+  // },
   { type: "title", title: "Pages", key: "title-pages" },
   {
     type: "collapse",

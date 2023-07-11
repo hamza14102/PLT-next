@@ -106,7 +106,8 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
   // Render all the nested collapse items from the routes.js
   const renderNestedCollapse = (collapse) => {
-    const template = collapse.map(({ name, route, key, href }) =>
+    const template = collapse.map(({ name, route, key, href }) => {
+      console.log(pathname, route);
       href ? (
         <MuiLink
           key={key}
@@ -122,6 +123,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           <SidenavItem name={name} active={route === pathname} nested />
         </Link>
       )
+    }
     );
 
     return template;
