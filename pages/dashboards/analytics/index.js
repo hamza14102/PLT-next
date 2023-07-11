@@ -85,9 +85,9 @@ function Analytics() {
               <MDBox mb={3}>
                 <ReportsBarChart
                   color="dark"
-                  title="website views"
-                  description="Last Campaign Performance"
-                  date="campaign sent 2 days ago"
+                  title="Weekly Output"
+                  description="Department output by week"
+                  date={reportsBarChartData.updated}
                   chart={reportsBarChartData}
                 />
               </MDBox>
