@@ -22,22 +22,22 @@ import AU from "/assets/images/icons/flags/AU.png";
 
 const salesTableData = [
   {
-    country: [US, "united state"],
-    sales: 2500,
-    bounce: "29.9%",
+    country: "department 1",
+    production: 2500,
+    rejection: "2.9%",
   },
   {
-    country: [DE, "germany"],
-    sales: "3.900",
-    bounce: "40.22%",
+    country: "department 2",
+    production: 1900,
+    rejection: "4.22%",
   },
   {
-    country: [GB, "great britain"],
-    sales: "1.400",
-    bounce: "23.44%",
+    country: "department 3",
+    production: 1400,
+    rejection: "3.44%",
   },
-  { country: [BR, "brasil"], sales: 562, bounce: "32.14%" },
-  { country: [AU, "australia"], sales: 400, bounce: "56.83%" },
+  { country: "department 4", production: 562, rejection: "2.14%" },
+  { country: "department 5", production: 400, rejection: "6.83%" },
 ];
 
 export default salesTableData;

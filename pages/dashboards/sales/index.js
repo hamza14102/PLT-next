@@ -244,7 +244,7 @@ function Sales() {
                 chart={horizontalBarChartData}
               />
             </Grid> */}
-            <Grid item xs={12} lg={8}>
+            <Grid item xs={12} lg={6}>
               <Card>
                 <MDBox pt={3} px={3}>
                   <MDTypography variant="h6" fontWeight="medium">
@@ -262,8 +262,8 @@ function Sales() {
                 </MDBox>
               </Card>
             </Grid>
-            <Grid item xs={12} lg={4}>
-              <SalesTable title="Sales by Country" rows={salesTableData} />
+            <Grid item xs={12} lg={6}>
+              <SalesTable title="Production by Department" rows={salesTableData} />
             </Grid>
           </Grid>
         </MDBox>

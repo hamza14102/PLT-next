@@ -28,88 +28,57 @@ import tripKit from "/assets/images/ecommerce/photo-tools.jpeg";
 const dataTableData = {
   columns: [
     { Header: "product", accessor: "product", width: "55%" },
-    { Header: "value", accessor: "value" },
-    { Header: "ads spent", accessor: "adsSpent", align: "center" },
-    { Header: "refunds", accessor: "refunds", align: "center" },
+    { Header: "cost efficiency", accessor: "cost_efficiency" },
+    { Header: "manpower", accessor: "adsSpent", align: "center" },
+    { Header: "rejection", accessor: "refunds", align: "center" },
   ],
 
   rows: [
     {
       product: (
-        <ProductCell image={nikeV22} name="Nike v22 Running" orders={8.232} />
+        <ProductCell image={nikeV22} name="Employee 1" orders={8.232} />
       ),
-      value: <DefaultCell>$130.992</DefaultCell>,
-      adsSpent: <DefaultCell>$9.500</DefaultCell>,
-      refunds: (
-        <RefundsCell
-          value={13}
-          icon={{ color: "success", name: "keyboard_arrow_up" }}
-        />
-      ),
+      cost_efficiency: <DefaultCell>123%</DefaultCell>,
+      adsSpent: <DefaultCell>95</DefaultCell>,
+      refunds: <DefaultCell>5%</DefaultCell>,
+      // refunds: (
+      //   <RefundsCell
+      //     value={5}
+      //     icon={{ color: "success", name: "keyboard_arrow_up" }}
+      //   />
+      // ),
     },
     {
       product: (
         <ProductCell
           image={businessKit}
-          name="Business Kit (Mug + Notebook)"
+          name="Employee 2"
           orders={12.821}
         />
       ),
-      value: <DefaultCell>$80.250</DefaultCell>,
-      adsSpent: <DefaultCell>$4.200</DefaultCell>,
-      refunds: (
-        <RefundsCell
-          value={40}
-          icon={{ color: "error", name: "keyboard_arrow_down" }}
-        />
-      ),
+      cost_efficiency: <DefaultCell>118%</DefaultCell>,
+      adsSpent: <DefaultCell>20</DefaultCell>,
+      refunds: <DefaultCell>3%</DefaultCell>,
+      // refunds: (
+      //   <RefundsCell
+      //     value={3}
+      //     icon={{ color: "error", name: "keyboard_arrow_down" }}
+      //   />
+      // ),
     },
     {
       product: (
-        <ProductCell image={blackChair} name="Black Chair" orders={2.421} />
+        <ProductCell image={blackChair} name="Employee 3" orders={2.421} />
       ),
-      value: <DefaultCell>$40.600</DefaultCell>,
-      adsSpent: <DefaultCell>$9.430</DefaultCell>,
-      refunds: (
-        <RefundsCell
-          value={54}
-          icon={{ color: "success", name: "keyboard_arrow_up" }}
-        />
-      ),
-    },
-    {
-      product: (
-        <ProductCell
-          image={wirelessCharger}
-          name="Wireless Charger"
-          orders={5.921}
-        />
-      ),
-      value: <DefaultCell>$91.300</DefaultCell>,
-      adsSpent: <DefaultCell>$7.364</DefaultCell>,
-      refunds: (
-        <RefundsCell
-          value={5}
-          icon={{ color: "error", name: "keyboard_arrow_down" }}
-        />
-      ),
-    },
-    {
-      product: (
-        <ProductCell
-          image={tripKit}
-          name="Mountain Trip Kit (Camera + Backpack)"
-          orders={921}
-        />
-      ),
-      value: <DefaultCell>$140.925</DefaultCell>,
-      adsSpent: <DefaultCell>$20.531</DefaultCell>,
-      refunds: (
-        <RefundsCell
-          value={121}
-          icon={{ color: "success", name: "keyboard_arrow_up" }}
-        />
-      ),
+      cost_efficiency: <DefaultCell>105%</DefaultCell>,
+      adsSpent: <DefaultCell>43</DefaultCell>,
+      refunds: <DefaultCell>6%</DefaultCell>,
+      // refunds: (
+      //   <RefundsCell
+      //     value={6}
+      //     icon={{ color: "success", name: "keyboard_arrow_up" }}
+      //   />
+      // ),
     },
   ],
 };
