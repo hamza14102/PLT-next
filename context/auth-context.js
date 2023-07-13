@@ -100,8 +100,9 @@ export const AuthProvider = (props) => {
     // } catch (err) {
     //   console.error(err);
     // }
-    const cookie = Cookies.get('authenticated');
-    if (cookie) {
+    // const cookie = Cookies.get('authenticated');
+    const currentUser = userPool.getCurrentUser();
+    if (currentUser) {
       setAuthenticated(true);
       const user = {
         id: '5e86809283e28b96d2d38537',
@@ -241,7 +242,7 @@ export const AuthProvider = (props) => {
               // } catch (err) {
               //   console.error(err);
               // }
-              Cookies.set('authenticated', true, { expires: expirationTime });
+              // Cookies.set('authenticated', true, { expires: expirationTime });
               setAuthenticated(true);
 
               dispatch({
