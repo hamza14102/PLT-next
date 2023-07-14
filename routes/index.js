@@ -223,49 +223,72 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Ecommerce",
-    key: "ecommerce",
+    name: "Products",
+    key: "products",
     icon: <Icon fontSize="medium">shopping_basket</Icon>,
     collapse: [
       {
-        name: "Products",
-        key: "products",
-        collapse: [
-          {
-            name: "New Product",
-            key: "new-product",
-            route: "/ecommerce/products/new-product",
-          },
-          {
-            name: "Edit Product",
-            key: "edit-product",
-            route: "/ecommerce/products/edit-product",
-          },
-          {
-            name: "Product Page",
-            key: "product-page",
-            route: "/ecommerce/products/product-page",
-          },
-        ],
+        name: "New Product",
+        key: "new-product",
+        route: "/ecommerce/products/new-product",
       },
       {
-        name: "Orders",
-        key: "orders",
-        collapse: [
-          {
-            name: "Order List",
-            key: "order-list",
-            route: "/ecommerce/orders/order-list",
-          },
-          {
-            name: "Order Details",
-            key: "order-details",
-            route: "/ecommerce/orders/order-details",
-          },
-        ],
+        name: "Edit Product",
+        key: "edit-product",
+        route: "/ecommerce/products/edit-product",
+      },
+      {
+        name: "Product Page",
+        key: "product-page",
+        route: "/ecommerce/products/product-page",
       },
     ],
   },
+  // {
+  //   type: "collapse",
+  //   name: "Ecommerce",
+  //   key: "ecommerce",
+  //   icon: <Icon fontSize="medium">shopping_basket</Icon>,
+  //   collapse: [
+  //     {
+  //       name: "Products",
+  //       key: "products",
+  //       collapse: [
+  //         {
+  //           name: "New Product",
+  //           key: "new-product",
+  //           route: "/ecommerce/products/new-product",
+  //         },
+  //         {
+  //           name: "Edit Product",
+  //           key: "edit-product",
+  //           route: "/ecommerce/products/edit-product",
+  //         },
+  //         {
+  //           name: "Product Page",
+  //           key: "product-page",
+  //           route: "/ecommerce/products/product-page",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: "Orders",
+  //       key: "orders",
+  //       collapse: [
+  //         {
+  //           name: "Order List",
+  //           key: "order-list",
+  //           route: "/ecommerce/orders/order-list",
+  //         },
+  //         {
+  //           name: "Order Details",
+  //           key: "order-details",
+  //           route: "/ecommerce/orders/order-details",
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
   {
     type: "collapse",
     name: "Authentication",

@@ -35,11 +35,11 @@ import Footer from "/examples/Footer";
 // NewProduct page components
 import ProductInfo from "/pagesComponents/ecommerce/products/new-product/components/ProductInfo";
 import Media from "/pagesComponents/ecommerce/products/new-product/components/Media";
-import Socials from "/pagesComponents/ecommerce/products/new-product/components/Socials";
+import Process from "/pagesComponents/ecommerce/products/new-product/components/Process";
 import Pricing from "/pagesComponents/ecommerce/products/new-product/components/Pricing";
 
 function getSteps() {
-  return ["1. Product Info", "2. Media", "3. Social", "4. Pricing"];
+  return ["1. Product Info", "2. Media", "3. Process", "4. Pricing"];
 }
 
 function getStepContent(stepIndex) {
@@ -49,7 +49,7 @@ function getStepContent(stepIndex) {
     case 1:
       return <Media />;
     case 2:
-      return <Socials />;
+      return <Process />;
     case 3:
       return <Pricing />;
     default:
