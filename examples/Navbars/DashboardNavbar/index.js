@@ -131,13 +131,13 @@ function DashboardNavbar({ absolute, light, isMini }) {
       onClose={handleCloseMenu}
       sx={{ mt: 2 }}
     >
-      <NotificationItem icon={<Icon>email</Icon>} title="Check new messages" />
+      {/* <NotificationItem icon={<Icon>email</Icon>} title="Check new messages" />
       <NotificationItem
         icon={<Icon>podcasts</Icon>}
         title="Manage Podcast sessions"
-      />
+      /> */}
       <NotificationItem
-        icon={<Icon>shopping_cart</Icon>}
+        icon={<Icon>logout</Icon>}
         title="Log Out"
         onClick={handleSignOut}
       />
@@ -223,7 +223,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                   {!miniSidenav ? "menu_open" : "menu"}
                 </Icon>
               </IconButton>
-              <IconButton
+              {/* <IconButton
                 size="small"
                 disableRipple
                 color="inherit"
@@ -231,8 +231,8 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 onClick={handleConfiguratorOpen}
               >
                 <Icon sx={iconsStyle}>settings</Icon>
-              </IconButton>
-              <IconButton
+              </IconButton> */}
+              {/* <IconButton
                 size="small"
                 disableRipple
                 color="inherit"
@@ -245,7 +245,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 <MDBadge badgeContent={9} color="error" size="xs" circular>
                   <Icon sx={iconsStyle}>notifications</Icon>
                 </MDBadge>
-              </IconButton>
+              </IconButton> */}
               {renderMenu()}
             </MDBox>
           </MDBox>
