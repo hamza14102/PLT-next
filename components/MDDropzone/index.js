@@ -32,11 +32,12 @@ import { useMaterialUIController } from "/context";
 
 import Dropzone from "dropzone";
 
-function MDDropzone({ options }) {
+// function signature for the MDDropzone which accepts options and dropzoneRef as props
+function MDDropzone({ options, dropzoneRef }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
-  const dropzoneRef = useRef();
+  // const dropzoneRef = useRef();
 
   useEffect(() => {
     async function createDropzone() {
@@ -53,7 +54,7 @@ function MDDropzone({ options }) {
     createDropzone();
 
     return () => removeDropzone();
-  }, [options]);
+  }, [options, dropzoneRef]);
 
   return (
     <MDDropzoneRoot
