@@ -29,7 +29,7 @@ function Pricing() {
   return (
     <MDBox>
       <MDTypography variant="h5">Pricing</MDTypography>
-      <MDBox mt={3}>
+      {/* <MDBox mt={3}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={3}>
             <FormField type="text" label="Price" placeholder="99.00" />
@@ -77,7 +77,7 @@ function Pricing() {
             />
           </Grid>
         </Grid>
-      </MDBox>
+      </MDBox> */}
     </MDBox>
   );
 }

@@ -99,7 +99,7 @@ function Process() {
       <MDTypography variant="h5" fontWeight="bold">
         Process
       </MDTypography>
-      <MDBox mt={2}>
+      {/* <MDBox mt={2}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <FormField
@@ -171,7 +171,7 @@ function Process() {
             </Grid>
           ))}
         </Grid>
-      </MDBox>
+      </MDBox> */}
     </MDBox>
   );
 }
