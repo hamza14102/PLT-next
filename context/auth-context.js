@@ -94,15 +94,23 @@ export const AuthProvider = (props) => {
     initialized.current = true;
 
     // let isAuthenticated = false;
+    setAuthenticated(false);
 
-    // try {
-    //   isAuthenticated = window.sessionStorage.getItem('authenticated') === 'true';
-    // } catch (err) {
-    //   console.error(err);
-    // }
-    // const cookie = Cookies.get('authenticated');
     const currentUser = userPool.getCurrentUser();
+    // console.log(currentUser);
     if (currentUser) {
+      currentUser.getSession((err, session) => {
+        // console.log(session.accessToken.getExpiration());
+        // get expiration time from token and set callback to expire session and sign out
+        const expirationTime = session.accessToken.getExpiration() * 1000;
+        const sessionTime = expirationTime - Date.now();
+        setTimeout(() => {
+          console.log('session expired');
+          signOut();
+          // refresh page to redirect to sign in page
+          window.location.reload();
+        }, sessionTime);
+      });
       setAuthenticated(true);
       const user = {
         id: '5e86809283e28b96d2d38537',
@@ -236,7 +244,7 @@ export const AuthProvider = (props) => {
                 name: attributes.find(attr => attr.getName() === 'name').getValue(),
                 email: attributes.find(attr => attr.getName() === 'email').getValue()
               };
-              console.log(user);
+              // console.log(user);
               // try {
               //   window.sessionStorage.setItem('authenticated', 'true');
               // } catch (err) {
@@ -307,7 +315,7 @@ export const AuthProvider = (props) => {
 
   const signOut = () => {
     const cognitoUser = userPool.getCurrentUser();
-    console.log(cognitoUser);
+    // console.log(cognitoUser);
     console.log('signing out');
     if (cognitoUser) {
       cognitoUser.signOut();

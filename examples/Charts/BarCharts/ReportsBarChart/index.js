@@ -128,7 +128,7 @@ ReportsBarChart.propTypes = {
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   date: PropTypes.string.isRequired,
   chart: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.array, PropTypes.object])
+    PropTypes.oneOfType([PropTypes.array, PropTypes.object, PropTypes.string])
   ).isRequired,
 };
 
