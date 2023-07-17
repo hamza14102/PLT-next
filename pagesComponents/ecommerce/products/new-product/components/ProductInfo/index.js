@@ -34,15 +34,13 @@ function ProductInfo({ formData }) {
   );
 
   const { formField, values, errors, touched } = formData;
-  const { firstName, lastName, department, email, password, repeatPassword } =
+  const { firstName, lastName, department, email } =
     formField;
   const {
     firstName: firstNameV,
     lastName: lastNameV,
     department: departmentV,
     email: emailV,
-    password: passwordV,
-    repeatPassword: repeatPasswordV,
   } = values;
 
   return (
@@ -153,13 +151,13 @@ function ProductInfo({ formData }) {
               )}
             /> */}
             <FormField
-              type={department.type}
-              label={department.label}
-              name={department.name}
-              value={departmentV}
-              placeholder={department.placeholder}
-              error={errors.department && touched.department}
-              success={departmentV.length > 0 && !errors.department}
+              type={email.type}
+              label={email.label}
+              name={email.name}
+              value={emailV}
+              placeholder={email.placeholder}
+              error={errors.email && touched.email}
+              success={emailV.length > 0 && !errors.email}
             />
           </Grid>
         </Grid>

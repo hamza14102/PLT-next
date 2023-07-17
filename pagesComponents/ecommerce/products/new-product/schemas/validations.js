@@ -14,7 +14,7 @@ Coded by www.creative-tim.com
 */
 
 import * as Yup from "yup";
-import checkout from "/pagesComponents/pages/users/new-user/schemas/form";
+import checkout from "/pagesComponents/ecommerce/products/new-product/schemas/form";
 
 const {
   formField: {
@@ -36,17 +36,17 @@ const validations = [
     [firstName.name]: Yup.string().required(firstName.errorMsg),
     [lastName.name]: Yup.string().required(lastName.errorMsg),
     [department.name]: Yup.string().required(department.errorMsg),
-    [email.name]: Yup.string().required(email.errorMsg).email(email.invalidMsg),
-    [password.name]: Yup.string()
-      .required(password.errorMsg)
-      .min(8, password.invalidMsg),
-    [password.name]: Yup.string()
-      .required(password.errorMsg)
-      .min(8, password.invalidMsg)
-      .matches(/^(?=.*[0-9])(?=.*[!@#$%.^&*])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]/, password.invalidMsg),
-    [repeatPassword.name]: Yup.string()
-      .required(repeatPassword.errorMsg)
-      .oneOf([Yup.ref("password"), null], repeatPassword.invalidMsg),
+    [email.name]: Yup.date().required(email.errorMsg).min(new Date(), email.invalidMsg),
+    // [password.name]: Yup.string()
+    //   .required(password.errorMsg)
+    //   .min(8, password.invalidMsg),
+    // [password.name]: Yup.string()
+    //   .required(password.errorMsg)
+    //   .min(8, password.invalidMsg)
+    //   .matches(/^(?=.*[0-9])(?=.*[!@#$%.^&*])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]/, password.invalidMsg),
+    // [repeatPassword.name]: Yup.string()
+    //   .required(repeatPassword.errorMsg)
+    //   .oneOf([Yup.ref("password"), null], repeatPassword.invalidMsg),
   }),
   // Yup.object().shape({
   //   [address1.name]: Yup.string().required(address1.errorMsg),
