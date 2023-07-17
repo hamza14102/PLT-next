@@ -119,6 +119,7 @@ function Cover() {
     // }
 
     await sleep(1000);
+    alert(JSON.stringify(values, null, 2));
 
     actions.setSubmitting(false);
   };
