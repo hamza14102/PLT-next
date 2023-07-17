@@ -123,6 +123,7 @@ function Process({ formData }) {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <MDInput
+              fullWidth
               type="number"
               label="Number of Departments"
               value={numDepartments}
@@ -156,22 +157,27 @@ function Process({ formData }) {
           </Grid>
           {departments.map((department, i) => (
             <Grid item xs={12} key={i}>
+              <MDBox mb={2}>
+                <MDInput
+                  type="text"
+                  label={`Department Name ${i + 1}`}
+                  value={department}
+                  onChange={(e) => handleDepartmentNameChange(i, e.target.value)}
+                />
+              </MDBox>
               <MDInput
-                type="text"
-                label={`Department Name ${i + 1}`}
-                value={department}
-                onChange={(e) => handleDepartmentNameChange(i, e.target.value)}
-              />
-              <MDInput
+                fullWidth
                 type="number"
                 label={`Number of Processes for ${department} Department`}
                 value={numProcesses[i]}
                 onChange={(e) => handleDepartmentProcessesChange(i, parseInt(e.target.value))}
               />
               {Array.from({ length: numProcesses[i] }).map((_, j) => (
-                <Grid container spacing={2} key={j}>
+                <Grid container spacing={2} key={j} mt={1}>
+
                   <Grid item xs={6}>
                     <MDInput
+                      fullWidth
                       type="text"
                       label={`Process Name for ${department} Department, Process ${j + 1}`}
                       value={processes[i]?.processes?.[j]?.name || ""}
@@ -180,12 +186,14 @@ function Process({ formData }) {
                   </Grid>
                   <Grid item xs={6}>
                     <MDInput
+                      fullWidth
                       type="text"
                       label={`Process Time for ${department} Department, Process ${j + 1}`}
                       value={processes[i]?.processes?.[j]?.time || ""}
                       onChange={(e) => handleProcessTimeChange(i, j, e.target.value)}
                     />
                   </Grid>
+
                 </Grid>
               ))}
             </Grid>
