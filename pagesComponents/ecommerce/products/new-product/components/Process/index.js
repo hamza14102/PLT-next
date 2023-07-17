@@ -128,7 +128,9 @@ function Process({ formData }) {
               label="Number of Departments"
               value={numDepartments}
               onChange={(e) => {
-                const newNumDepartments = parseInt(e.target.value);
+                // ensure numDepartments is positive and less than 10
+
+                const newNumDepartments = Math.min(Math.max(parseInt(e.target.value), 1), 6);
                 setNumDepartments(newNumDepartments);
                 setDepartments((prevState) => {
                   const newDepartments = [...prevState];
@@ -170,7 +172,7 @@ function Process({ formData }) {
                 type="number"
                 label={`Number of Processes for ${department} Department`}
                 value={numProcesses[i]}
-                onChange={(e) => handleDepartmentProcessesChange(i, parseInt(e.target.value))}
+                onChange={(e) => handleDepartmentProcessesChange(i, Math.min(Math.max(parseInt(e.target.value), 1), 15))}
               />
               {Array.from({ length: numProcesses[i] }).map((_, j) => (
                 <Grid container spacing={2} key={j} mt={1}>
