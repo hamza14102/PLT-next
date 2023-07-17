@@ -25,12 +25,6 @@ import MDTypography from "/components/MDTypography";
 import MDInput from "/components/MDInput";
 import MDButton from "/components/MDButton";
 
-// Authentication layout components
-import CoverLayout from "/pagesComponents/authentication/components/CoverLayout";
-
-// Images
-import bgImage from "/assets/images/bg-sign-up-cover.jpeg";
-
 import { useAuth } from "hooks/use-auth";
 import { useRouter } from 'next/navigation';
 
@@ -57,12 +51,6 @@ import DashboardLayout from "/examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "/examples/Navbars/DashboardNavbar";
 import Footer from "/examples/Footer";
 
-// NewUser page components
-import UserInfo from "/pagesComponents/pages/users/new-user/components/UserInfo";
-import Address from "/pagesComponents/pages/users/new-user/components/Address";
-import Socials from "/pagesComponents/pages/users/new-user/components/Socials";
-import Profile from "/pagesComponents/pages/users/new-user/components/Profile";
-
 // NewProduct page components
 import ProductInfo from "/pagesComponents/ecommerce/products/new-product/components/ProductInfo";
 import Media from "/pagesComponents/ecommerce/products/new-product/components/Media";
@@ -70,9 +58,9 @@ import Process from "/pagesComponents/ecommerce/products/new-product/components/
 import Pricing from "/pagesComponents/ecommerce/products/new-product/components/Pricing";
 
 // NewUser layout schemas for form and form feilds
-import validations from "/pagesComponents/pages/users/new-user/schemas/validations";
-import form from "/pagesComponents/pages/users/new-user/schemas/form";
-import initialValues from "/pagesComponents/pages/users/new-user/schemas/initialValues";
+import validations from "/pagesComponents/ecommerce/products/new-product/schemas/validations";
+import form from "/pagesComponents/ecommerce/products/new-product/schemas/form";
+import initialValues from "/pagesComponents/ecommerce/products/new-product/schemas/initialValues";
 import MDSnackbar from "/components/MDSnackbar";
 import { CircularProgress } from "@mui/material";
 
@@ -239,15 +227,15 @@ function Cover() {
       </MDBox>
       <MDBox mb={3} textAlign="center">
         <MDTypography variant="button" color="text">
-          Already have an account?{" "}
-          <Link href="/authentication/sign-in/basic">
+          Already have a Registered Product?{" "}
+          <Link href="/ecommerce/products/edit-product">
             <MDTypography
               variant="button"
               color="light"
               fontWeight="medium"
               textGradient
             >
-              Sign In
+              Edit Product
             </MDTypography>
           </Link>
         </MDTypography>
