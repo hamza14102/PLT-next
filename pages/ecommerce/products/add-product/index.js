@@ -66,18 +66,19 @@ import { CircularProgress } from "@mui/material";
 
 
 function getSteps() {
-  return ["Product Info", "Media", "Process", "Pricing"];
+  // return ["Product Info", "Media", "Process", "Pricing"];
+  return ["Product Info", "Process", "Pricing"];
 }
 
 function getStepContent(stepIndex, formData) {
   switch (stepIndex) {
     case 0:
       return <ProductInfo formData={formData} />;
+    // case 1:
+    //   return <Media formData={formData} />;
     case 1:
-      return <Media formData={formData} />;
-    case 2:
       return <Process formData={formData} />;
-    case 3:
+    case 2:
       return <Pricing formData={formData} />;
     default:
       return null;
