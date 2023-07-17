@@ -227,10 +227,15 @@ const routes = [
     key: "products",
     icon: <Icon fontSize="medium">shopping_basket</Icon>,
     collapse: [
+      // {
+      //   name: "New Product",
+      //   key: "new-product",
+      //   route: "/ecommerce/products/new-product",
+      // },
       {
-        name: "New Product",
-        key: "new-product",
-        route: "/ecommerce/products/new-product",
+        name: "Add Product",
+        key: "add-product",
+        route: "/ecommerce/products/add-product",
       },
       {
         name: "Edit Product",
@@ -241,11 +246,6 @@ const routes = [
         name: "Product Page",
         key: "product-page",
         route: "/ecommerce/products/product-page",
-      },
-      {
-        name: "Add Product",
-        key: "add-product",
-        route: "/ecommerce/products/add-product",
       },
     ],
   },
