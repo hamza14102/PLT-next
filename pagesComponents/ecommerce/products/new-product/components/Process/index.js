@@ -23,14 +23,34 @@ import MDTypography from "/components/MDTypography";
 // NewProduct page components
 import FormField from "/pagesComponents/ecommerce/products/new-product/components/FormField";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import MDInput from "/components/MDInput";
 
 
-function Process() {
+function Process({ formData }) {
   const [processes, setProcesses] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [numProcesses, setNumProcesses] = useState([0]);
   const [numDepartments, setNumDepartments] = useState(1);
+
+  const { formField, values, errors, touched } = formData;
+  const { password } =
+    formField;
+  const {
+    password: passwordV,
+  } = values;
+
+  // set passwordV to be processes every time processes changes
+  // !!! USE THIS LOGIC FOR AUTOCOMPLETE AND TAGS !!!
+  useEffect(() => {
+    // convert processes to string
+    if (processes.length === 0) {
+      return;
+    }
+    values.password = JSON.stringify(processes);
+    // console.log(values.password);
+  }, [processes]);
+
 
   const handleProcessNameChange = (departmentIndex, processIndex, name) => {
     setProcesses((prevState) => {
@@ -99,10 +119,10 @@ function Process() {
       <MDTypography variant="h5" fontWeight="bold">
         Process
       </MDTypography>
-      {/* <MDBox mt={2}>
+      <MDBox mt={2}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <FormField
+            <MDInput
               type="number"
               label="Number of Departments"
               value={numDepartments}
@@ -136,13 +156,13 @@ function Process() {
           </Grid>
           {departments.map((department, i) => (
             <Grid item xs={12} key={i}>
-              <FormField
+              <MDInput
                 type="text"
                 label={`Department Name ${i + 1}`}
                 value={department}
                 onChange={(e) => handleDepartmentNameChange(i, e.target.value)}
               />
-              <FormField
+              <MDInput
                 type="number"
                 label={`Number of Processes for ${department} Department`}
                 value={numProcesses[i]}
@@ -151,7 +171,7 @@ function Process() {
               {Array.from({ length: numProcesses[i] }).map((_, j) => (
                 <Grid container spacing={2} key={j}>
                   <Grid item xs={6}>
-                    <FormField
+                    <MDInput
                       type="text"
                       label={`Process Name for ${department} Department, Process ${j + 1}`}
                       value={processes[i]?.processes?.[j]?.name || ""}
@@ -159,7 +179,7 @@ function Process() {
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <FormField
+                    <MDInput
                       type="text"
                       label={`Process Time for ${department} Department, Process ${j + 1}`}
                       value={processes[i]?.processes?.[j]?.time || ""}
@@ -171,7 +191,7 @@ function Process() {
             </Grid>
           ))}
         </Grid>
-      </MDBox> */}
+      </MDBox>
     </MDBox>
   );
 }

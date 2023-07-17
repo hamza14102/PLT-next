@@ -43,8 +43,8 @@ const form = {
     },
     password: {
       name: "password",
-      label: "Password",
-      type: "password",
+      label: "Process",
+      type: "text",
       errorMsg: "Password is required.",
       invalidMsg: "Your password should be more than 8 characters, with at least 1 upper case, and 1 number, and one special character.",
     },
