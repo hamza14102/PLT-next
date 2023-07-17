@@ -59,18 +59,20 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
 
   // rename element in routes with key 'account' to user name
-  const routesWithUser = routes.map((route) => {
-    if (route.key === "account") {
-      return {
-        ...route,
-        name: user.find((attr) => attr.Name === "name").Value,
-      };
-    }
-    return route;
-  });
+  if (user) {
+    const routesWithUser = routes.map((route) => {
+      if (route.key === "account") {
+        return {
+          ...route,
+          name: user.find((attr) => attr.Name === "name").Value,
+        };
+      }
+      return route;
+    });
 
-  // replace routes with routesWithUser
-  routes = routesWithUser;
+    // replace routes with routesWithUser
+    routes = routesWithUser;
+  }
 
   const [openCollapse, setOpenCollapse] = useState(false);
   const [openNestedCollapse, setOpenNestedCollapse] = useState(false);
