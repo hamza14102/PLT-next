@@ -32,7 +32,7 @@ function ProductInfo({ formData }) {
   const [editorValue, setEditorValue] = useState(
     "<p>Some initial <strong>bold</strong> text</p><br><br><br><br>",
   );
-
+  // !!! Rename variables to match your schema
   const { formField, values, errors, touched } = formData;
   const { firstName, lastName, department, email } =
     formField;
