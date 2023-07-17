@@ -110,13 +110,15 @@ function Cover() {
   const handleBack = () => setActiveStep(activeStep - 1);
 
   const submitForm = async (values, actions) => {
-    try {
-      await auth.signUp(values.email, values.firstName + " " + values.lastName, values.password);
-      router.push('/');
-    } catch (err) {
-      setErrors(err.message);
-      toggleSnackbar();
-    }
+    // try {
+    //   await auth.signUp(values.email, values.firstName + " " + values.lastName, values.password);
+    //   router.push('/');
+    // } catch (err) {
+    //   setErrors(err.message);
+    //   toggleSnackbar();
+    // }
+
+    await sleep(1000);
 
     actions.setSubmitting(false);
   };

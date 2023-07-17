@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-const productForm = {
+const form = {
   formId: "new-product-form",
   formField: {
     productName: {
@@ -21,28 +21,24 @@ const productForm = {
       label: "Product Name",
       type: "text",
       errorMsg: "Product name is required.",
-      value: "Nike Air Force 1 '07",
     },
-    productWeight: {
-      name: "productWeight",
+    weight: {
+      name: "weight",
       label: "Product Weight",
       type: "text",
       errorMsg: "Product Weight is required.",
-      value: "Nike Air Force 1 '07",
     },
     category: {
       name: "category",
       label: "Category",
       type: "text",
       errorMsg: "Category is required.",
-      value: "Nike Air Force 1 '07",
     },
     size: {
       name: "size",
       label: "Size",
       type: "text",
       errorMsg: "Size is required.",
-      value: "Nike Air Force 1 '07",
     },
     password: {
       name: "password",
@@ -110,4 +106,4 @@ const productForm = {
   },
 };
 
-export default productForm;
+export default form;
