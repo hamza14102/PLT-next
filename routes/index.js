@@ -61,11 +61,11 @@ const routes = [
         key: "profile-settings",
         route: "/pages/account/settings",
       },
-      {
-        name: "Logout",
-        key: "logout",
-        route: "/authentication/sign-in/basic",
-      },
+      // {
+      //   name: "Logout",
+      //   key: "logout",
+      //   route: "/authentication/sign-in/basic",
+      // },
     ],
   },
   { type: "divider", key: "divider-0" },
