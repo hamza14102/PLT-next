@@ -28,10 +28,22 @@ import MDInput from "/components/MDInput";
 // NewProduct page components
 import FormField from "/pagesComponents/ecommerce/products/new-product/components/FormField";
 
-function ProductInfo() {
+function ProductInfo({ formData }) {
   const [editorValue, setEditorValue] = useState(
     "<p>Some initial <strong>bold</strong> text</p><br><br><br><br>",
   );
+
+  const { formField, values, errors, touched } = formData;
+  const { firstName, lastName, department, email, password, repeatPassword } =
+    formField;
+  const {
+    firstName: firstNameV,
+    lastName: lastNameV,
+    department: departmentV,
+    email: emailV,
+    password: passwordV,
+    repeatPassword: repeatPasswordV,
+  } = values;
 
   return (
     <MDBox>
@@ -39,10 +51,26 @@ function ProductInfo() {
       <MDBox mt={3}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <FormField type="text" label="Name" />
+            <FormField
+              type={firstName.type}
+              label={firstName.label}
+              name={firstName.name}
+              value={firstNameV}
+              placeholder={firstName.placeholder}
+              error={errors.firstName && touched.firstName}
+              success={firstNameV.length > 0 && !errors.firstName}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormField type="text" label="Weight" />
+            <FormField
+              type={lastName.type}
+              label={lastName.label}
+              name={lastName.name}
+              value={lastNameV}
+              placeholder={lastName.placeholder}
+              error={errors.lastName && touched.lastName}
+              success={lastNameV.length > 0 && !errors.lastName}
+            />
           </Grid>
         </Grid>
       </MDBox>
