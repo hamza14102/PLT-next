@@ -242,6 +242,11 @@ const routes = [
         key: "product-page",
         route: "/ecommerce/products/product-page",
       },
+      {
+        name: "Add Product",
+        key: "add-product",
+        route: "/ecommerce/products/add-product",
+      },
     ],
   },
   // {
