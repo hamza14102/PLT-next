@@ -112,12 +112,27 @@ export const AuthProvider = (props) => {
         }, sessionTime);
       });
       setAuthenticated(true);
-      const user = {
-        id: '5e86809283e28b96d2d38537',
-        avatar: '/assets/avatars/avatar-anika-visser.png',
-        name: 'Anika Visser',
-        email: 'anika.visser@devias.io'
-      };
+
+      // get current user sub, username, email from user attributes
+      const user = await new Promise((resolve, reject) => {
+        currentUser.getUserAttributes((err, attributes) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(attributes);
+          }
+        });
+      });
+
+      // console.log(user);
+
+
+      // const user = {
+      //   id: '5e86809283e28b96d2d38537',
+      //   avatar: '/assets/avatars/avatar-anika-visser.png',
+      //   name: 'Anika Visser',
+      //   email: 'anika.visser@devias.io'
+      // };
 
       dispatch({
         type: HANDLERS.INITIALIZE,
