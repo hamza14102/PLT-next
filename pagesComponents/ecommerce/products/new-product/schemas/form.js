@@ -14,31 +14,32 @@ Coded by www.creative-tim.com
 */
 
 const form = {
-  formId: "new-product-form",
+  formId: "new-user-form",
   formField: {
-    productName: {
-      name: "productName",
-      label: "Product Name",
+    firstName: {
+      name: "firstName",
+      label: "First Name",
       type: "text",
-      errorMsg: "Product name is required.",
+      errorMsg: "First name is required.",
     },
-    weight: {
-      name: "weight",
-      label: "Product Weight",
+    lastName: {
+      name: "lastName",
+      label: "Last Name",
       type: "text",
-      errorMsg: "Product Weight is required.",
+      errorMsg: "Last name is required.",
     },
-    category: {
-      name: "category",
-      label: "Category",
+    department: {
+      name: "department",
+      label: "Department",
       type: "text",
-      errorMsg: "Category is required.",
+      errorMsg: "Department is required.",
     },
-    size: {
-      name: "size",
-      label: "Size",
-      type: "text",
-      errorMsg: "Size is required.",
+    email: {
+      name: "email",
+      label: "Email Address",
+      type: "email",
+      errorMsg: "Email address is required.",
+      invalidMsg: "Your email address is invalid",
     },
     password: {
       name: "password",
