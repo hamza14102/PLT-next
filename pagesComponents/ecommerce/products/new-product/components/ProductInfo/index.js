@@ -94,7 +94,7 @@ function ProductInfo({ formData }) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <MDBox mb={3}>
-              <MDBox mb={2} display="inline-block">
+              {/* <MDBox mb={2} display="inline-block">
                 <MDTypography
                   component="label"
                   variant="button"
@@ -104,8 +104,17 @@ function ProductInfo({ formData }) {
                 >
                   Category
                 </MDTypography>
-              </MDBox>
-              <Autocomplete
+              </MDBox> */}
+              <FormField
+                type={department.type}
+                label={department.label}
+                name={department.name}
+                value={departmentV}
+                placeholder={department.placeholder}
+                error={errors.department && touched.department}
+                success={departmentV.length > 0 && !errors.department}
+              />
+              {/* <Autocomplete
                 defaultValue="Clothing"
                 options={[
                   "Clothing",
@@ -117,9 +126,9 @@ function ProductInfo({ formData }) {
                 renderInput={(params) => (
                   <MDInput {...params} variant="standard" />
                 )}
-              />
+              /> */}
             </MDBox>
-            <MDBox mb={2} display="inline-block">
+            {/* <MDBox mb={2} display="inline-block">
               <MDTypography
                 component="label"
                 variant="button"
@@ -129,8 +138,8 @@ function ProductInfo({ formData }) {
               >
                 Size
               </MDTypography>
-            </MDBox>
-            <Autocomplete
+            </MDBox> */}
+            {/* <Autocomplete
               defaultValue="Medium"
               options={[
                 "Extra Large",
@@ -142,6 +151,15 @@ function ProductInfo({ formData }) {
               renderInput={(params) => (
                 <MDInput {...params} variant="standard" />
               )}
+            /> */}
+            <FormField
+              type={department.type}
+              label={department.label}
+              name={department.name}
+              value={departmentV}
+              placeholder={department.placeholder}
+              error={errors.department && touched.department}
+              success={departmentV.length > 0 && !errors.department}
             />
           </Grid>
         </Grid>
