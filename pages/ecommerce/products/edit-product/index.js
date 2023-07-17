@@ -36,10 +36,50 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Icon, IconButton } from "@mui/material";
 
+import { useState, useRef, useEffect, Fragment } from "react";
+import CircularProgress from '@mui/material/CircularProgress';
+
 function EditProduct() {
+
+  const [productName, setProductName] = useState("");
+  const [department, setDepartment] = useState("");
+  const [products, setProducts] = useState([]);
+
+  const [open, setOpen] = useState(false);
+  const loading = open && products.length === 0;
+
+  useEffect(() => {
+
+
+    let active = true;
+
+    if (!loading) {
+      return undefined;
+    }
+
+    fetch('https://a7ivt3xloc.execute-api.us-east-2.amazonaws.com/prod-info/products')
+      .then(response => response.json())
+      .then(data => {
+        setProducts(data)
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [loading]);
+
+  useEffect(() => {
+    if (!open) {
+      setProducts([]);
+    }
+  }, [open]);
+
   const handleSubmit = (values) => {
-    alert("Form submitted!");
+    // alert("Form submitted!");
+    alert(`Product Name: ${productName}, Department: ${department}`);
+    // console.log(products);
   };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -53,17 +93,45 @@ function EditProduct() {
               <MDBox mt={1} mb={2} display="flex" alignItems="center">
                 {/* <Icon>shopping_cart</Icon> */}
                 <Autocomplete
+                  id="asynchronous-demo"
+                  open={open}
+                  onOpen={() => {
+                    setOpen(true);
+                  }}
+                  onClose={() => {
+                    setOpen(false);
+                  }}
+                  // getOptionLabel={(option) => option.title}
+                  // options={options}
+                  loading={loading}
+                  // value={productName}
+                  onChange={(event, newValue) => {
+                    setProductName(newValue);
+                  }
+                  }
                   disablePortal
                   sx={{ width: "100%" }}
-                  id="combo-box-demo"
-                  options={["Product 1", "Product 2", "Product 3", "Chair 1", "Sofa 1"]}
-                  renderInput={(params) => <TextField {...params} label="Product Name" />}
+                  // id="combo-box-demo"
+                  options={products.map((option) => option.product_id)}
+                  renderInput={(params) => <TextField {...params} label="Product Name" InputProps={{
+                    ...params.InputProps,
+                    endAdornment: (
+                      <Fragment>
+                        {loading ? <CircularProgress color="white" size={20} /> : null}
+                        {params.InputProps.endAdornment}
+                      </Fragment>
+                    ),
+                  }} />}
                 />
               </MDBox>
             </Grid>
             <Grid item xs={12} lg={4}>
               <MDBox mt={1} mb={2} display="flex" alignItems="center">
                 <Autocomplete
+                  onChange={(event, newValue) => {
+                    setDepartment(newValue);
+                  }
+                  }
                   disablePortal
                   sx={{ width: "100%", mr: 1 }}
                   id="combo-box-demo"
