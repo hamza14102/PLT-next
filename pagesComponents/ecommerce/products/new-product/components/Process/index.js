@@ -123,6 +123,7 @@ function Process({ formData }) {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <MDInput
+              required
               fullWidth
               type="number"
               label="Number of Departments"
@@ -165,6 +166,7 @@ function Process({ formData }) {
                   label={`Department Name ${i + 1}`}
                   value={department}
                   onChange={(e) => handleDepartmentNameChange(i, e.target.value)}
+                  required
                 />
               </MDBox>
               <MDInput
@@ -173,6 +175,7 @@ function Process({ formData }) {
                 label={`Number of Processes for ${department} Department`}
                 value={numProcesses[i]}
                 onChange={(e) => handleDepartmentProcessesChange(i, Math.min(Math.max(parseInt(e.target.value), 1), 15))}
+                required
               />
               {Array.from({ length: numProcesses[i] }).map((_, j) => (
                 <Grid container spacing={2} key={j} mt={1}>
@@ -184,6 +187,7 @@ function Process({ formData }) {
                       label={`Process Name for ${department} Department, Process ${j + 1}`}
                       value={processes[i]?.processes?.[j]?.name || ""}
                       onChange={(e) => handleProcessNameChange(i, j, e.target.value)}
+                      required
                     />
                   </Grid>
                   <Grid item xs={6}>
@@ -193,6 +197,7 @@ function Process({ formData }) {
                       label={`Process Time for ${department} Department, Process ${j + 1}`}
                       value={processes[i]?.processes?.[j]?.time || ""}
                       onChange={(e) => handleProcessTimeChange(i, j, e.target.value)}
+                      required
                     />
                   </Grid>
 
