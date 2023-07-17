@@ -32,29 +32,47 @@ import ProductInfo from "/pagesComponents/ecommerce/products/edit-product/compon
 import Socials from "/pagesComponents/ecommerce/products/edit-product/components/Socials";
 import Pricing from "/pagesComponents/ecommerce/products/edit-product/components/Pricing";
 
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import { Icon, IconButton } from "@mui/material";
+
 function EditProduct() {
+  const handleSubmit = (values) => {
+    alert("Form submitted!");
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox my={3}>
         <MDBox mb={6}>
+          <MDTypography variant="h4" fontWeight="medium">
+            Edit Product
+          </MDTypography>
           <Grid container spacing={3} alignItems="center">
-            <Grid item xs={12} lg={6}>
-              <MDTypography variant="h4" fontWeight="medium">
-                Make the changes below
-              </MDTypography>
-              <MDBox mt={1} mb={2}>
-                <MDTypography variant="body2" color="text">
-                  We’re constantly trying to express ourselves and actualize our
-                  dreams. If you have the opportunity to play.
-                </MDTypography>
+            <Grid item xs={12} lg={8}>
+              <MDBox mt={1} mb={2} display="flex" alignItems="center">
+                {/* <Icon>shopping_cart</Icon> */}
+                <Autocomplete
+                  disablePortal
+                  sx={{ width: "100%" }}
+                  id="combo-box-demo"
+                  options={["Product 1", "Product 2", "Product 3", "Chair 1", "Sofa 1"]}
+                  renderInput={(params) => <TextField {...params} label="Product Name" />}
+                />
               </MDBox>
             </Grid>
-            <Grid item xs={12} lg={6}>
-              <MDBox display="flex" justifyContent="flex-end">
-                <MDButton variant="gradient" color="dark">
-                  save
-                </MDButton>
+            <Grid item xs={12} lg={4}>
+              <MDBox mt={1} mb={2} display="flex" alignItems="center">
+                <Autocomplete
+                  disablePortal
+                  sx={{ width: "100%", mr: 1 }}
+                  id="combo-box-demo"
+                  options={["Department 1", "Department 2", "Department 3", "Department 4", "Department 5"]}
+                  renderInput={(params) => <TextField {...params} label="Department Name" />}
+                />
+                <IconButton onClick={handleSubmit}>
+                  <Icon color="secondary" fontSize="large">search</Icon>
+                </IconButton>
               </MDBox>
             </Grid>
           </Grid>
