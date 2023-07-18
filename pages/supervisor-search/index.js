@@ -31,6 +31,7 @@ import dataTableData from "/pagesComponents/supervisor-search/data/dataTableData
 import { Autocomplete, CircularProgress, Grid, Icon, IconButton, TextField } from "@mui/material";
 import { Fragment, use, useEffect, useState } from "react";
 import MDSnackbar from "/components/MDSnackbar";
+import MiniStatisticsCard from "/examples/Cards/StatisticsCards/MiniStatisticsCard";
 
 function DataTables() {
   const [productName, setProductName] = useState("");
@@ -38,6 +39,7 @@ function DataTables() {
   const [products, setProducts] = useState([]);
   const [productData, setProductData] = useState([]);
   const [tableData, setTableData] = useState(dataTableData);
+  const [output, setOutput] = useState(0);
 
   const [searching, setSearching] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -148,6 +150,8 @@ function DataTables() {
         delete data.lastNames;
         data.name = data.firstNames;
         delete data.firstNames;
+        // console.log(data);
+        setOutput(data.number);
         // combine two arrays into one
         data = data.name.map((name, index) => {
           return { name: name, manpower: data.manpower[index] };
@@ -257,6 +261,12 @@ function DataTables() {
               </MDTypography>
             </MDBox>
             <DataTable table={tableData} />
+            <MiniStatisticsCard
+              title={{ text: "Ideal Output per hour" }}
+              count={output}
+              icon={{ color: "dark", component: "output" }}
+              direction="right"
+            />
           </Card>
         </MDBox>
 
