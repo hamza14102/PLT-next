@@ -76,7 +76,7 @@ function EditProduct() {
     }
   }, [open]);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = () => {
     // alert("Form submitted!");
     alert(`Product Name: ${productName}, Department: ${department}`);
     // console.log(products);
