@@ -27,18 +27,19 @@ import Footer from "/examples/Footer";
 import DataTable from "/examples/Tables/DataTable";
 
 // Data
-import dataTableData from "/pagesComponents/applications/data-tables/data/dataTableData";
+import dataTableData from "/pagesComponents/supervisor-search/data/dataTableData";
 import { Autocomplete, CircularProgress, Grid, Icon, IconButton, TextField } from "@mui/material";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, use, useEffect, useState } from "react";
 
 function DataTables() {
   const [productName, setProductName] = useState("");
   const [manpower, setManpower] = useState(1);
   const [products, setProducts] = useState([]);
   const [productData, setProductData] = useState([]);
+  const [tableData, setTableData] = useState(dataTableData);
 
   const [open, setOpen] = useState(false);
-  const loading = open && products.length === 0;
+  const loading = open;
 
   useEffect(() => {
 
@@ -62,30 +63,41 @@ function DataTables() {
 
   useEffect(() => {
     if (!open) {
-      setProducts([]);
+      // setProducts([]);
     }
   }, [open]);
+
+  useEffect(() => {
+    // dataTableData.rows = productData;
+    setTableData({ ...dataTableData, rows: productData });
+    console.log(tableData);
+  }, [productData]);
+
+  useEffect(() => {
+    if (productName !== "") {
+      const allData = products.find((product) => {
+        if (product.product_id === productName) {
+          console.log(product);
+          setProductData(product.processes);
+          return product;
+        }
+      });
+    }
+  }, [productName]);
+
 
   const handleSubmit = () => {
     // alert("Form submitted!");
     // alert(`Product Name: ${productName}, Manpower: ${manpower}`);
     // find details about the selected product
-    fetch('https://a7ivt3xloc.execute-api.us-east-2.amazonaws.com/prod-info/products')
-      .then(response => response.json())
-      .then(data => {
-        setProducts(data)
-      });
+    // fetch('https://a7ivt3xloc.execute-api.us-east-2.amazonaws.com/prod-info/products')
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     setProducts(data)
+    //   });
 
     // console.log(products);
-    const allData = products.find((product) => {
-      if (product.product_id === productName) {
-        return product;
-      }
-    });
-    // console.log(allData);
-    setProductData(allData.processes);
 
-    setProducts([]);
 
     // console.log(products);
   };
@@ -95,9 +107,9 @@ function DataTables() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox pt={6} pb={3}>
-        <MDBox mb={3}>
+        <MDBox mb={3} sx={{ boxShadow: "none", width: "80%", margin: "auto" }}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={8}>
               <Autocomplete
                 id="asynchronous-demo"
                 open={open}
@@ -130,7 +142,7 @@ function DataTables() {
                 }} />}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <MDBox mb={2} display="flex" alignItems="center">
                 <TextField
                   id="outlined-number"
@@ -152,18 +164,17 @@ function DataTables() {
             </Grid>
           </Grid>
         </MDBox>
-        <MDBox mb={3}>
+        <MDBox mb={3} sx={{ boxShadow: "none", width: "80%", margin: "auto" }}>
           <Card>
             <MDBox p={3} lineHeight={1}>
               <MDTypography variant="h5" fontWeight="medium">
-                Datatable Simple
+                Manpower Distribution Search
               </MDTypography>
               <MDTypography variant="button" color="text">
-                A lightweight, extendable, dependency-free javascript HTML table
-                plugin.
+                A helper tool to divide manpower and resources efficiently.
               </MDTypography>
             </MDBox>
-            <DataTable table={dataTableData} />
+            <DataTable table={tableData} />
           </Card>
         </MDBox>
 
