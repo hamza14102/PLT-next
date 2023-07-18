@@ -150,7 +150,7 @@ function EditProduct() {
             <ProductImage />
           </Grid>
           <Grid item xs={12} lg={8}>
-            <ProductInfo />
+            <ProductInfo name={productName} />
           </Grid>
           <Grid item xs={12} lg={4}>
             <Socials />
