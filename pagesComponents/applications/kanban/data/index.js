@@ -21,7 +21,7 @@ import Card from "/pagesComponents/applications/kanban/components/Card";
 
 // Images
 import officeDark from "/assets/images/Arch Mirror with Chamfered profile.jpg";
-import meeting from "/assets/images/Brass & Glass Box Medium.PNG";
+import meeting from "/assets/images/Sour Cream Round Tray.jpg";
 import homeDecore from "/assets/images/Envelope Holder.jpg";
 import team1 from "/assets/images/team-1.jpg";
 import team2 from "/assets/images/team-2.jpg";
@@ -89,7 +89,7 @@ const boards = {
             <Card
               image={meeting}
               badge={{ color: "info", label: "updates" }}
-              content="Brass and Glass Box Medium"
+              content="Sour Cream Round Tray"
               attachedFiles={3}
               members={[team1, team2, team3]}
             />
