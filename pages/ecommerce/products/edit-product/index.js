@@ -31,6 +31,8 @@ import ProductImage from "/pagesComponents/ecommerce/products/edit-product/compo
 import ProductInfo from "/pagesComponents/ecommerce/products/edit-product/components/ProductInfo";
 import Socials from "/pagesComponents/ecommerce/products/edit-product/components/Socials";
 import Pricing from "/pagesComponents/ecommerce/products/edit-product/components/Pricing";
+import Process from "/pagesComponents/ecommerce/products/edit-product/components/Process";
+import OrdersOverview from "/pagesComponents/ecommerce/products/edit-product/components/OrdersOverview";
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -153,10 +155,11 @@ function EditProduct() {
             <ProductInfo name={productName} />
           </Grid>
           <Grid item xs={12} lg={4}>
-            <Socials />
+            {/* <Socials /> */}
+            <OrdersOverview />
           </Grid>
           <Grid item xs={12} lg={8}>
-            <Pricing />
+            <Process />
           </Grid>
         </Grid>
       </MDBox>
