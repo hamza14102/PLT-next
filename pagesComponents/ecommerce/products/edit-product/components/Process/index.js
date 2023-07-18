@@ -25,7 +25,7 @@ import FormField from "/pagesComponents/ecommerce/products/new-product/component
 
 import { useEffect, useState } from "react";
 import MDInput from "/components/MDInput";
-import { Card } from "@mui/material";
+import { Card, Icon, IconButton } from "@mui/material";
 
 
 function Process({ formData }) {
@@ -191,6 +191,28 @@ function Process({ formData }) {
                 ))}
               </Grid>
             ))}
+          </Grid>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <MDBox >
+                <MDTypography
+                  component="label"
+                  variant="button"
+                  fontSize="large"
+                  color="text"
+                  textTransform="capitalize"
+                >
+                  Save
+                </MDTypography>
+              </MDBox>
+              <IconButton onClick={
+                () => {
+                  alert(JSON.stringify(processes));
+                }
+              }>
+                <Icon color="secondary" fontSize="large">save</Icon>
+              </IconButton>
+            </Grid>
           </Grid>
         </MDBox>
       </MDBox>
