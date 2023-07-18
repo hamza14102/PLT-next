@@ -29,9 +29,17 @@ import MDInput from "/components/MDInput";
 // NewProduct page components
 import FormField from "/pagesComponents/ecommerce/products/edit-product/components/FormField";
 import MDDatePicker from "/components/MDDatePicker";
+import { Icon, IconButton } from "@mui/material";
+import MDSnackbar from "/components/MDSnackbar";
 
 function ProductInfo({ name }) {
   const [productName, setProductName] = useState("");
+  const [show, setShow] = useState(false);
+
+  const toggleSnackbar = () => {
+    setShow(!show);
+  };
+
 
   const [editorValue, setEditorValue] = useState(
     `<p>
@@ -46,6 +54,13 @@ function ProductInfo({ name }) {
 
   return (
     <Card>
+      <MDSnackbar
+        icon="notifications"
+        title="Edited Product"
+        content="You have successfully edited the product."
+        dateTime="now"
+        open={show}
+        close={toggleSnackbar} />
       <MDBox p={3}>
         <MDTypography variant="h5">Product Information</MDTypography>
         <MDBox mt={1}>
@@ -114,24 +129,24 @@ function ProductInfo({ name }) {
                 </MDBox>
                 <MDDatePicker input={{ placeholder: "Ship by Date" }} />
               </MDBox>
-              {/* <MDBox mb={1.625} display="inline-block">
-                <MDTypography
-                  component="label"
-                  variant="button"
-                  fontWeight="regular"
-                  color="text"
-                  textTransform="capitalize"
-                >
-                  Color
-                </MDTypography>
-              </MDBox>
-              <Autocomplete
-                defaultValue="Black"
-                options={["Black", "Blue", "Green", "Orange", "White"]}
-                renderInput={(params) => (
-                  <MDInput {...params} variant="standard" />
-                )}
-              /> */}
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <MDBox >
+                    <MDTypography
+                      component="label"
+                      variant="button"
+                      fontSize="large"
+                      color="text"
+                      textTransform="capitalize"
+                    >
+                      Save
+                    </MDTypography>
+                  </MDBox>
+                  <IconButton onClick={toggleSnackbar}>
+                    <Icon color="secondary" fontSize="large">save</Icon>
+                  </IconButton>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </MDBox>
