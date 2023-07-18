@@ -46,6 +46,7 @@ function DataTables() {
   const [data, setData] = useState([]);
 
   const [show, setShow] = useState(false);
+  const [snackTitle, setSnackTitle] = useState("");
   const [show2, setShow2] = useState(false);
 
   const toggleSnackbar = () => {
@@ -167,7 +168,9 @@ function DataTables() {
             // rename data.lastNames to data.manpower
             console.log(data2, data);
             if (3600 / data2.number == output) {
-              alert(`Suggested Ideal Manpower: ${number - 2} \nIdeal Output: ${3600 / data2.number}`);
+              // alert(`Suggested Ideal Manpower: ${number - 2} \nIdeal Output: ${3600 / data2.number}`);
+              setSnackTitle(`Suggested Ideal Manpower: ${number - 2} \nIdeal Output: ${3600 / data2.number}`);
+              toggleSnackbar();
             } else {
               queryParamsCopy = `firstNames=${firstNames.join(',')}&lastNames=${lastNames.join(',')}&number=${number - 1}`;
               fetch(`${apiGatewayUrl}${resourcePath}?${queryParamsCopy}`)
@@ -182,7 +185,9 @@ function DataTables() {
                   // rename data.lastNames to data.manpower
                   console.log(data2, data);
                   if (3600 / data2.number == output) {
-                    alert(`Suggested Ideal Manpower: ${number - 1} \nIdeal Output: ${3600 / data2.number}`);
+                    // alert(`Suggested Ideal Manpower: ${number - 1} \nIdeal Output: ${3600 / data2.number}`);
+                    setSnackTitle(`Suggested Ideal Manpower: ${number - 1} \nIdeal Output: ${3600 / data2.number}`);
+                    toggleSnackbar();
                   }
                 });
             }
@@ -213,7 +218,7 @@ function DataTables() {
         icon="notifications"
         color="success"
         title="Distribution Calculated"
-        content="This is the optimal distribution of manpower and resources."
+        content={snackTitle}
         dateTime="now"
         open={show}
         close={toggleSnackbar}
