@@ -24,7 +24,7 @@ import MDTypography from "/components/MDTypography";
 import MDButton from "/components/MDButton";
 
 // Images
-import productImage from "/assets/images/products/product-11.jpg";
+import productImage from "/assets/images/Door Stopper.jpg";
 
 function ProductImage() {
   return (
@@ -86,12 +86,11 @@ function ProductImage() {
           </MDButton>
         </MDBox>
         <MDTypography variant="h5" fontWeight="regular" sx={{ mt: 4 }}>
-          Product Image
+          Door Stopper
         </MDTypography>
         <MDTypography variant="body2" color="text" sx={{ mt: 1.5, mb: 1 }}>
-          The place is close to Barceloneta Beach and bus stop just 2 min by
-          walk and near to &#8220;Naviglio&#8221; where you can enjoy the main
-          night life in Barcelona.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+          tincidunt tellus lacus. Duis quis mi ligula. Suspendisse potenti.
         </MDTypography>
       </MDBox>
     </Card>

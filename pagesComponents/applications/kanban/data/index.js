@@ -20,9 +20,9 @@ import { v4 as uuidv4 } from "uuid";
 import Card from "/pagesComponents/applications/kanban/components/Card";
 
 // Images
-import officeDark from "/assets/images/office-dark.jpg";
-import meeting from "/assets/images/meeting.jpg";
-import homeDecore from "/assets/images/home-decor-1.jpg";
+import officeDark from "/assets/images/Arch Mirror with Chamfered profile.jpg";
+import meeting from "/assets/images/Brass & Glass Box Medium.PNG";
+import homeDecore from "/assets/images/Envelope Holder.jpg";
 import team1 from "/assets/images/team-1.jpg";
 import team2 from "/assets/images/team-2.jpg";
 import team3 from "/assets/images/team-3.jpg";
@@ -49,7 +49,7 @@ const boards = {
             <Card
               image={officeDark}
               badge={{ color: "dark", label: "pending" }}
-              content="Website Design: New cards for blog section and profile details"
+              content="Arch Mirror with Chamfered profile - 24 x 36"
               attachedFiles={3}
               members={[team1, team2, team3]}
             />
@@ -66,7 +66,7 @@ const boards = {
           template: (
             <Card
               badge={{ color: "error", label: "errors" }}
-              content="Fix firefox errors"
+              content="Fix wood sourcing delay"
               attachedFiles={9}
               members={[team2, team3]}
             />
@@ -77,7 +77,7 @@ const boards = {
           template: (
             <Card
               badge={{ color: "info", label: "updates" }}
-              content="Argon Dashboard PRO - React"
+              content="Production meeting for Issue #979"
               attachedFiles={3}
               members={[team5, team4]}
             />
@@ -89,7 +89,7 @@ const boards = {
             <Card
               image={meeting}
               badge={{ color: "info", label: "updates" }}
-              content="ReactJS v17 Updates"
+              content="Brass and Glass Box Medium"
               attachedFiles={3}
               members={[team1, team2, team3]}
             />
@@ -147,7 +147,7 @@ const boards = {
             <Card
               image={homeDecore}
               badge={{ color: "success", label: "done" }}
-              content="Redesign for the home page"
+              content="Envelope Holder"
               attachedFiles={8}
               members={[team5, team1, team4]}
             />

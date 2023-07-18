@@ -39,9 +39,9 @@ import reportsBarChartData from "/pagesComponents/dashboards/analytics/data/repo
 import reportsLineChartData from "/pagesComponents/dashboards/analytics/data/reportsLineChartData";
 
 // Images
-import product1 from "/assets/images/ecommerce/yellow-chair.jpeg";
-import product2 from "/assets/images/ecommerce/chair-wood.jpeg";
-import product3 from "/assets/images/ecommerce/chair-steel.jpeg";
+import product1 from "/assets/images/Luggage Rack.jpg";
+import product2 from "/assets/images/3 hook.jpg";
+import product3 from "/assets/images/Blanket Ladder.PNG";
 
 function Analytics() {
   const { sales, tasks } = reportsLineChartData;
@@ -196,7 +196,7 @@ function Analytics() {
               <MDBox mt={3}>
                 <BookingCard
                   image={product1}
-                  title="Product 1 Name"
+                  title="Luggage Rack"
                   description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
                   // price="$899/night"
                   location="Target"
@@ -208,10 +208,10 @@ function Analytics() {
               <MDBox mt={3}>
                 <BookingCard
                   image={product2}
-                  title="Product 2 Name"
+                  title="3 Hook"
                   description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
                   // price="$1.119/night"
-                  location="WSI"
+                  location="Target"
                   action={actionButtons}
                 />
               </MDBox>
@@ -220,10 +220,10 @@ function Analytics() {
               <MDBox mt={3}>
                 <BookingCard
                   image={product3}
-                  title="Product 3 Name"
+                  title="Blanket Ladder"
                   description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
                   // price="$459/night"
-                  location="H&M"
+                  location="Target"
                   action={actionButtons}
                 />
               </MDBox>
