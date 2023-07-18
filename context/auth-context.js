@@ -85,6 +85,8 @@ export const AuthProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const initialized = useRef(false);
 
+  const timeoutIdRef = useRef(null);
+
   const initialize = async () => {
     // Prevent from calling twice in development mode with React.StrictMode enabled
     if (initialized.current) {
@@ -104,7 +106,7 @@ export const AuthProvider = (props) => {
         // get expiration time from token and set callback to expire session and sign out
         const expirationTime = session.accessToken.getExpiration() * 1000;
         const sessionTime = expirationTime - Date.now();
-        setTimeout(() => {
+        timeoutIdRef.current = setTimeout(() => {
           console.log('session expired');
           signOut();
           // refresh page to redirect to sign in page
