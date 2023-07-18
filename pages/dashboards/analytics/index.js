@@ -41,7 +41,7 @@ import reportsLineChartData from "/pagesComponents/dashboards/analytics/data/rep
 // Images
 import product1 from "/assets/images/Luggage Rack.jpg";
 import product2 from "/assets/images/3 hook.jpg";
-import product3 from "/assets/images/Blanket Ladder.PNG";
+import product3 from "/assets/images/Door Stopper.jpg";
 
 function Analytics() {
   const { sales, tasks } = reportsLineChartData;
@@ -220,7 +220,7 @@ function Analytics() {
               <MDBox mt={3}>
                 <BookingCard
                   image={product3}
-                  title="Blanket Ladder"
+                  title="Door Stopper"
                   description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
                   // price="$459/night"
                   location="Target"
