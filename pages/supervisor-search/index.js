@@ -30,6 +30,7 @@ import DataTable from "/examples/Tables/DataTable";
 import dataTableData from "/pagesComponents/supervisor-search/data/dataTableData";
 import { Autocomplete, CircularProgress, Grid, Icon, IconButton, TextField } from "@mui/material";
 import { Fragment, use, useEffect, useState } from "react";
+import MDSnackbar from "/components/MDSnackbar";
 
 function DataTables() {
   const [productName, setProductName] = useState("");
@@ -37,6 +38,21 @@ function DataTables() {
   const [products, setProducts] = useState([]);
   const [productData, setProductData] = useState([]);
   const [tableData, setTableData] = useState(dataTableData);
+
+  const [searching, setSearching] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [data, setData] = useState([]);
+
+  const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
+
+  const toggleSnackbar = () => {
+    setShow(!show);
+  };
+  const toggleSnackbar2 = () => {
+    setShow2(!show2);
+  };
+
 
   const [open, setOpen] = useState(false);
   const loading = open;
@@ -70,14 +86,28 @@ function DataTables() {
   useEffect(() => {
     // dataTableData.rows = productData;
     setTableData({ ...dataTableData, rows: productData });
-    console.log(tableData);
+    // console.log(tableData);
   }, [productData]);
+
+  useEffect(() => {
+    if (data.length !== 0 && data !== undefined) {
+      console.log({ ...dataTableData, rows: data });
+      // add data to table
+      // console.log(data);
+      // tableData.rows.forEach(element => {
+      //   console.log(data);
+      //   // element.manpower = data.lastNames[element.name].lastName;
+      // });
+      setTableData({ ...dataTableData, rows: data });
+    }
+  }, [data]);
+
 
   useEffect(() => {
     if (productName !== "") {
       const allData = products.find((product) => {
         if (product.product_id === productName) {
-          console.log(product);
+          // console.log(product);
           setProductData(product.processes);
           return product;
         }
@@ -86,26 +116,77 @@ function DataTables() {
   }, [productName]);
 
 
-  const handleSubmit = () => {
-    // alert("Form submitted!");
-    // alert(`Product Name: ${productName}, Manpower: ${manpower}`);
-    // find details about the selected product
-    // fetch('https://a7ivt3xloc.execute-api.us-east-2.amazonaws.com/prod-info/products')
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     setProducts(data)
-    //   });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (productName === "") {
+      toggleSnackbar2();
+      return;
+    }
+    const firstNames = productData.map((product) => product.name);
+    const lastNames = productData.map((product) => product.time);
+    const number = manpower;
+    // console.log(firstNames, lastNames, number);
 
-    // console.log(products);
+
+    const apiGatewayUrl = 'https://4110ohgv2h.execute-api.us-east-2.amazonaws.com/launch';
+    const resourcePath = '/p1';
+    const queryParams = `firstNames=${firstNames.join(',')}&lastNames=${lastNames.join(',')}&number=${number}`;
+
+    setSearching(true);
+
+    fetch(`${apiGatewayUrl}${resourcePath}?${queryParams}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // console.log(data);
+        // rename data.lastNames to data.manpower
+        data.manpower = data.lastNames;
+        delete data.lastNames;
+        data.name = data.firstNames;
+        delete data.firstNames;
+        // combine two arrays into one
+        data = data.name.map((name, index) => {
+          return { name: name, manpower: data.manpower[index] };
+        });
+        // console.log(data);
+        setData(data);
+        setLoaded(true);
+        setSearching(false);
+      })
+      .catch(error => {
+        alert('There was an error submitting the form. Please try again later.');
+        setSearching(false);
+      });
 
 
-    // console.log(products);
   };
 
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <MDSnackbar
+        icon="notifications"
+        color="success"
+        title="Distribution Calculated"
+        content="This is the optimal distribution of manpower and resources."
+        dateTime="now"
+        open={show}
+        close={toggleSnackbar}
+      />
+      <MDSnackbar
+        icon="notifications"
+        color="warning"
+        title="Product Not Found"
+        content="The product you searched for was not found. Please try again."
+        dateTime="now"
+        open={show2}
+        close={toggleSnackbar2}
+      />
       <MDBox pt={6} pb={3}>
         <MDBox mb={3} sx={{ boxShadow: "none", width: "80%", margin: "auto" }}>
           <Grid container spacing={3}>
@@ -160,6 +241,7 @@ function DataTables() {
                 <IconButton onClick={handleSubmit}>
                   <Icon color="secondary" fontSize="large">search</Icon>
                 </IconButton>
+                <CircularProgress color="secondary" size={30} sx={{ display: searching ? "block" : "none" }} />
               </MDBox>
             </Grid>
           </Grid>
