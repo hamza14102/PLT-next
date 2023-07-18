@@ -240,7 +240,7 @@ function DataTables() {
                   variant="outlined"
                   value={manpower}
                   onChange={(event) => {
-                    setManpower(event.target.value);
+                    setManpower(Math.abs(event.target.value));
                   }}
                 />
                 <IconButton onClick={handleSubmit}>
