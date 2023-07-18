@@ -153,6 +153,41 @@ function DataTables() {
         // console.log(data);
         // 3600 seconds in an hour / number of seconds per product
         setOutput(3600 / data.number);
+
+        let queryParamsCopy = `firstNames=${firstNames.join(',')}&lastNames=${lastNames.join(',')}&number=${number - 2}`;
+        fetch(`${apiGatewayUrl}${resourcePath}?${queryParamsCopy}`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data2 => {
+            // console.log(data2);
+            // rename data.lastNames to data.manpower
+            console.log(data2, data);
+            if (3600 / data2.number == output) {
+              alert(`Suggested Ideal Manpower: ${number - 2} \nIdeal Output: ${3600 / data2.number}`);
+            } else {
+              queryParamsCopy = `firstNames=${firstNames.join(',')}&lastNames=${lastNames.join(',')}&number=${number - 1}`;
+              fetch(`${apiGatewayUrl}${resourcePath}?${queryParamsCopy}`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                  }
+                  return response.json();
+                })
+                .then(data2 => {
+                  // console.log(data2);
+                  // rename data.lastNames to data.manpower
+                  console.log(data2, data);
+                  if (3600 / data2.number == output) {
+                    alert(`Suggested Ideal Manpower: ${number - 1} \nIdeal Output: ${3600 / data2.number}`);
+                  }
+                });
+            }
+          });
+
         // combine two arrays into one
         data = data.name.map((name, index) => {
           return { name: name, manpower: data.manpower[index] };
