@@ -151,7 +151,8 @@ function DataTables() {
         data.name = data.firstNames;
         delete data.firstNames;
         // console.log(data);
-        setOutput(data.number);
+        // 3600 seconds in an hour / number of seconds per product
+        setOutput(3600 / data.number);
         // combine two arrays into one
         data = data.name.map((name, index) => {
           return { name: name, manpower: data.manpower[index] };
