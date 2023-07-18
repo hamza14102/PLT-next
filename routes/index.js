@@ -105,94 +105,94 @@ const routes = [
   //   ],
   // },
   { type: "title", title: "Tools", key: "title-tools" },
-  {
-    type: "collapse",
-    name: "Pages",
-    key: "pages",
-    icon: <Icon fontSize="medium">image</Icon>,
-    collapse: [
-      {
-        name: "Profile",
-        key: "profile",
-        collapse: [
-          {
-            name: "Profile Overview",
-            key: "profile-overview",
-            route: "/pages/profile/profile-overview",
-          },
-          {
-            name: "All Projects",
-            key: "all-projects",
-            route: "/pages/profile/all-projects",
-          },
-        ],
-      },
-      {
-        name: "Users",
-        key: "users",
-        collapse: [
-          {
-            name: "New User",
-            key: "new-user",
-            route: "/pages/users/new-user",
-          },
-        ],
-      },
-      {
-        name: "Account",
-        key: "account",
-        collapse: [
-          {
-            name: "Settings",
-            key: "settings",
-            route: "/pages/account/settings",
-          },
-          {
-            name: "Billing",
-            key: "billing",
-            route: "/pages/account/billing",
-          },
-          {
-            name: "Invoice",
-            key: "invoice",
-            route: "/pages/account/invoice",
-          },
-        ],
-      },
-      {
-        name: "Projects",
-        key: "projects",
-        collapse: [
-          {
-            name: "Timeline",
-            key: "timeline",
-            route: "/pages/projects/timeline",
-          },
-        ],
-      },
-      {
-        name: "Pricing Page",
-        key: "pricing-page",
-        route: "/pages/pricing-page",
-      },
-      { name: "RTL", key: "rtl", route: "/pages/rtl" },
-      {
-        name: "Widgets",
-        key: "widgets",
-        route: "/pages/widgets",
-      },
-      {
-        name: "Charts",
-        key: "charts",
-        route: "/pages/charts",
-      },
-      {
-        name: "Notfications",
-        key: "notifications",
-        route: "/pages/notifications",
-      },
-    ],
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Pages",
+  //   key: "pages",
+  //   icon: <Icon fontSize="medium">image</Icon>,
+  //   collapse: [
+  //     {
+  //       name: "Profile",
+  //       key: "profile",
+  //       collapse: [
+  //         {
+  //           name: "Profile Overview",
+  //           key: "profile-overview",
+  //           route: "/pages/profile/profile-overview",
+  //         },
+  //         {
+  //           name: "All Projects",
+  //           key: "all-projects",
+  //           route: "/pages/profile/all-projects",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: "Users",
+  //       key: "users",
+  //       collapse: [
+  //         {
+  //           name: "New User",
+  //           key: "new-user",
+  //           route: "/pages/users/new-user",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: "Account",
+  //       key: "account",
+  //       collapse: [
+  //         {
+  //           name: "Settings",
+  //           key: "settings",
+  //           route: "/pages/account/settings",
+  //         },
+  //         {
+  //           name: "Billing",
+  //           key: "billing",
+  //           route: "/pages/account/billing",
+  //         },
+  //         {
+  //           name: "Invoice",
+  //           key: "invoice",
+  //           route: "/pages/account/invoice",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: "Projects",
+  //       key: "projects",
+  //       collapse: [
+  //         {
+  //           name: "Timeline",
+  //           key: "timeline",
+  //           route: "/pages/projects/timeline",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: "Pricing Page",
+  //       key: "pricing-page",
+  //       route: "/pages/pricing-page",
+  //     },
+  //     { name: "RTL", key: "rtl", route: "/pages/rtl" },
+  //     {
+  //       name: "Widgets",
+  //       key: "widgets",
+  //       route: "/pages/widgets",
+  //     },
+  //     {
+  //       name: "Charts",
+  //       key: "charts",
+  //       route: "/pages/charts",
+  //     },
+  //     {
+  //       name: "Notfications",
+  //       key: "notifications",
+  //       route: "/pages/notifications",
+  //     },
+  //   ],
+  // },
   {
     type: "collapse",
     name: "Supervisor Search",
@@ -203,32 +203,48 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Applications",
-    key: "applications",
-    icon: <Icon fontSize="medium">apps</Icon>,
-    collapse: [
-      {
-        name: "Kanban",
-        key: "kanban",
-        route: "/applications/kanban",
-      },
-      {
-        name: "Wizard",
-        key: "wizard",
-        route: "/applications/wizard",
-      },
-      {
-        name: "Data Tables",
-        key: "data-tables",
-        route: "/applications/data-tables",
-      },
-      {
-        name: "Calendar",
-        key: "calendar",
-        route: "/applications/calendar",
-      },
-    ],
+    name: "Tasks",
+    key: "tasks",
+    route: "/applications/kanban",
+    icon: <Icon fontSize="medium">assignment</Icon>,
+    noCollapse: true,
   },
+  {
+    type: "collapse",
+    name: "Schedule",
+    key: "tasks",
+    route: "/applications/calendar",
+    icon: <Icon fontSize="medium">calendar_month</Icon>,
+    noCollapse: true,
+  },
+  // {
+  //   type: "collapse",
+  //   name: "Applications",
+  //   key: "applications",
+  //   icon: <Icon fontSize="medium">apps</Icon>,
+  //   collapse: [
+  //     {
+  //       name: "Kanban",
+  //       key: "kanban",
+  //       route: "/applications/kanban",
+  //     },
+  //     {
+  //       name: "Wizard",
+  //       key: "wizard",
+  //       route: "/applications/wizard",
+  //     },
+  //     {
+  //       name: "Data Tables",
+  //       key: "data-tables",
+  //       route: "/applications/data-tables",
+  //     },
+  //     {
+  //       name: "Calendar",
+  //       key: "calendar",
+  //       route: "/applications/calendar",
+  //     },
+  //   ],
+  // },
   {
     type: "collapse",
     name: "Products",
