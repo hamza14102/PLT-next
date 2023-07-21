@@ -101,14 +101,19 @@ export const AuthProvider = (props) => {
     const currentUser = userPool.getCurrentUser();
     // console.log(currentUser);
     if (currentUser) {
-      currentUser.getSession((err, session) => {
+      currentUser.getSession(async (err, session) => {
+        if (err || !session.isValid()) {
+          console.log('session invalid');
+          await signOut();
+          window.location.reload();
+        }
         // console.log(session.accessToken.getExpiration());
         // get expiration time from token and set callback to expire session and sign out
         const expirationTime = session.accessToken.getExpiration() * 1000;
         const sessionTime = expirationTime - Date.now();
-        timeoutIdRef.current = setTimeout(() => {
+        timeoutIdRef.current = setTimeout(async () => {
           console.log('session expired');
-          signOut();
+          await signOut();
           // refresh page to redirect to sign in page
           window.location.reload();
         }, sessionTime);
@@ -330,7 +335,7 @@ export const AuthProvider = (props) => {
   //   });
   // };
 
-  const signOut = () => {
+  const signOut = async () => {
     const cognitoUser = userPool.getCurrentUser();
     // console.log(cognitoUser);
     console.log('signing out');
