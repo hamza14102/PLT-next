@@ -95,7 +95,7 @@ function SidenavCollapse({
             }
           />
 
-          <Icon
+          {children && (<Icon
             sx={(theme) =>
               collapseArrow(theme, {
                 noCollapse,
@@ -110,6 +110,7 @@ function SidenavCollapse({
           >
             expand_less
           </Icon>
+          )}
         </MDBox>
       </ListItem>
       {children && (
