@@ -69,7 +69,25 @@ import { AuthProvider, AuthConsumer } from "context/auth-context";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createCache({ key: "css", prepend: true });
 
-const SplashScreen = () => null;
+const SplashScreen = () => {
+  // return all black screen with loading icon
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        height: "100vh",
+        width: "100vw",
+        backgroundColor: "black",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+    </div>
+  );
+};
 
 function Main({ Component, pageProps }) {
   const [controller, dispatch] = useMaterialUIController();
