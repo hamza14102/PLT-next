@@ -85,6 +85,7 @@ export const AuthProvider = (props) => {
   const { children } = props;
   const [state, dispatch] = useReducer(reducer, initialState);
   const initialized = useRef(false);
+  // const [sessionValid, setSessionValid] = useState(false);
 
   const timeoutIdRef = useRef(null);
 
@@ -98,26 +99,25 @@ export const AuthProvider = (props) => {
 
     // let isAuthenticated = false;
     setAuthenticated(false);
+    let sessionValid = false;
 
     const currentUser = userPool.getCurrentUser();
     // console.log(currentUser);
-    if (currentUser) {
-      currentUser.getSession(async (err, session) => {
-        if (err || !session.isValid()) {
-          console.log('session invalid');
-          await signOut();
-          window.location.reload();
+    currentUser.getSession((err, session) => {
+      if (err) {
+        console.error(err);
+      } else {
+        const currentTime = new Date().getTime() / 1000;
+        if (session.isValid() && session.getAccessToken().getExpiration() > currentTime) {
+          console.log("Session is valid and not expired");
+          sessionValid = true;
+        } else {
+          console.log("Session is invalid or expired");
         }
-        // console.log(session.accessToken.getExpiration());
-        // get expiration time from token and set callback to expire session and sign out
-        const expirationTime = session.accessToken.getExpiration() * 1000;
-        const sessionTime = expirationTime - Date.now();
-        timeoutIdRef.current = setTimeout(async () => {
-          await signOut();
-          // refresh page to redirect to sign in page
-          window.location.reload();
-        }, sessionTime);
-      });
+      }
+    });
+
+    if (sessionValid) {
       setAuthenticated(true);
 
       // get current user sub, username, email from user attributes
