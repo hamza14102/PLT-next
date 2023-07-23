@@ -103,19 +103,21 @@ export const AuthProvider = (props) => {
 
     const currentUser = userPool.getCurrentUser();
     // console.log(currentUser);
-    currentUser.getSession((err, session) => {
-      if (err) {
-        console.error(err);
-      } else {
-        const currentTime = new Date().getTime() / 1000;
-        if (session.isValid() && session.getAccessToken().getExpiration() > currentTime) {
-          console.log("Session is valid and not expired");
-          sessionValid = true;
+    if (currentUser) {
+      currentUser.getSession((err, session) => {
+        if (err) {
+          console.error(err);
         } else {
-          console.log("Session is invalid or expired");
+          const currentTime = new Date().getTime() / 1000;
+          if (session.isValid() && session.getAccessToken().getExpiration() > currentTime) {
+            console.log("Session is valid and not expired");
+            sessionValid = true;
+          } else {
+            console.log("Session is invalid or expired");
+          }
         }
-      }
-    });
+      });
+    }
 
     if (sessionValid) {
       setAuthenticated(true);
