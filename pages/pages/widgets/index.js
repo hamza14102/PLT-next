@@ -50,6 +50,8 @@ import calendarEventsData from "/pagesComponents/pages/widgets/data/calendarEven
 import categoriesListData from "/pagesComponents/pages/widgets/data/categoriesListData";
 import caloriesChartData from "/pagesComponents/pages/widgets/data/caloriesChartData";
 
+import { getFromProducts } from "/apiHelpers/api-wrappers";
+
 function Widgets() {
   const [lights, setLights] = useState(false);
 
@@ -62,7 +64,22 @@ function Widgets() {
         <MDBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} lg={4}>
-              <UpcomingEvents />
+              {/* <UpcomingEvents /> */}
+              {/* button to call api */}
+              <button onClick={async () => {
+                const data = await getFromProducts("10");
+                console.log(data);
+              }}>Call API</button>
+
+              <MDBox mb={3}>
+                <MiniStatisticsCard
+                  title={{ text: "battery health" }}
+                  count="99 %"
+                  icon={{ color: "dark", component: "battery_charging_full" }}
+                  direction="left"
+                />
+              </MDBox>
+
             </Grid>
             <Grid item xs={12} lg={8}>
               <ProgressLineChart
