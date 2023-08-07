@@ -195,6 +195,14 @@ const routes = [
   // },
   {
     type: "collapse",
+    name: "Testing",
+    key: "widgets",
+    route: "/pages/widgets",
+    icon: <Icon fontSize="medium">bug_report</Icon>,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
     name: "Supervisor Search",
     key: "supervisor-search",
     route: "/supervisor-search",
