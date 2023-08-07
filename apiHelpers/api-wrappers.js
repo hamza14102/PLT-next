@@ -9,7 +9,6 @@ export async function getFromProducts(_id) {
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
         },
     });
     const data = await response.json();
