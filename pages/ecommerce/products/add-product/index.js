@@ -126,6 +126,7 @@ function Cover() {
     actions.resetForm({
       values: initialValues
     });
+    setActiveStep(0);
     actions.setSubmitting(false);
   };
 
