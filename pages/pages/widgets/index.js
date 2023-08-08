@@ -50,12 +50,16 @@ import calendarEventsData from "/pagesComponents/pages/widgets/data/calendarEven
 import categoriesListData from "/pagesComponents/pages/widgets/data/categoriesListData";
 import caloriesChartData from "/pagesComponents/pages/widgets/data/caloriesChartData";
 
-import { getFromProductsByID } from "/apiHelpers/api-wrappers";
+import { getFromProductsByID, postToProducts } from "/apiHelpers/api-wrappers";
+import MDInput from "/components/MDInput";
+import MDButton from "/components/MDButton";
 
 function Widgets() {
   const [lights, setLights] = useState(false);
 
   const handleSetLights = () => setLights(!lights);
+
+  const [productID, setProductID] = useState("");
 
   return (
     <DashboardLayout>
@@ -66,30 +70,59 @@ function Widgets() {
             <Grid item xs={12} sm={6} lg={4}>
               {/* <UpcomingEvents /> */}
               {/* button to call api */}
-              <button onClick={async () => {
-                const product = await getFromProductsByID("10");
-                alert(product);
-              }}>Call API</button>
+              {/* input field for product _id*/}
+              <MDInput
+                label="Product ID"
+                variant="outlined"
+                size="small"
+                fullWidth
+                mb={3}
+                value={productID}
+                onChange={(e) => setProductID(e.target.value)}
+              />
+              <MDButton onClick={async () => {
+                if (productID === "") {
+                  return;
+                }
+                const product = await getFromProductsByID(productID);
+                console.log(product);
+              }}>Call API</MDButton>
 
-              <MDBox mb={3}>
+              {/* <MDBox mb={3}>
                 <MiniStatisticsCard
                   title={{ text: "battery health" }}
                   count="99 %"
                   icon={{ color: "dark", component: "battery_charging_full" }}
                   direction="left"
                 />
-              </MDBox>
+              </MDBox> */}
 
             </Grid>
             <Grid item xs={12} lg={8}>
-              <ProgressLineChart
+              {/* <ProgressLineChart
                 icon="date_range"
                 title="Tasks"
                 count={480}
                 progress={60}
                 height="13.375rem"
                 chart={progressLineChartData}
+              /> */}
+              <MDInput
+                label="Product ID"
+                variant="outlined"
+                size="small"
+                fullWidth
+                mb={3}
+                value={productID}
+                onChange={(e) => setProductID(e.target.value)}
               />
+              <MDButton onClick={async () => {
+                if (productID === "") {
+                  return;
+                }
+                const product = await postToProducts({ "_id": productID, "name": "test" });
+                console.log(product);
+              }}>Call API</MDButton>
             </Grid>
           </Grid>
         </MDBox>
