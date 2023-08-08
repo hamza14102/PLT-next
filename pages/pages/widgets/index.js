@@ -50,7 +50,7 @@ import calendarEventsData from "/pagesComponents/pages/widgets/data/calendarEven
 import categoriesListData from "/pagesComponents/pages/widgets/data/categoriesListData";
 import caloriesChartData from "/pagesComponents/pages/widgets/data/caloriesChartData";
 
-import { getFromProductsByID, postToProducts } from "/apiHelpers/api-wrappers";
+import { getFromProductsByID, postToProducts, deleteFromProductsByID } from "/apiHelpers/api-wrappers";
 import MDInput from "/components/MDInput";
 import MDButton from "/components/MDButton";
 
@@ -86,7 +86,24 @@ function Widgets() {
                 }
                 const product = await getFromProductsByID(productID);
                 console.log(product);
-              }}>Call API</MDButton>
+              }}>GET API</MDButton>
+
+              <MDInput
+                label="Product ID"
+                variant="outlined"
+                size="small"
+                fullWidth
+                mb={3}
+                value={productID}
+                onChange={(e) => setProductID(e.target.value)}
+              />
+              <MDButton onClick={async () => {
+                if (productID === "") {
+                  return;
+                }
+                const product = await deleteFromProductsByID(productID);
+                console.log(product);
+              }}>DELETE API</MDButton>
 
               {/* <MDBox mb={3}>
                 <MiniStatisticsCard
@@ -122,24 +139,8 @@ function Widgets() {
                 }
                 const product = await postToProducts({ "_id": productID, "name": "test" });
                 console.log(product);
-              }}>Call API</MDButton>
+              }}>POST API</MDButton>
             </Grid>
-            <MDInput
-              label="Product ID"
-              variant="outlined"
-              size="small"
-              fullWidth
-              mb={3}
-              value={productID}
-              onChange={(e) => setProductID(e.target.value)}
-            />
-            <MDButton onClick={async () => {
-              if (productID === "") {
-                return;
-              }
-              const product = await postToProducts({ "_id": productID, "name": "test" });
-              console.log(product);
-            }}>Call API</MDButton>
           </Grid>
         </MDBox>
         <MDBox mb={3}>
