@@ -50,7 +50,7 @@ import calendarEventsData from "/pagesComponents/pages/widgets/data/calendarEven
 import categoriesListData from "/pagesComponents/pages/widgets/data/categoriesListData";
 import caloriesChartData from "/pagesComponents/pages/widgets/data/caloriesChartData";
 
-import { getFromProductsByID, postToProducts, deleteFromProductsByID } from "/apiHelpers/api-wrappers";
+import { getFromProductsByID, postToProducts, deleteFromProductsByID, putToProductsByID } from "/apiHelpers/api-wrappers";
 import MDInput from "/components/MDInput";
 import MDButton from "/components/MDButton";
 
@@ -67,7 +67,7 @@ function Widgets() {
       <MDBox my={3}>
         <MDBox mb={3}>
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={6} lg={4}>
+            <Grid item xs={12} sm={6} lg={6}>
               {/* <UpcomingEvents /> */}
               {/* button to call api */}
               {/* input field for product _id*/}
@@ -115,7 +115,7 @@ function Widgets() {
               </MDBox> */}
 
             </Grid>
-            <Grid item xs={12} lg={8}>
+            <Grid item xs={12} lg={6}>
               {/* <ProgressLineChart
                 icon="date_range"
                 title="Tasks"
@@ -140,6 +140,23 @@ function Widgets() {
                 const product = await postToProducts({ "_id": productID, "name": "test" });
                 console.log(product);
               }}>POST API</MDButton>
+
+              <MDInput
+                label="Product ID"
+                variant="outlined"
+                size="small"
+                fullWidth
+                mb={3}
+                value={productID}
+                onChange={(e) => setProductID(e.target.value)}
+              />
+              <MDButton onClick={async () => {
+                if (productID === "") {
+                  return;
+                }
+                const product = await putToProductsByID(productID, { "_id": productID, "product_name": "test", "product_description": "test_description", "product_price": 100, "product_quantity": 100 });
+                console.log(product);
+              }}>PUT API</MDButton>
             </Grid>
           </Grid>
         </MDBox>
