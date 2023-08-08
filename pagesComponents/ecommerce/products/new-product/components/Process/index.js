@@ -31,7 +31,7 @@ function Process({ formData }) {
   const [processes, setProcesses] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [numProcesses, setNumProcesses] = useState([0]);
-  const [numDepartments, setNumDepartments] = useState(1);
+  const [numDepartments, setNumDepartments] = useState(0);
 
   const { formField, values, errors, touched } = formData;
   const { password } =
@@ -131,7 +131,7 @@ function Process({ formData }) {
               onChange={(e) => {
                 // ensure numDepartments is positive and less than 10
 
-                const newNumDepartments = Math.min(Math.max(parseInt(e.target.value), 1), 6);
+                const newNumDepartments = Math.min(Math.max(parseInt(e.target.value), 0), 6);
                 setNumDepartments(newNumDepartments);
                 setDepartments((prevState) => {
                   const newDepartments = [...prevState];

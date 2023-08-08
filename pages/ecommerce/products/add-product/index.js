@@ -167,7 +167,7 @@ function Cover() {
           <Grid item xs={12} lg={8}>
             <Formik
               initialValues={initialValues}
-              // validationSchema={currentValidation}
+              validationSchema={currentValidation}
               onSubmit={handleSubmit}
             >
               {({ values, errors, touched, isSubmitting }) => (

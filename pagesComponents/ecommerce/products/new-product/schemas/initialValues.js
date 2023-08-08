@@ -39,7 +39,8 @@ const initialValues = {
   [firstName.name]: "",
   [lastName.name]: "",
   [department.name]: "",
-  [email.name]: "",
+  // get today's date in MM/DD/YYYY format
+  [email.name]: new Date().toLocaleDateString("en-US"),
   [password.name]: "",
   [repeatPassword.name]: "",
   [address1.name]: "",

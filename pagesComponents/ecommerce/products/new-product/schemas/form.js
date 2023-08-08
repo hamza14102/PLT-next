@@ -39,7 +39,7 @@ const form = {
       label: "Ship by Date",
       type: "date",
       errorMsg: "Ship by Date is required.",
-      invalidMsg: "Your Ship by Date cannot be in the past",
+      invalidMsg: "Your Ship by Date has to be in the future",
     },
     password: {
       name: "password",
