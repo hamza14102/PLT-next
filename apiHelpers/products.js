@@ -68,12 +68,13 @@ export async function putToProductsByID(_id, product) {
             "Key": {
                 "_id": _id,
             },
-            "UpdateExpression": "set product_name = :n, product_description = :d, product_price = :p, product_quantity = :q",
+            "UpdateExpression": "set product_name = :n, product_description = :d, product_price = :p, product_quantity = :q, user_ids = :u",
             "ExpressionAttributeValues": {
                 ":n": product.product_name,
                 ":d": product.product_description,
                 ":p": product.product_price,
                 ":q": product.product_quantity,
+                ":u": product.user_ids,
             },
             "ReturnValues": "UPDATED_NEW"
         }),
