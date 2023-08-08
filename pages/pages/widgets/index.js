@@ -124,6 +124,22 @@ function Widgets() {
                 console.log(product);
               }}>Call API</MDButton>
             </Grid>
+            <MDInput
+              label="Product ID"
+              variant="outlined"
+              size="small"
+              fullWidth
+              mb={3}
+              value={productID}
+              onChange={(e) => setProductID(e.target.value)}
+            />
+            <MDButton onClick={async () => {
+              if (productID === "") {
+                return;
+              }
+              const product = await postToProducts({ "_id": productID, "name": "test" });
+              console.log(product);
+            }}>Call API</MDButton>
           </Grid>
         </MDBox>
         <MDBox mb={3}>

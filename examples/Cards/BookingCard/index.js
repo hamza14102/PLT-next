@@ -112,9 +112,14 @@ function BookingCard({ image, title, description, price, location, action }) {
         px={3}
         lineHeight={1}
       >
-        <MDTypography variant="body2" fontWeight="regular" color="text">
-          {price}
-        </MDTypography>
+        {/* if price then display price */}
+        {
+          price && (
+            <MDTypography variant="body2" fontWeight="regular" color="text">
+              {price}
+            </MDTypography>
+          )
+        }
         <MDBox color="text" display="flex" alignItems="center">
           <Icon color="inherit" sx={{ m: 0.5 }}>
             place
@@ -138,7 +143,7 @@ BookingCard.propTypes = {
   image: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.string,
   location: PropTypes.node.isRequired,
   action: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
 };
