@@ -53,6 +53,7 @@ import caloriesChartData from "/pagesComponents/pages/widgets/data/caloriesChart
 import { getFromProductsByID, postToProducts, deleteFromProductsByID, putToProductsByID } from "/apiHelpers/products";
 import MDInput from "/components/MDInput";
 import MDButton from "/components/MDButton";
+import MDSnackbar from "/components/MDSnackbar";
 
 function Widgets() {
   const [lights, setLights] = useState(false);
@@ -60,10 +61,25 @@ function Widgets() {
   const handleSetLights = () => setLights(!lights);
 
   const [productID, setProductID] = useState("");
+  const [show, setShow] = useState(true);
+
+  const toggleSnackbar = () => {
+    setShow(!show);
+  };
+
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <MDSnackbar
+        color="success"
+        icon="notifications"
+        title="Notification"
+        content="Successfully made changes to inventory!"
+        dateTime="now"
+        open={show}
+        close={toggleSnackbar}
+      />
       <MDBox my={3}>
         <MDBox mb={3}>
           <Grid container spacing={3}>
