@@ -2,7 +2,6 @@ export async function getFromProductsByID(_id) {
     const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
     const params = new URLSearchParams({
         TableName: 'Products',
-        search_by: '_id',
         _id: _id,
     });
     const response = await fetch(`${url}?${params}`, {
@@ -92,7 +91,6 @@ export async function getFromProductsByAssignedUser(user_id) {
     const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
     const params = new URLSearchParams({
         TableName: 'Products',
-        search_by: 'user_id',
         user_id: user_id,
     });
     const response = await fetch(`${url}?${params}`, {
@@ -108,22 +106,22 @@ export async function getFromProductsByAssignedUser(user_id) {
     return new_data;
 }
 
-export async function getFromProductsBySpecifiedAttribute(attribute, value) {
-    const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
-    const params = new URLSearchParams({
-        TableName: 'Products',
-        search_by: attribute,
-        attribute: value,
-    });
-    const response = await fetch(`${url}?${params}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-        },
-    });
-    const data = await response.json();
-    // check status code and return accordingly
-    const new_data = data['Items'];
-    return new_data;
-}
+// export async function getFromProductsBySpecifiedAttribute(attribute, value) {
+//     const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
+//     const params = new URLSearchParams({
+//         TableName: 'Products',
+//         search_by: attribute,
+//         attribute: value,
+//     });
+//     const response = await fetch(`${url}?${params}`, {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Access-Control-Allow-Origin': '*',
+//         },
+//     });
+//     const data = await response.json();
+//     // check status code and return accordingly
+//     const new_data = data['Items'];
+//     return new_data;
+// }
