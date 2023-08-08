@@ -220,7 +220,7 @@ const routes = [
   {
     type: "collapse",
     name: "Schedule",
-    key: "tasks",
+    key: "calendar",
     route: "/applications/calendar",
     icon: <Icon fontSize="medium">calendar_month</Icon>,
     noCollapse: true,
