@@ -64,6 +64,8 @@ import initialValues from "/pagesComponents/ecommerce/products/new-product/schem
 import MDSnackbar from "/components/MDSnackbar";
 import { CircularProgress } from "@mui/material";
 
+import { postToProducts } from "/apiHelpers/products";
+
 
 function getSteps() {
   // return ["Product Info", "Media", "Process", "Pricing"];
@@ -111,17 +113,15 @@ function Cover() {
   const handleBack = () => setActiveStep(activeStep - 1);
 
   const submitForm = async (values, actions) => {
-    // try {
-    //   await auth.signUp(values.email, values.firstName + " " + values.lastName, values.password);
-    //   router.push('/');
-    // } catch (err) {
-    //   setErrors(err.message);
-    //   toggleSnackbar();
-    // }
 
     await sleep(1000);
     alert(JSON.stringify(values, null, 2));
 
+    const product_post_response = await postToProducts({
+      "_id": values.firstName, "SKU": values.lastName, "Buyer": values.department, "Ship By Date": values.email, "Processes": values.password,
+      //  "quantity": values.repeatPassword, "image": values.address1, "processes": values.address2, "tags": values.city, "category": values.zip, "rating": values.twitter, "reviews": values.facebook, "date": values.instagram, "status": values.publicEmail, "featured": values.bio 
+    });
+    console.log(product_post_response);
     actions.setSubmitting(false);
   };
 
