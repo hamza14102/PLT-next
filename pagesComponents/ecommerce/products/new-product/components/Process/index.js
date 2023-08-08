@@ -129,7 +129,7 @@ function Process({ formData }) {
               label="Number of Departments"
               value={numDepartments}
               onChange={(e) => {
-                // ensure numDepartments is positive and less than 10
+                // ensure numDepartments is positive and less than 6
 
                 const newNumDepartments = Math.min(Math.max(parseInt(e.target.value), 0), 6);
                 setNumDepartments(newNumDepartments);
