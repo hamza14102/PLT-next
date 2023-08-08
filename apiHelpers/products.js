@@ -1,5 +1,3 @@
-import { func } from "prop-types";
-
 export async function getFromProductsByID(_id) {
     const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
     const params = new URLSearchParams({

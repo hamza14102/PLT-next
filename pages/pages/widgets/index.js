@@ -50,7 +50,7 @@ import calendarEventsData from "/pagesComponents/pages/widgets/data/calendarEven
 import categoriesListData from "/pagesComponents/pages/widgets/data/categoriesListData";
 import caloriesChartData from "/pagesComponents/pages/widgets/data/caloriesChartData";
 
-import { getFromProductsByID, postToProducts, deleteFromProductsByID, putToProductsByID } from "/apiHelpers/api-wrappers";
+import { getFromProductsByID, postToProducts, deleteFromProductsByID, putToProductsByID } from "/apiHelpers/products";
 import MDInput from "/components/MDInput";
 import MDButton from "/components/MDButton";
 
