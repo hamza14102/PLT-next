@@ -122,6 +122,10 @@ function Cover() {
       //  "quantity": values.repeatPassword, "image": values.address1, "processes": values.address2, "tags": values.city, "category": values.zip, "rating": values.twitter, "reviews": values.facebook, "date": values.instagram, "status": values.publicEmail, "featured": values.bio 
     });
     console.log(product_post_response);
+    // reset the form upon submission to initial values
+    actions.resetForm({
+      values: initialValues
+    });
     actions.setSubmitting(false);
   };
 
