@@ -50,7 +50,7 @@ import calendarEventsData from "/pagesComponents/pages/widgets/data/calendarEven
 import categoriesListData from "/pagesComponents/pages/widgets/data/categoriesListData";
 import caloriesChartData from "/pagesComponents/pages/widgets/data/caloriesChartData";
 
-import { getFromProducts } from "/apiHelpers/api-wrappers";
+import { getFromProductsByID } from "/apiHelpers/api-wrappers";
 
 function Widgets() {
   const [lights, setLights] = useState(false);
@@ -67,8 +67,8 @@ function Widgets() {
               {/* <UpcomingEvents /> */}
               {/* button to call api */}
               <button onClick={async () => {
-                const data = await getFromProducts("10");
-                console.log(data);
+                const product = await getFromProductsByID("10");
+                alert(product);
               }}>Call API</button>
 
               <MDBox mb={3}>

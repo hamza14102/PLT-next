@@ -1,4 +1,4 @@
-export async function getFromProducts(_id) {
+export async function getFromProductsByID(_id) {
     const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
     const params = new URLSearchParams({
         TableName: 'Products',
@@ -12,5 +12,7 @@ export async function getFromProducts(_id) {
         },
     });
     const data = await response.json();
-    return data;
+    // change object to json
+    const new_data = data['Items'];
+    return new_data;
 }
