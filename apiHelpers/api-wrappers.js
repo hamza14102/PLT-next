@@ -14,7 +14,7 @@ export async function getFromProductsByID(_id) {
         },
     });
     const data = await response.json();
-    // change object to json
+    // check status code and return accordingly
     const new_data = data['Items'];
     return new_data;
 }
@@ -33,6 +33,7 @@ export async function postToProducts(product) {
         },
     });
     const data = await response.json();
+    // check status code and return accordingly
     return data;
 }
 
@@ -54,5 +55,6 @@ export async function deleteFromProductsByID(_id) {
         },
     });
     const data = await response.json();
+    // check status code and return accordingly
     return data;
 }
