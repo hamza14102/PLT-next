@@ -51,6 +51,7 @@ import categoriesListData from "/pagesComponents/pages/widgets/data/categoriesLi
 import caloriesChartData from "/pagesComponents/pages/widgets/data/caloriesChartData";
 
 import { getFromProductsByID, postToProducts, deleteFromProductsByID, putToProductsByID, getFromProductsByAssignedUser, getFromProductsByAssignedUserAndSpecifiedAttribute } from "/apiHelpers/products";
+import { getAttributeFromUsers } from "/apiHelpers/users";
 import MDInput from "/components/MDInput";
 import MDButton from "/components/MDButton";
 import MDSnackbar from "/components/MDSnackbar";
@@ -137,6 +138,23 @@ function Widgets() {
                 const product = await getFromProductsByAssignedUser(productID);
                 console.log(product);
               }}>USER API</MDButton>
+
+              <MDInput
+                label="Product ID"
+                variant="outlined"
+                size="small"
+                fullWidth
+                mb={3}
+                value={productID}
+                onChange={(e) => setProductID(e.target.value)}
+              />
+              <MDButton onClick={async () => {
+                if (productID === "") {
+                  return;
+                }
+                const product = await getAttributeFromUsers(['sub', 'email']);
+                console.log(product);
+              }}>GET ATTR USER</MDButton>
 
               {/* <MDBox mb={3}>
                 <MiniStatisticsCard
