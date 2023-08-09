@@ -107,6 +107,27 @@ export async function getFromProductsByAssignedUser(user_id) {
     return new_data;
 }
 
+export async function getFromProductsByAssignedUserAndSpecifiedAttribute(user_id, attribute, value) {
+    const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
+    const params = new URLSearchParams({
+        TableName: 'Products',
+        user_id: user_id,
+        search_by: attribute,
+        value: value,
+    });
+    const response = await fetch(`${url}?${params}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
+    });
+    const data = await response.json();
+    // check status code and return accordingly
+    const new_data = data['Items'];
+    return new_data;
+}
+
 // export async function getFromProductsBySpecifiedAttribute(attribute, value) {
 //     const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
 //     const params = new URLSearchParams({

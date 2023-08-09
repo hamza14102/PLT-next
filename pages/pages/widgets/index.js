@@ -50,7 +50,7 @@ import calendarEventsData from "/pagesComponents/pages/widgets/data/calendarEven
 import categoriesListData from "/pagesComponents/pages/widgets/data/categoriesListData";
 import caloriesChartData from "/pagesComponents/pages/widgets/data/caloriesChartData";
 
-import { getFromProductsByID, postToProducts, deleteFromProductsByID, putToProductsByID, getFromProductsByAssignedUser } from "/apiHelpers/products";
+import { getFromProductsByID, postToProducts, deleteFromProductsByID, putToProductsByID, getFromProductsByAssignedUser, getFromProductsByAssignedUserAndSpecifiedAttribute } from "/apiHelpers/products";
 import MDInput from "/components/MDInput";
 import MDButton from "/components/MDButton";
 import MDSnackbar from "/components/MDSnackbar";
@@ -190,6 +190,23 @@ function Widgets() {
                 const product = await putToProductsByID(productID, { "_id": productID, "product_name": "test", "product_description": "test_description", "product_price": 100, "product_quantity": 100, "user_ids": ["test_user_id"] });
                 console.log(product);
               }}>PUT API</MDButton>
+
+              <MDInput
+                label="Product ID"
+                variant="outlined"
+                size="small"
+                fullWidth
+                mb={3}
+                value={productID}
+                onChange={(e) => setProductID(e.target.value)}
+              />
+              <MDButton onClick={async () => {
+                if (productID === "") {
+                  return;
+                }
+                const product = await getFromProductsByAssignedUserAndSpecifiedAttribute("test_user_id", "product_name", productID);
+                console.log(product);
+              }}>SEARCH ATTR API</MDButton>
             </Grid>
           </Grid>
         </MDBox>
