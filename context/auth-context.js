@@ -294,6 +294,25 @@ export const AuthProvider = (props) => {
     });
   };
 
+  const confirmSignUp = async (email, code) => {
+    const userData = {
+      Username: email,
+      Pool: userPool
+    };
+
+    const cognitoUser = new CognitoUser(userData);
+
+    return new Promise((resolve, reject) => {
+      cognitoUser.confirmRegistration(code, true, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -301,7 +320,8 @@ export const AuthProvider = (props) => {
         // skip,
         signIn,
         signUp,
-        signOut
+        signOut,
+        confirmSignUp
       }}
     >
       {children}

@@ -42,8 +42,7 @@ const validations = [
       .min(8, password.invalidMsg),
     [password.name]: Yup.string()
       .required(password.errorMsg)
-      .min(8, password.invalidMsg)
-      .matches(/^(?=.*[0-9])(?=.*[!@#$%.^&*])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]/, password.invalidMsg),
+      .min(6, password.invalidMsg),
     [repeatPassword.name]: Yup.string()
       .required(repeatPassword.errorMsg)
       .oneOf([Yup.ref("password"), null], repeatPassword.invalidMsg),

@@ -46,7 +46,7 @@ const form = {
       label: "Password",
       type: "password",
       errorMsg: "Password is required.",
-      invalidMsg: "Your password should be more than 8 characters, with at least 1 upper case, and 1 number, and one special character.",
+      invalidMsg: "Your password should be more than 6 characters.",
     },
     repeatPassword: {
       name: "repeatPassword",

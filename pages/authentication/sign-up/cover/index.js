@@ -113,6 +113,28 @@ function Cover() {
   const submitForm = async (values, actions) => {
     try {
       await auth.signUp(values.email, values.firstName + " " + values.lastName, values.password);
+      // keep asking for confirmation code until it is confirmed
+      let confirmed = false;
+      while (!confirmed) {
+        const code = prompt("Enter confirmation code");
+        // if clicked on cancel then stop asking for confirmation code and delete user
+        if (!code) {
+          break;
+        }
+        if (code) {
+          try {
+            const ret = await auth.confirmSignUp(values.email, code);
+            console.log(ret);
+            if (ret == "SUCCESS") {
+              confirmed = true;
+            }
+          } catch (err) {
+            setErrors(err.message);
+            toggleSnackbar();
+          }
+        }
+      }
+
       router.push('/');
     } catch (err) {
       setErrors(err.message);
