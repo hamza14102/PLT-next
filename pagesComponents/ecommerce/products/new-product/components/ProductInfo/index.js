@@ -34,13 +34,14 @@ function ProductInfo({ formData }) {
   );
   // !!! Rename variables to match your schema
   const { formField, values, errors, touched } = formData;
-  const { firstName, lastName, department, email } =
+  const { firstName, lastName, department, email, address1 } =
     formField;
   const {
     firstName: firstNameV,
     lastName: lastNameV,
     department: departmentV,
     email: emailV,
+    address1: address1V,
   } = values;
 
   return (
@@ -75,20 +76,15 @@ function ProductInfo({ formData }) {
       <MDBox mt={2}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <MDBox mb={1} ml={0.5} lineHeight={0} display="inline-block">
-              <MDTypography
-                component="label"
-                variant="button"
-                fontWeight="regular"
-                color="text"
-              >
-                Description&nbsp;&nbsp;
-                <MDTypography variant="caption" color="text">
-                  (optional)
-                </MDTypography>
-              </MDTypography>
-            </MDBox>
-            <MDEditor value={editorValue} onChange={setEditorValue} />
+            <FormField
+              type={address1.type}
+              label={address1.label}
+              name={address1.name}
+              value={address1V}
+              placeholder={address1.placeholder}
+              error={errors.address1 && touched.address1}
+              success={address1V.length > 0 && !errors.address1}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
             <MDBox mb={3}>

@@ -57,9 +57,9 @@ const form = {
     },
     address1: {
       name: "address1",
-      label: "Address 1",
-      type: "text",
-      errorMsg: "Address is required.",
+      label: "Order Quantity",
+      type: "number",
+      errorMsg: "Order Quantity is required.",
     },
     address2: {
       name: "address2",
