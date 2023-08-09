@@ -243,10 +243,10 @@ const pageRoutes = [
             name: "edit product",
             route: "/ecommerce/products/edit-product",
           },
-          {
-            name: "product page",
-            route: "/ecommerce/products/product-page",
-          },
+          // {
+          //   name: "product page",
+          //   route: "/ecommerce/products/product-page",
+          // },
         ],
       },
     ],

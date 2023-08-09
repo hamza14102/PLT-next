@@ -274,11 +274,11 @@ const routes = [
         key: "edit-product",
         route: "/ecommerce/products/edit-product",
       },
-      {
-        name: "Product Page",
-        key: "product-page",
-        route: "/ecommerce/products/product-page",
-      },
+      // {
+      //   name: "Product Page",
+      //   key: "product-page",
+      //   route: "/ecommerce/products/product-page",
+      // },
     ],
   },
   // {
