@@ -42,9 +42,44 @@ import reportsLineChartData from "/pagesComponents/dashboards/analytics/data/rep
 import product1 from "/assets/images/Luggage Rack.jpg";
 import product2 from "/assets/images/3 hook.jpg";
 import product3 from "/assets/images/Door Stopper.jpg";
+import { useEffect, useState } from "react";
+import { useAuth } from "hooks/use-auth";
+import { getFromProductsByAssignedUser } from "apiHelpers/products";
 
 function Analytics() {
   const { sales, tasks } = reportsLineChartData;
+
+  const [products, setProducts] = useState([]);
+  const auth = useAuth();
+  const getCurrentUserID = () => {
+    if (!auth.isLoading && auth.user) {
+      return auth.user.find((attr) => attr.Name === "name").Value;
+    }
+    return [];
+  };
+
+  useEffect(() => {
+    const userID = getCurrentUserID();
+    console.log(userID);
+    getFromProductsByAssignedUser(userID).then((res) => {
+      console.log(res);
+      // change variable names to match your schema
+      res = res.map((product) => {
+        return {
+          name: product._id,
+          quantity: product.Quantity,
+          // total: product.price * product.quantity,
+          'Shipment Date': product['Ship By Date'],
+          Buyer: product.Buyer,
+          Rejection: product.Rejection ? product.Rejection : "0%",
+          // status: product.status,
+          // createdAt: product.createdAt,
+        };
+      });
+
+      setProducts(res);
+    });
+  }, []);
 
   // Action buttons for the BookingCard
   const actionButtons = (
