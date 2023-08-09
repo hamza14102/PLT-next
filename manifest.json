@@ -2,7 +2,7 @@
   "name": "Production AI",
   "short_name": "PLT",
   "description": "Production AI | Marque Impex",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
