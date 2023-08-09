@@ -71,10 +71,6 @@ function ProductInfo({ formData }) {
               success={lastNameV.length > 0 && !errors.lastName}
             />
           </Grid>
-        </Grid>
-      </MDBox>
-      <MDBox mt={2}>
-        <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <FormField
               type={address1.type}
@@ -87,65 +83,18 @@ function ProductInfo({ formData }) {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <MDBox mb={3}>
-              {/* <MDBox mb={2} display="inline-block">
-                <MDTypography
-                  component="label"
-                  variant="button"
-                  fontWeight="regular"
-                  color="text"
-                  textTransform="capitalize"
-                >
-                  Category
-                </MDTypography>
-              </MDBox> */}
-              <FormField
-                type={department.type}
-                label={department.label}
-                name={department.name}
-                value={departmentV}
-                placeholder={department.placeholder}
-                error={errors.department && touched.department}
-                success={departmentV.length > 0 && !errors.department}
-              />
-              {/* <Autocomplete
-                defaultValue="Clothing"
-                options={[
-                  "Clothing",
-                  "Electronics",
-                  "Furniture",
-                  "Others",
-                  "Real Estate",
-                ]}
-                renderInput={(params) => (
-                  <MDInput {...params} variant="standard" />
-                )}
-              /> */}
-            </MDBox>
-            {/* <MDBox mb={2} display="inline-block">
-              <MDTypography
-                component="label"
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                textTransform="capitalize"
-              >
-                Size
-              </MDTypography>
-            </MDBox> */}
-            {/* <Autocomplete
-              defaultValue="Medium"
-              options={[
-                "Extra Large",
-                "Extra Small",
-                "Large",
-                "Medium",
-                "Small",
-              ]}
-              renderInput={(params) => (
-                <MDInput {...params} variant="standard" />
-              )}
-            /> */}
+            <FormField
+              type={department.type}
+              label={department.label}
+              name={department.name}
+              value={departmentV}
+              placeholder={department.placeholder}
+              error={errors.department && touched.department}
+              success={departmentV.length > 0 && !errors.department}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
             <FormField
               type={email.type}
               label={email.label}
