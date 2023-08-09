@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -30,11 +30,47 @@ import SalesTable from "/examples/Tables/SalesTable";
 // Data
 import salesTableData from "/pagesComponents/dashboards/analytics/components/SalesByCountry/data/salesTableData";
 
+import { getFromProductsByAssignedUser } from "apiHelpers/products";
+import { useAuth } from "hooks/use-auth";
+
 function SalesByCountry() {
+  const [products, setProducts] = useState([]);
+  const auth = useAuth();
+  const getCurrentUserID = () => {
+    if (!auth.isLoading && auth.user) {
+      return auth.user.find((attr) => attr.Name === "name").Value;
+    }
+    return [];
+  };
+
   useEffect(() => {
     const mapContainer = document.getElementById("map");
     const jsVectorMap = require("jsvectormap");
     require("jsvectormap/dist/maps/world-merc.js");
+
+
+    const userID = getCurrentUserID();
+    console.log(userID);
+    getFromProductsByAssignedUser(userID).then((res) => {
+      console.log(res);
+      // change variable names to match your schema
+      res = res.map((product) => {
+        return {
+          name: product._id,
+          quantity: product.Quantity,
+          // total: product.price * product.quantity,
+          'Shipment Date': product['Ship By Date'],
+          Buyer: product.Buyer,
+          // status: product.status,
+          // createdAt: product.createdAt,
+        };
+      });
+
+      setProducts(res);
+    });
+    // console.log(prod);
+
+    // console.log(prod);
 
     const createMap = () =>
       new jsVectorMap({
@@ -112,7 +148,7 @@ function SalesByCountry() {
       <MDBox p={2}>
         <Grid container>
           <Grid item xs={12} md={7} lg={6}>
-            <SalesTable rows={salesTableData} shadow={false} />
+            <SalesTable rows={products} shadow={false} />
           </Grid>
           <Grid item xs={12} md={5} lg={6} sx={{ mt: { xs: 5, lg: 0 } }}>
             <MDBox id="map" width="100%" height="100%" mt={-3} />
