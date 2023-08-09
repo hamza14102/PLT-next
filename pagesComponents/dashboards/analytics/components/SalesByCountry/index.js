@@ -61,6 +61,7 @@ function SalesByCountry() {
           // total: product.price * product.quantity,
           'Shipment Date': product['Ship By Date'],
           Buyer: product.Buyer,
+          Rejection: product.Rejection ? product.Rejection : "0%",
           // status: product.status,
           // createdAt: product.createdAt,
         };
