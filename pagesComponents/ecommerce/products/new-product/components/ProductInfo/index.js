@@ -27,6 +27,8 @@ import MDInput from "/components/MDInput";
 
 // NewProduct page components
 import FormField from "/pagesComponents/ecommerce/products/new-product/components/FormField";
+import MDButton from "/components/MDButton";
+import { useAuth } from "hooks/use-auth";
 
 function ProductInfo({ formData }) {
   const [editorValue, setEditorValue] = useState(
@@ -34,7 +36,7 @@ function ProductInfo({ formData }) {
   );
   // !!! Rename variables to match your schema
   const { formField, values, errors, touched } = formData;
-  const { firstName, lastName, department, email, address1 } =
+  const { firstName, lastName, department, email, address1, address2 } =
     formField;
   const {
     firstName: firstNameV,
@@ -42,7 +44,26 @@ function ProductInfo({ formData }) {
     department: departmentV,
     email: emailV,
     address1: address1V,
+    address2: address2V,
   } = values;
+
+  // get current user sub from auth hook
+  const { isLoading, user } = useAuth();
+
+  const getCurrentUser = () => {
+    if (!isLoading && user) {
+      return [user.find((attr) => attr.Name === "name").Value];
+    }
+    return [];
+  };
+
+  const [assignedUsers, setAssignedUsers] = useState([]);
+
+  const handleChange = (value) => {
+    setAssignedUsers(value);
+    values.address2 = value;
+  };
+
 
   return (
     <MDBox>
@@ -103,6 +124,25 @@ function ProductInfo({ formData }) {
               placeholder={email.placeholder}
               error={errors.email && touched.email}
               success={emailV.length > 0 && !errors.email}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <Autocomplete
+              multiple
+              id="tags-standard"
+              options={['User 1', 'User 2', 'User 3', ...getCurrentUser()]}
+              getOptionLabel={(option) => option}
+              defaultValue={[]}
+              onChange={(event, value) => handleChange(value)}
+              renderInput={(params) => (
+                <MDInput
+                  {...params}
+                  variant="standard"
+                  label="Assign Users"
+                // placeholder="Users"
+                />
+              )}
             />
           </Grid>
         </Grid>

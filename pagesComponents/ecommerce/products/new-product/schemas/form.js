@@ -64,7 +64,8 @@ const form = {
     address2: {
       name: "address2",
       label: "Address 2",
-      type: "text",
+      type: "array",
+      errorMsg: "At least one User is required.",
     },
     city: {
       name: "city",

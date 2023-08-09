@@ -44,7 +44,7 @@ const initialValues = {
   [password.name]: [],
   [repeatPassword.name]: "",
   [address1.name]: "",
-  [address2.name]: "",
+  [address2.name]: [],
   [city.name]: "",
   [zip.name]: "",
   [twitter.name]: "",
