@@ -219,6 +219,14 @@ export const AuthProvider = (props) => {
           const payload = accessToken.split('.')[1];
           const decodedPayload = JSON.parse(atob(payload));
 
+          // Set the session timeout to the expiration time of the token
+          const timeout = decodedPayload.exp * 1000 - new Date().getTime();
+          timeoutIdRef.current = setTimeout(() => {
+            signOut();
+            window.location.reload();
+          }, timeout);
+
+
           // Get the user attributes
           cognitoUser.getUserAttributes((err, attributes) => {
             if (err) {
