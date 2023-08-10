@@ -46,6 +46,7 @@ function EditProduct() {
   const [productName, setProductName] = useState("");
   const [department, setDepartment] = useState("");
   const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState({});
 
   const [open, setOpen] = useState(false);
   const loading = open && products.length === 0;
@@ -59,7 +60,7 @@ function EditProduct() {
       return undefined;
     }
 
-    fetch('https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/?_id=H&TableName=Products')
+    fetch('https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/?TableName=Products')
       .then(response => response.json())
       .then(data => {
         setProducts(data['Items'])
@@ -109,6 +110,7 @@ function EditProduct() {
                   // value={productName}
                   onChange={(event, newValue) => {
                     setProductName(newValue);
+                    setSelectedProduct(products.filter((product) => product._id === newValue)[0]);
                   }
                   }
                   disablePortal
@@ -152,7 +154,7 @@ function EditProduct() {
             <ProductImage />
           </Grid>
           <Grid item xs={12} lg={8}>
-            <ProductInfo name={productName} />
+            <ProductInfo product={selectedProduct} />
           </Grid>
           <Grid item xs={12} lg={4}>
             {/* <Socials /> */}

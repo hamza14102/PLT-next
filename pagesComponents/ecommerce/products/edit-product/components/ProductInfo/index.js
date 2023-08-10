@@ -32,8 +32,13 @@ import MDDatePicker from "/components/MDDatePicker";
 import { Icon, IconButton } from "@mui/material";
 import MDSnackbar from "/components/MDSnackbar";
 
-function ProductInfo({ name }) {
+function ProductInfo({ product }) {
   const [productName, setProductName] = useState("");
+  const [SKU, setSKU] = useState("");
+  const [Buyer, setBuyer] = useState("");
+  const [Quantity, setQuantity] = useState("");
+  const [Description, setDescription] = useState("");
+
   const [show, setShow] = useState(false);
 
   const toggleSnackbar = () => {
@@ -41,15 +46,13 @@ function ProductInfo({ name }) {
   };
 
 
-  const [editorValue, setEditorValue] = useState(
-    `<p>
-      Long sleeves black denim jacket with a twisted design. Contrast stitching. Button up closure. White arrow prints on the back.
-    </p>`,
-  );
-
   useEffect(() => {
-    setProductName(name);
-  }, [name]);
+    setProductName(product ? product._id : "");
+    setSKU(product ? product.SKU : "");
+    setBuyer(product ? product.Buyer : "");
+    setQuantity(product ? product.Quantity : "");
+    setDescription(product ? product.Description ? product.Description : "" : "");
+  }, [product]);
 
 
   return (
@@ -75,60 +78,32 @@ function ProductInfo({ name }) {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormField type="text" label="SKU" defaultValue={2} />
+              <FormField type="text" label="SKU" value={SKU} onChange={(e) => setSKU(e.target.value)} />
             </Grid>
           </Grid>
         </MDBox>
         <MDBox mt={1}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={3}>
-              <FormField type="text" label="Buyer" defaultValue="Summer" />
+              <FormField type="text" label="Buyer" value={Buyer} onChange={(e) => setBuyer(e.target.value)} />
             </Grid>
-            <Grid item xs={12} sm={3}>
+            {/* <Grid item xs={12} sm={3}>
               <FormField type="text" label="Price" defaultValue="$90" />
+            </Grid> */}
+            <Grid item xs={12} sm={3}>
+              <FormField type="number" label="Quantity" value={Quantity} onChange={(e) => setQuantity(e.target.value)} />
             </Grid>
             <Grid item xs={12} sm={3}>
-              <FormField type="number" label="Quantity" defaultValue={50} />
+              <MDDatePicker input={{ placeholder: "Ship by Date" }} />
             </Grid>
           </Grid>
         </MDBox>
         <MDBox mt={1}>
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <MDBox mb={1} ml={0.5} lineHeight={0} display="inline-block">
-                <MDTypography
-                  component="label"
-                  variant="button"
-                  fontWeight="regular"
-                  color="text"
-                >
-                  Description&nbsp;&nbsp;
-                  <MDTypography
-                    variant="caption"
-                    fontWeight="regular"
-                    color="text"
-                  >
-                    (optional)
-                  </MDTypography>
-                </MDTypography>
-              </MDBox>
-              <MDEditor value={editorValue} onChange={setEditorValue} />
+            <Grid item xs={12} sm={12}>
+              <FormField type="text" label="Description (optional)" value={Description} onChange={(e) => setDescription(e.target.value)} />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <MDBox mt={4.5} mb={3}>
-                <MDBox mb={1.625} display="inline-block">
-                  {/* <MDTypography
-                    component="label"
-                    variant="button"
-                    fontWeight="regular"
-                    color="text"
-                    textTransform="capitalize"
-                  >
-                    Category
-                  </MDTypography> */}
-                </MDBox>
-                <MDDatePicker input={{ placeholder: "Ship by Date" }} />
-              </MDBox>
+            <Grid item xs={12} sm={12}>
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <MDBox >
