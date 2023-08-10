@@ -51,16 +51,16 @@ const routes = [
     key: "account",
     icon: <MDAvatar src={AccountCircleIcon.src} alt="Account" size="sm" />,
     collapse: [
-      {
-        name: "My Profile",
-        key: "my-profile",
-        route: "/pages/profile/profile-overview",
-      },
-      {
-        name: "Settings",
-        key: "profile-settings",
-        route: "/pages/account/settings",
-      },
+      // {
+      //   name: "My Profile",
+      //   key: "my-profile",
+      //   route: "/pages/profile/profile-overview",
+      // },
+      // {
+      //   name: "Settings",
+      //   key: "profile-settings",
+      //   route: "/pages/account/settings",
+      // },
       // {
       //   name: "Logout",
       //   key: "logout",
