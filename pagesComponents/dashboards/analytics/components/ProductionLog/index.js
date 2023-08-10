@@ -90,6 +90,7 @@ function ProductionLog() {
                                     onChange={(event, newValue) => {
                                         setProductName(newValue);
                                         setSelectedProduct(products.filter((product) => product._id === newValue)[0]);
+                                        setLog({ ...log, product_id: newValue });
                                     }
                                     }
                                     disablePortal
@@ -143,6 +144,11 @@ function ProductionLog() {
                         style={{ margin: '1rem' }}
                         onClick={async () => {
                             console.log(log);
+                            // check if log.product_id is set
+                            if (!log.product_id) {
+                                alert("Please select a product");
+                                return;
+                            }
                             const resp = await postToProductionLogs(log);
                             // close modal
                             alert("Successfully logged production");
