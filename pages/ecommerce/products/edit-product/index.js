@@ -53,10 +53,15 @@ function EditProduct() {
   const loading = open && products.length === 0;
 
   useEffect(() => {
-    if (selectedProduct) {
-      console.log(selectedProduct);
-      // reverse JSON.stringify
-      // console.log(JSON.parse(selectedProduct['Processes']));
+    if (selectedProduct && selectedProduct.Processes) {
+      // console.log(selectedProduct.Processes);
+      const list = []
+      selectedProduct.Processes.forEach((process) => {
+        list.push(process.name);
+      });
+      // create a list of names of processes for the selected product
+      setDepartments(list);
+      console.log(departments);
     }
   }, [selectedProduct]);
 
@@ -149,7 +154,7 @@ function EditProduct() {
                   disablePortal
                   sx={{ width: "100%", mr: 1 }}
                   id="combo-box-demo"
-                  options={["Department 1", "Department 2", "Department 3", "Department 4", "Department 5"]}
+                  options={departments}
                   renderInput={(params) => <TextField {...params} label="Department Name" />}
                 />
                 <IconButton onClick={handleSubmit}>
@@ -171,7 +176,7 @@ function EditProduct() {
             <OrdersOverview />
           </Grid>
           <Grid item xs={12} lg={8}>
-            <Process />
+
           </Grid>
         </Grid>
       </MDBox>
