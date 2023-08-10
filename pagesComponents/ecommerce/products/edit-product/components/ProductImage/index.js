@@ -89,8 +89,7 @@ function ProductImage() {
           Door Stopper
         </MDTypography>
         <MDTypography variant="body2" color="text" sx={{ mt: 1.5, mb: 1 }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-          tincidunt tellus lacus. Duis quis mi ligula. Suspendisse potenti.
+          Product Description Here!
         </MDTypography>
       </MDBox>
     </Card>
