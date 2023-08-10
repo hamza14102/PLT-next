@@ -7,6 +7,7 @@ import MDInput from "/components/MDInput";
 import MDButton from "/components/MDButton";
 
 function ProductionLog(produt_id) {
+    const [log, setLog] = useState({});
     return (
         <div
             // centered and scrollable
@@ -59,6 +60,8 @@ function ProductionLog(produt_id) {
                                     name="product_id"
                                     size="small"
                                     variant="outlined"
+                                    value={log.product_id || 0}
+                                    onChange={(e) => setLog({ ...log, product_id: e.target.value })}
                                 // value="123456"
                                 // disabled
                                 />
@@ -66,55 +69,36 @@ function ProductionLog(produt_id) {
                             <Grid item xs={6}>
                                 <MDInput
                                     fullWidth
-                                    label="Product ID"
-                                    name="product_id"
+                                    label="Quantity Produced"
+                                    name="Quantity Produced"
                                     size="small"
                                     variant="outlined"
-                                    value="123456"
+                                    value={log.quantity || 0}
+                                    onChange={(e) => setLog({ ...log, quantity: e.target.value })}
                                 // disabled
                                 />
                             </Grid>
                             <Grid item xs={6}>
                                 <MDInput
                                     fullWidth
-                                    label="Product ID"
-                                    name="product_id"
+                                    label="Rejected Pieces"
+                                    name="rejected"
                                     size="small"
                                     variant="outlined"
-                                    value="123456"
+                                    value={log.rejected || 0}
+                                    onChange={(e) => setLog({ ...log, rejected: e.target.value })}
                                 // disabled
                                 />
                             </Grid>
                             <Grid item xs={6}>
                                 <MDInput
                                     fullWidth
-                                    label="Product ID"
-                                    name="product_id"
+                                    label="Shift Number (A or B)"
+                                    name="shift"
                                     size="small"
                                     variant="outlined"
-                                    value="123456"
-                                // disabled
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <MDInput
-                                    fullWidth
-                                    label="Product ID"
-                                    name="product_id"
-                                    size="small"
-                                    variant="outlined"
-                                    value="123456"
-                                // disabled
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <MDInput
-                                    fullWidth
-                                    label="Product ID"
-                                    name="product_id"
-                                    size="small"
-                                    variant="outlined"
-                                    value="123456"
+                                    value={log.shift || 0}
+                                    onChange={(e) => setLog({ ...log, shift: e.target.value })}
                                 // disabled
                                 />
                             </Grid>
