@@ -84,24 +84,24 @@ function Analytics() {
   // Action buttons for the BookingCard
   const actionButtons = (
     <>
-      <Tooltip title="Refresh" placement="bottom">
+      <Tooltip title="Log Production" placement="bottom">
         <MDTypography
           variant="body1"
           color="primary"
           lineHeight={1}
           sx={{ cursor: "pointer", mx: 3 }}
         >
-          <Icon color="inherit">refresh</Icon>
+          <Icon color="inherit">backup</Icon>
         </MDTypography>
       </Tooltip>
-      <Tooltip title="Edit" placement="bottom">
+      <Tooltip title="View Logs" placement="bottom">
         <MDTypography
           variant="body1"
           color="dark"
           lineHeight={1}
           sx={{ cursor: "pointer", mx: 3 }}
         >
-          <Icon color="inherit">edit</Icon>
+          <Icon color="inherit">assessment</Icon>
         </MDTypography>
       </Tooltip>
     </>
@@ -227,42 +227,26 @@ function Analytics() {
         </MDBox>
         <MDBox mt={2}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mt={3}>
-                <BookingCard
-                  image={product1}
-                  title="Luggage Rack"
-                  description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
-                  // price="$899/night"
-                  location="Target"
-                  action={actionButtons}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mt={3}>
-                <BookingCard
-                  image={product2}
-                  title="3 Hook"
-                  description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
-                  // price="$1.119/night"
-                  location="Target"
-                  action={actionButtons}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mt={3}>
-                <BookingCard
-                  image={product3}
-                  title="Door Stopper"
-                  description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
-                  // price="$459/night"
-                  location="Target"
-                  action={actionButtons}
-                />
-              </MDBox>
-            </Grid>
+            {/* create a Booking card for each product in products */}
+            {
+              products.map((product) => {
+                return (
+                  <Grid item xs={12} md={6} lg={4} key={product.name}>
+                    <MDBox mt={3}>
+                      <BookingCard
+                        image={product1}
+                        title={product.name}
+                        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
+                        price={product.quantity + " units"}
+                        location={product.Buyer}
+                        action={actionButtons}
+                      />
+                    </MDBox>
+                  </Grid>
+                )
+              }
+              )
+            }
           </Grid>
         </MDBox>
       </MDBox>
