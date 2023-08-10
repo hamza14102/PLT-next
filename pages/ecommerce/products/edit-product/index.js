@@ -59,10 +59,10 @@ function EditProduct() {
       return undefined;
     }
 
-    fetch('https://a7ivt3xloc.execute-api.us-east-2.amazonaws.com/prod-info/products')
+    fetch('https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/?_id=H&TableName=Products')
       .then(response => response.json())
       .then(data => {
-        setProducts(data)
+        setProducts(data['Items'])
       });
 
     return () => {
@@ -114,7 +114,7 @@ function EditProduct() {
                   disablePortal
                   sx={{ width: "100%" }}
                   // id="combo-box-demo"
-                  options={products.map((option) => option.product_id)}
+                  options={products.map((option) => option._id)}
                   renderInput={(params) => <TextField {...params} label="Product Name" InputProps={{
                     ...params.InputProps,
                     endAdornment: (
