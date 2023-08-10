@@ -38,7 +38,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Icon, IconButton } from "@mui/material";
 
-import { useState, useRef, useEffect, Fragment } from "react";
+import { useState, useRef, useEffect, Fragment, use } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 
 function EditProduct() {
@@ -47,9 +47,19 @@ function EditProduct() {
   const [department, setDepartment] = useState("");
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
+  const [departments, setDepartments] = useState([]);
 
   const [open, setOpen] = useState(false);
   const loading = open && products.length === 0;
+
+  useEffect(() => {
+    if (selectedProduct) {
+      console.log(selectedProduct);
+      // reverse JSON.stringify
+      // console.log(JSON.parse(selectedProduct['Processes']));
+    }
+  }, [selectedProduct]);
+
 
   useEffect(() => {
 
