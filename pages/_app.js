@@ -63,6 +63,7 @@ import favicon from "/assets/images/favicon.png";
 import appleIcon from "/assets/images/apple-icon.png";
 import brandWhite from "/assets/images/logo-ct.png";
 import brandDark from "/assets/images/logo-ct-dark.png";
+import temp_logo from "/assets/images/temp_logo_lite.jpg";
 
 import { AuthProvider, AuthConsumer } from "context/auth-context";
 
@@ -230,8 +231,8 @@ function MyApp({
           <Head>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="manifest" href="https://hamza14102.github.io/PLT-next/manifest.json" />
-            <link rel="shortcut icon" href={favicon.src} />
-            <link rel="apple-touch-icon" sizes="76x76" href={appleIcon.src} />
+            <link rel="shortcut icon" href={temp_logo.src} />
+            <link rel="apple-touch-icon" sizes="76x76" href={temp_logo.src} />
             <title>Production AI | Dashboard</title>
           </Head>
           <AuthConsumer>{
