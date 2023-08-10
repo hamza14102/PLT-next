@@ -32,10 +32,12 @@ import salesTableData from "/pagesComponents/dashboards/analytics/components/Sal
 
 import { getFromProductsByAssignedUser } from "apiHelpers/products";
 import { useAuth } from "hooks/use-auth";
+import { CircularProgress } from "@mui/material";
 
 function SalesByCountry() {
   const [products, setProducts] = useState([]);
   const auth = useAuth();
+  const [loading, setLoading] = useState(true);
   const getCurrentUserID = () => {
     if (!auth.isLoading && auth.user) {
       return auth.user.find((attr) => attr.Name === "name").Value;
@@ -68,6 +70,7 @@ function SalesByCountry() {
       });
 
       setProducts(res);
+      setLoading(false);
     });
     // console.log(prod);
 
@@ -145,6 +148,18 @@ function SalesByCountry() {
         <MDTypography variant="h6" sx={{ mt: 2, mb: 1, ml: 2 }}>
           Production by Product
         </MDTypography>
+        {
+          loading && (
+            <CircularProgress
+              sx={{
+                position: "absolute",
+                right: "1rem",
+                top: "1rem",
+              }}
+
+            />
+          )
+        }
       </MDBox>
       <MDBox p={2}>
         <Grid container>
