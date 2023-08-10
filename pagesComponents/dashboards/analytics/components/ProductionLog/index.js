@@ -107,8 +107,9 @@ function ProductionLog() {
                                     name="Quantity Produced"
                                     size="small"
                                     variant="outlined"
-                                    value={log.quantity || 0}
+                                    value={log.quantity ? log.quantity : ""}
                                     onChange={(e) => setLog({ ...log, quantity: e.target.value })}
+                                    required
                                 // disabled
                                 />
                             </Grid>
@@ -119,8 +120,9 @@ function ProductionLog() {
                                     name="rejected"
                                     size="small"
                                     variant="outlined"
-                                    value={log.rejected || 0}
+                                    value={log.rejected ? log.rejected : ""}
                                     onChange={(e) => setLog({ ...log, rejected: e.target.value })}
+                                    required
                                 // disabled
                                 />
                             </Grid>
@@ -131,8 +133,9 @@ function ProductionLog() {
                                     name="shift"
                                     size="small"
                                     variant="outlined"
-                                    value={log.shift || 0}
+                                    value={log.shift ? log.shift : ""}
                                     onChange={(e) => setLog({ ...log, shift: e.target.value })}
+                                    required
                                 // disabled
                                 />
                             </Grid>
