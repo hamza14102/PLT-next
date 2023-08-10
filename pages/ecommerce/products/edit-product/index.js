@@ -31,7 +31,7 @@ import ProductImage from "/pagesComponents/ecommerce/products/edit-product/compo
 import ProductInfo from "/pagesComponents/ecommerce/products/edit-product/components/ProductInfo";
 import Socials from "/pagesComponents/ecommerce/products/edit-product/components/Socials";
 import Pricing from "/pagesComponents/ecommerce/products/edit-product/components/Pricing";
-import Process from "/pagesComponents/ecommerce/products/edit-product/components/Process";
+import SingleDepartment from "/pagesComponents/ecommerce/products/edit-product/components/SingleDepartment";
 import OrdersOverview from "/pagesComponents/ecommerce/products/edit-product/components/OrdersOverview";
 
 import TextField from '@mui/material/TextField';
@@ -48,20 +48,16 @@ function EditProduct() {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [departments, setDepartments] = useState([]);
+  const [selectedDepartment, setSelectedDepartment] = useState([]);
 
   const [open, setOpen] = useState(false);
   const loading = open && products.length === 0;
 
   useEffect(() => {
     if (selectedProduct && selectedProduct.Processes) {
-      // console.log(selectedProduct.Processes);
-      const list = []
-      selectedProduct.Processes.forEach((process) => {
-        list.push(process.name);
-      });
       // create a list of names of processes for the selected product
-      setDepartments(list);
-      console.log(departments);
+      setDepartments(selectedProduct.Processes);
+      // console.log(departments);
     }
   }, [selectedProduct]);
 
@@ -149,12 +145,13 @@ function EditProduct() {
                 <Autocomplete
                   onChange={(event, newValue) => {
                     setDepartment(newValue);
+                    setSelectedDepartment(departments.filter((department) => department.name === newValue)[0]);
                   }
                   }
                   disablePortal
                   sx={{ width: "100%", mr: 1 }}
                   id="combo-box-demo"
-                  options={departments}
+                  options={departments.map((option) => option.name)}
                   renderInput={(params) => <TextField {...params} label="Department Name" />}
                 />
                 <IconButton onClick={handleSubmit}>
@@ -176,7 +173,7 @@ function EditProduct() {
             <OrdersOverview />
           </Grid>
           <Grid item xs={12} lg={8}>
-
+            <SingleDepartment department={selectedDepartment} />
           </Grid>
         </Grid>
       </MDBox>
