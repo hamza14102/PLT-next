@@ -232,7 +232,7 @@ function MyApp({
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="manifest" href="https://hamza14102.github.io/PLT-next/manifest.json" />
             <link rel="shortcut icon" href={temp_logo.src} />
-            <link rel="apple-touch-icon" sizes="76x76" href={temp_logo.src} />
+            <link rel="apple-touch-icon" sizes="400x400" href={temp_logo.src} />
             <title>Production AI | Dashboard</title>
           </Head>
           <AuthConsumer>{
