@@ -1,13 +1,33 @@
-import { Card } from "@mui/material";
+import { Card, CircularProgress } from "@mui/material";
 import MDBox from "/components/MDBox";
 import MDTypography from "/components/MDTypography";
 import Grid from "@mui/material/Grid";
-import { useState } from "react";
+import { use, useState } from "react";
 import MDInput from "/components/MDInput";
 import MDButton from "/components/MDButton";
 
-function ProductionLog(produt_id) {
-    const [log, setLog] = useState({});
+import { getAllProducts } from "/apiHelpers/products.js";
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import { useEffect } from "react";
+import { postToProductionLogs } from "/apiHelpers/productionLogs.js";
+import { v4 as uuidv4 } from 'uuid';
+
+
+function ProductionLog() {
+    const [log, setLog] = useState({ _id: uuidv4() });
+    const [products, setProducts] = useState([]);
+    const [productName, setProductName] = useState("");
+    const [selectedProduct, setSelectedProduct] = useState({});
+
+    useEffect(() => {
+        async function fetchData() {
+            const data = await getAllProducts();
+            setProducts(data);
+        }
+        fetchData();
+    }, []);
+
     return (
         <div
             // centered and scrollable
@@ -53,7 +73,7 @@ function ProductionLog(produt_id) {
                     >
                         <Grid container spacing={2} justify="center" style={{ margin: '1rem' }}>
                             <Grid item xs={6}>
-                                <MDInput
+                                {/* <MDInput
                                     fullWidth
                                     label="Select Product"
                                     placeholder="Product Name"
@@ -64,6 +84,19 @@ function ProductionLog(produt_id) {
                                     onChange={(e) => setLog({ ...log, product_id: e.target.value })}
                                 // value="123456"
                                 // disabled
+                                /> */}
+
+                                <Autocomplete
+                                    onChange={(event, newValue) => {
+                                        setProductName(newValue);
+                                        setSelectedProduct(products.filter((product) => product._id === newValue)[0]);
+                                    }
+                                    }
+                                    disablePortal
+                                    sx={{ width: "100%", mr: 1 }}
+                                    id="combo-box-demo"
+                                    options={products.map((option) => option._id)}
+                                    renderInput={(params) => <TextField {...params} label="Product Name" />}
                                 />
                             </Grid>
                             <Grid item xs={6}>
@@ -108,12 +141,18 @@ function ProductionLog(produt_id) {
                         variant="gradient"
                         color="dark"
                         style={{ margin: '1rem' }}
+                        onClick={async () => {
+                            console.log(log);
+                            const resp = await postToProductionLogs(log);
+                            // close modal
+                            alert("Successfully logged production");
+                        }}
                     >
                         Log Production
                     </MDButton>
                 </MDBox>
             </Card>
-        </div>
+        </div >
     );
 }
 
