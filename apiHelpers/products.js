@@ -165,3 +165,31 @@ export async function getAllProducts() {
 //     const new_data = data['Items'];
 //     return new_data;
 // }
+
+export async function addLogsToProductByID(product_id, remaining, rejected) {
+    const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
+    const params = new URLSearchParams({
+        TableName: 'Products',
+    });
+    const response = await fetch(`${url}?${params}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            "Key": {
+                "_id": product_id,
+            },
+            "UpdateExpression": "set remaining = :r, rejected = :j",
+            "ExpressionAttributeValues": {
+                ":r": remaining,
+                ":j": rejected,
+            },
+            "ReturnValues": "UPDATED_NEW"
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
+    });
+    const data = await response.json();
+    // check status code and return accordingly
+    return data;
+}
