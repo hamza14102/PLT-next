@@ -88,98 +88,6 @@ function Analytics() {
     });
   }, []);
 
-  // Action buttons for the BookingCard
-  const actionButtons = (
-    <>
-      <Tooltip title="Log Production" placement="bottom">
-        <MDTypography
-          variant="body1"
-          color="primary"
-          lineHeight={1}
-          sx={{ cursor: "pointer", mx: 3 }}
-          onClick={() => {
-            setModalContent({
-              title: "Log Production",
-              content: (
-                <ProductionLog product_id="xyz" />
-              )
-            });
-            setModalOpen(true);
-          }}
-        >
-          <Icon color="inherit">backup</Icon>
-        </MDTypography>
-      </Tooltip>
-      <Tooltip title="View Logs" placement="bottom">
-        <MDTypography
-          variant="body1"
-          color="dark"
-          lineHeight={1}
-          sx={{ cursor: "pointer", mx: 3 }}
-          onClick={() => {
-            setModalContent({
-              title: "Log Production",
-              content: (
-                <div
-                  // centered and scrollable
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    overflow: "scroll",
-                    height: "90%",
-                    width: "80%",
-                    boxShadow: 24,
-                    p: 4,
-                  }}
-                >
-
-                  {/* {modalContent} */}
-                  <Grid item xs={12} md={6} lg={4}>
-                    <MDBox mt={3}>
-                      <DataTable
-                        table={{
-                          columns: [
-                            { Header: "name", accessor: "name", width: "25%" },
-                            { Header: "position", accessor: "position", width: "30%" },
-                            { Header: "office", accessor: "office" },
-                            { Header: "age", accessor: "age", width: "12%" },
-                          ],
-                          rows: [
-                            {
-                              name: "Hanny Baniard",
-                              position: "Data Coordiator",
-                              office: "Baorixile",
-                              age: 42,
-                              startDate: "4/11/2021",
-                              salary: "$474,978",
-                            },
-                            {
-                              name: "Lara Puleque",
-                              position: "Payment Adjustment Coordinator",
-                              office: "Cijangkar",
-                              age: 47,
-                              startDate: "8/2/2021",
-                              salary: "$387,287",
-                            },
-                          ]
-                        }}
-                      />
-                    </MDBox>
-                  </Grid>
-                </div>
-              )
-            });
-            setModalOpen(true);
-          }}
-        >
-          <Icon color="inherit">assessment</Icon>
-        </MDTypography>
-      </Tooltip>
-    </>
-  );
-
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -193,7 +101,7 @@ function Analytics() {
         <Grid container>
           <SalesByCountry />
         </Grid>
-        <MDBox mt={6}>
+        {/* <MDBox mt={6}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
@@ -239,8 +147,8 @@ function Analytics() {
               </MDBox>
             </Grid>
           </Grid>
-        </MDBox>
-        <MDBox mt={1.5}>
+        </MDBox> */}
+        {/* <MDBox mt={1.5}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={3}>
               <MDBox mb={1.5}>
@@ -303,7 +211,7 @@ function Analytics() {
               </MDBox>
             </Grid>
           </Grid>
-        </MDBox>
+        </MDBox> */}
         <MDBox mt={2}>
           <Grid container spacing={3}>
             {/* create a Booking card for each product in products */}
@@ -315,7 +223,7 @@ function Analytics() {
                       <BookingCard
                         image={product1}
                         title={product.name}
-                        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
+                        // description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
                         price={product.quantity + " units"}
                         location={product.Buyer}
                         action={<>
