@@ -89,7 +89,7 @@ function DataTables() {
   useEffect(() => {
     // dataTableData.rows = productData;
     setTableData({ ...dataTableData, rows: productData });
-    // console.log(tableData);
+
   }, [productData]);
 
   useEffect(() => {
@@ -167,7 +167,6 @@ function DataTables() {
           .then(data2 => {
             // console.log(data2);
             // rename data.lastNames to data.manpower
-            console.log(data2, data);
             if (3600 / data2.number == output) {
               // alert(`Suggested Ideal Manpower: ${number - 2} \nIdeal Output: ${3600 / data2.number}`);
               setSnackTitle(`Suggested Ideal Manpower: ${number - 2} \nIdeal Output: ${3600 / data2.number}`);
@@ -184,7 +183,6 @@ function DataTables() {
                 .then(data2 => {
                   // console.log(data2);
                   // rename data.lastNames to data.manpower
-                  console.log(data2, data);
                   if (3600 / data2.number == output) {
                     // alert(`Suggested Ideal Manpower: ${number - 1} \nIdeal Output: ${3600 / data2.number}`);
                     setSnackTitle(`Suggested Ideal Manpower: ${number - 1} \nIdeal Output: ${3600 / data2.number}`);
