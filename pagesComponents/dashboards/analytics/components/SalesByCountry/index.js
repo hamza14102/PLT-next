@@ -52,9 +52,9 @@ function SalesByCountry() {
 
 
     const userID = getCurrentUserID();
-    console.log(userID);
+
     getFromProductsByAssignedUser(userID).then((res) => {
-      console.log(res);
+
       // change variable names to match your schema
       res = res.map((product) => {
         return {
