@@ -51,6 +51,7 @@ import DataTable from "/examples/Tables/DataTable";
 import Card from "@mui/material/Card";
 import { CircularProgress } from "@mui/material";
 import ProductionLog from "/pagesComponents/dashboards/analytics/components/ProductionLog/index.js";
+import LogTable from "/pagesComponents/dashboards/analytics/components/LogTable";
 
 function Analytics() {
   const { sales, tasks } = reportsLineChartData;
@@ -347,55 +348,7 @@ function Analytics() {
                                 setModalContent({
                                   title: "Log Production",
                                   content: (
-                                    <div
-                                      // centered and scrollable
-                                      style={{
-                                        position: "absolute",
-                                        top: "50%",
-                                        left: "50%",
-                                        transform: "translate(-50%, -50%)",
-                                        overflow: "scroll",
-                                        height: "90%",
-                                        width: "80%",
-                                        boxShadow: 24,
-                                        p: 4,
-                                      }}
-                                    >
-
-                                      {/* {modalContent} */}
-                                      <Grid item xs={12} md={6} lg={4}>
-                                        <MDBox mt={3}>
-                                          <DataTable
-                                            table={{
-                                              columns: [
-                                                { Header: "name", accessor: "name", width: "25%" },
-                                                { Header: "position", accessor: "position", width: "30%" },
-                                                { Header: "office", accessor: "office" },
-                                                { Header: "age", accessor: "age", width: "12%" },
-                                              ],
-                                              rows: [
-                                                {
-                                                  name: "Hanny Baniard",
-                                                  position: "Data Coordiator",
-                                                  office: "Baorixile",
-                                                  age: 42,
-                                                  startDate: "4/11/2021",
-                                                  salary: "$474,978",
-                                                },
-                                                {
-                                                  name: "Lara Puleque",
-                                                  position: "Payment Adjustment Coordinator",
-                                                  office: "Cijangkar",
-                                                  age: 47,
-                                                  startDate: "8/2/2021",
-                                                  salary: "$387,287",
-                                                },
-                                              ]
-                                            }}
-                                          />
-                                        </MDBox>
-                                      </Grid>
-                                    </div>
+                                    <LogTable product_id={product.name} />
                                   )
                                 });
                                 setModalOpen(true);
