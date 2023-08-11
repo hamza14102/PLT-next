@@ -24,8 +24,9 @@ function LogTable({ product_id }) {
                     planned: log.planned,
                     quantity: log.quantity,
                     rejected: log.rejected,
-                    efficiency: log.quantity / log.planned * 100 + "%",
+                    efficiency: (log.quantity / log.planned * 100).toFixed(1) + "%",
                     logged_by: log.logged_by,
+                    reason: log.reason,
                 };
             }));
 
@@ -82,6 +83,9 @@ function LogTable({ product_id }) {
                                     ],
                                     rows: logs,
                                 }}
+                                canSearch
+                                showTotalEntries
+                                pagination={{ color: "light" }}
                             />
                     }
                 </MDBox>
