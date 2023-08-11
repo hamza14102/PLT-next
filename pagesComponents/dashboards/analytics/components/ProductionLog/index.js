@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import MDDatePicker from "/components/MDDatePicker";
 import { Switch } from "@mui/material";
 import { useAuth } from "hooks/use-auth";
+import MDSnackbar from "/components/MDSnackbar";
 
 
 function ProductionLog({ product_id }) {
@@ -22,6 +23,23 @@ function ProductionLog({ product_id }) {
     const [products, setProducts] = useState([]);
     const [productName, setProductName] = useState("");
     const [selectedProduct, setSelectedProduct] = useState({});
+    const [snackbarContent, setSnackbarContent] = useState({});
+    const [submitting, setSubmitting] = useState(false);
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        setSnackbarContent({
+            color: "success",
+            icon: "notifications",
+            title: "LOG SUCCESSFUL",
+            content: "Successfully logged production",
+            autoHideDuration: 6000,
+            anchorOrigin: { vertical: 'top', horizontal: 'right' },
+            message: "Successfully logged production",
+            severity: "success"
+        });
+    }, []);
+
 
     const handleShiftChange = (event) => {
         setLog({ ...log, shift: event.target.checked ? 'B' : 'A' });
@@ -61,6 +79,18 @@ function ProductionLog({ product_id }) {
                 p: 4,
             }}
         >
+            <MDSnackbar
+                open={open}
+                color={snackbarContent.color}
+                icon={snackbarContent.icon}
+                title={snackbarContent.title}
+                content={snackbarContent.content}
+                autoHideDuration={snackbarContent.autoHideDuration}
+                anchorOrigin={snackbarContent.anchorOrigin}
+                close={() => setOpen(!open)}
+                message={snackbarContent.message}
+
+            />
 
             {/* {modalContent} */}
             <Card>
@@ -181,7 +211,7 @@ function ProductionLog({ product_id }) {
                                         const value = e.target.value.replace(/[^0-9]/g, ''); // remove non-numeric characters
                                         setLog({ ...log, rejected: value });
                                     }}
-                                    required
+                                    // required
                                     error
                                 // disabled
                                 />
@@ -196,8 +226,8 @@ function ProductionLog({ product_id }) {
                                     value={log.reason ? log.reason : ""}
                                     type="text"
                                     onChange={(e) => setLog({ ...log, reason: e.target.value })}
-                                // required if rejected > 0
-                                // required={log.rejected > 0 ? true : false}
+                                    // required if rejected > 0
+                                    required={log.rejected > 0 ? true : false}
                                 // error
                                 // disabled
                                 />
@@ -215,36 +245,78 @@ function ProductionLog({ product_id }) {
                             </Grid>
                         </Grid>
                     </MDBox>
-                    <MDButton
-                        variant="gradient"
-                        color="dark"
-                        style={{ margin: '1rem' }}
-                        onClick={async () => {
-                            // console.log(log);
-                            // check if all fields are filled
-                            // console.log("logged by: ", getCurrentUser());
-                            log.logged_by = getCurrentUser();
-                            log.product_id = product_id;
-                            if (!log.product_id || !log.quantity || !log.rejected || !log.shift || !log.date || !log.planned) {
-                                alert("Please fill all essential fields");
-                                return;
-                            }
-                            // reason is required if rejected > 0
-                            if (log.rejected > 0 && !log.reason) {
-                                alert("Please fill the reason for rejection");
-                                return;
-                            }
-                            // create a new log _id 
-                            log._id = uuidv4();
+                    {
+                        submitting ?
+                            <CircularProgress />
+                            :
+                            <MDButton
+                                variant="gradient"
+                                color="dark"
+                                style={{ margin: '1rem' }}
+                                onClick={async () => {
+                                    setSubmitting(true);
+                                    // console.log(log);
+                                    // check if all fields are filled
+                                    // console.log("logged by: ", getCurrentUser());
+                                    log.logged_by = getCurrentUser();
+                                    log.product_id = product_id;
+                                    if (!log.product_id || !log.quantity || !log.shift || !log.date || !log.planned) {
+                                        // alert("Please fill all essential fields");
+                                        setSnackbarContent({
+                                            ...snackbarContent,
+                                            color: "error",
+                                            icon: "notifications",
+                                            title: "LOG FAILED",
+                                            content: "Please fill all essential fields",
+                                            message: "Please fill all essential fields",
+                                        });
+                                        setOpen(true);
 
-                            // log.date = log.date.toLocaleDateString();
-                            const resp = await postToProductionLogs(log);
-                            // close modal
-                            alert("Successfully logged production");
-                        }}
-                    >
-                        Log Production
-                    </MDButton>
+                                        setSubmitting(false);
+                                        return;
+                                    }
+                                    if (!log.rejected) {
+                                        log.rejected = 0;
+                                    }
+                                    // reason is required if rejected > 0
+                                    if (log.rejected > 0 && !log.reason) {
+                                        // alert("Please fill the reason for rejection");
+                                        setSnackbarContent({
+                                            ...snackbarContent,
+                                            color: "error",
+                                            icon: "notifications",
+                                            title: "LOG FAILED",
+                                            content: "Please fill the reason for rejection",
+                                            message: "Please fill the reason for rejection",
+                                        });
+                                        setOpen(true);
+                                        setSubmitting(false);
+                                        return;
+                                    }
+                                    // create a new log _id 
+                                    log._id = uuidv4();
+
+                                    // log.date = log.date.toLocaleDateString();
+                                    const resp = await postToProductionLogs(log);
+                                    // close modal
+                                    // alert("Successfully logged production");
+                                    setSnackbarContent({
+                                        ...snackbarContent,
+                                        open: true,
+                                        color: "success",
+                                        icon: "notifications",
+                                        title: "LOG SUCCESSFUL",
+                                        content: "Successfully logged production",
+                                        message: "Successfully logged production",
+                                    });
+                                    setOpen(true);
+
+                                    setSubmitting(false);
+                                }}
+                            >
+                                Log Production
+                            </MDButton>
+                    }
                 </MDBox>
             </Card>
         </div >
