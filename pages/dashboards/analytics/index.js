@@ -79,6 +79,7 @@ function Analytics() {
           'Shipment Date': product['Ship By Date'],
           Buyer: product.Buyer,
           Rejection: product.Rejection ? product.Rejection : "0%",
+          remaining: product.remaining ? product.remaining : product.Quantity,
           // status: product.status,
           // createdAt: product.createdAt,
         };
@@ -224,7 +225,7 @@ function Analytics() {
                         image={product1}
                         title={product.name}
                         // description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
-                        price={product.quantity + " units"}
+                        price={product.remaining + " units"}
                         location={product.Buyer}
                         action={<>
                           <Tooltip title="Log Production" placement="bottom">
