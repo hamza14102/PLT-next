@@ -74,7 +74,7 @@ function ProductionLog({ product_id }) {
                     >
                         <Grid container spacing={2} justify="center" style={{ margin: '1rem' }}>
                             <Grid item xs={6}>
-                                <Autocomplete
+                                {/* <Autocomplete
                                     onChange={(event, newValue) => {
                                         setProductName(newValue);
                                         setSelectedProduct(products.filter((product) => product._id === newValue)[0]);
@@ -87,6 +87,17 @@ function ProductionLog({ product_id }) {
                                     id="combo-box-demo"
                                     options={products.map((option) => option._id)}
                                     renderInput={(params) => <TextField {...params} label="Product Name" />}
+                                /> */}
+                                <MDInput
+                                    fullWidth
+                                    label="Product ID"
+                                    name="product_id"
+                                    size="small"
+                                    variant="outlined"
+                                    value={product_id}
+                                    // onChange={(e) => setLog({ ...log, product_id: e.target.value })}
+                                    required
+                                // disabled
                                 />
                             </Grid>
                             <Grid item xs={6}>
