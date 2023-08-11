@@ -16,6 +16,7 @@ import MDDatePicker from "/components/MDDatePicker";
 import { Switch } from "@mui/material";
 import { useAuth } from "hooks/use-auth";
 import MDSnackbar from "/components/MDSnackbar";
+import { addLogsToProductByID } from "/apiHelpers/products.js";
 
 
 function ProductionLog({ product_id }) {
@@ -310,7 +311,7 @@ function ProductionLog({ product_id }) {
                                         message: "Successfully logged production",
                                     });
                                     setOpen(true);
-
+                                    addLogsToProductByID(log.product_id, log.quantity, log.rejected);
                                     setSubmitting(false);
                                 }}
                             >

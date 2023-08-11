@@ -24,7 +24,7 @@ function LogTable({ product_id }) {
                     planned: log.planned,
                     quantity: log.quantity,
                     rejected: log.rejected,
-                    efficiency: log.planned / log.quantity * 100 + "%",
+                    efficiency: log.quantity / log.planned * 100 + "%",
                     logged_by: log.logged_by,
                 };
             }));

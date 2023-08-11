@@ -166,7 +166,7 @@ export async function getAllProducts() {
 //     return new_data;
 // }
 
-export async function addLogsToProductByID(product_id, remaining, rejected) {
+export async function addLogsToProductByID(product_id, achieved, rejected) {
     const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
     const params = new URLSearchParams({
         TableName: 'Products',
@@ -177,10 +177,10 @@ export async function addLogsToProductByID(product_id, remaining, rejected) {
             "Key": {
                 "_id": product_id,
             },
-            "UpdateExpression": "set remaining = :r, rejected = :j",
+            "UpdateExpression": "ADD rejected :j, remaining :r",
             "ExpressionAttributeValues": {
-                ":r": remaining,
-                ":j": rejected,
+                ":j": Number(rejected),
+                ":r": -Number(achieved)
             },
             "ReturnValues": "UPDATED_NEW"
         }),
