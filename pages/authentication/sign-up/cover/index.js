@@ -124,7 +124,6 @@ function Cover() {
         if (code) {
           try {
             const ret = await auth.confirmSignUp(values.email, code);
-            console.log(ret);
             if (ret == "SUCCESS") {
               confirmed = true;
             }

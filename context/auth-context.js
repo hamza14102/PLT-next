@@ -102,7 +102,6 @@ export const AuthProvider = (props) => {
     let sessionValid = false;
 
     const currentUser = userPool.getCurrentUser();
-    // console.log(currentUser);
     if (currentUser) {
       currentUser.getSession((err, session) => {
         if (err) {

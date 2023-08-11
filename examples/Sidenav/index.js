@@ -55,8 +55,6 @@ import { useAuth } from "hooks/use-auth";
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
   // get user from context
   const { isLoading, user } = useAuth();
-  // console.log("user", user);
-  // console.log("isLoading", isLoading);
 
 
   // rename element in routes with key 'account' to user name
