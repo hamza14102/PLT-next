@@ -13,13 +13,19 @@ import { useEffect } from "react";
 import { postToProductionLogs } from "/apiHelpers/productionLogs.js";
 import { v4 as uuidv4 } from 'uuid';
 import MDDatePicker from "/components/MDDatePicker";
+import { Switch } from "@mui/material";
 
 
 function ProductionLog({ product_id }) {
-    const [log, setLog] = useState({});
+    const [log, setLog] = useState({ shift: 'A' });
     const [products, setProducts] = useState([]);
     const [productName, setProductName] = useState("");
     const [selectedProduct, setSelectedProduct] = useState({});
+
+    const handleShiftChange = (event) => {
+        setLog({ ...log, shift: event.target.checked ? 'B' : 'A' });
+    };
+
 
     useEffect(() => {
         async function fetchData() {
@@ -100,24 +106,40 @@ function ProductionLog({ product_id }) {
                                 // disabled
                                 />
                             </Grid>
+                            <Grid container justify="flex-end" alignItems="center" item xs={6}>
+                                <Grid item>
+                                    <MDTypography variant="body2" fontWeight="light" color="white">
+                                        Shift {log.shift}
+                                    </MDTypography>
+                                </Grid>
+                                <Grid item>
+                                    <Switch
+                                        checked={log.shift === 'B' ? true : false}
+                                        onChange={handleShiftChange}
+                                        name="Shift"
+                                        inputProps={{ 'aria-label': 'toggle between two values' }}
+                                    />
+                                </Grid>
+                            </Grid>
                             <Grid item xs={6}>
                                 <MDInput
                                     fullWidth
-                                    label="Quantity Produced"
-                                    name="Quantity Produced"
+                                    label="Quantity Achieved"
+                                    name="Quantity Achieved"
                                     type="number"
                                     size="small"
                                     variant="outlined"
                                     value={log.quantity ? log.quantity : ""}
                                     onChange={(e) => setLog({ ...log, quantity: e.target.value })}
                                     required
+                                    success
                                 // disabled
                                 />
                             </Grid>
                             <Grid item xs={6}>
                                 <MDInput
                                     fullWidth
-                                    label="Rejected Pieces"
+                                    label="Quantity Rejected"
                                     name="rejected"
                                     type="number"
                                     size="small"
@@ -125,19 +147,7 @@ function ProductionLog({ product_id }) {
                                     value={log.rejected ? log.rejected : ""}
                                     onChange={(e) => setLog({ ...log, rejected: e.target.value })}
                                     required
-                                // disabled
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <MDInput
-                                    fullWidth
-                                    label="Shift Number (A or B)"
-                                    name="shift"
-                                    size="small"
-                                    variant="outlined"
-                                    value={log.shift ? log.shift : ""}
-                                    onChange={(e) => setLog({ ...log, shift: e.target.value })}
-                                    required
+                                    error
                                 // disabled
                                 />
                             </Grid>
