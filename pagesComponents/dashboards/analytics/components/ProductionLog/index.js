@@ -14,6 +14,7 @@ import { postToProductionLogs } from "/apiHelpers/productionLogs.js";
 import { v4 as uuidv4 } from 'uuid';
 import MDDatePicker from "/components/MDDatePicker";
 import { Switch } from "@mui/material";
+import { useAuth } from "hooks/use-auth";
 
 
 function ProductionLog({ product_id }) {
@@ -24,6 +25,15 @@ function ProductionLog({ product_id }) {
 
     const handleShiftChange = (event) => {
         setLog({ ...log, shift: event.target.checked ? 'B' : 'A' });
+    };
+
+    const { isLoading, user } = useAuth();
+
+    const getCurrentUser = () => {
+        if (!isLoading && user) {
+            return user.find((attr) => attr.Name === "name").Value;
+        }
+        return [];
     };
 
 
@@ -124,13 +134,34 @@ function ProductionLog({ product_id }) {
                             <Grid item xs={6}>
                                 <MDInput
                                     fullWidth
+                                    label="Quantity Planned"
+                                    name="Quantity Planned"
+                                    type="text"
+                                    size="small"
+                                    variant="outlined"
+                                    value={log.planned ? log.planned : ""}
+                                    onChange={(e) => {
+                                        const value = e.target.value.replace(/[^0-9]/g, ''); // remove non-numeric characters
+                                        setLog({ ...log, planned: value })
+                                    }}
+                                    required
+                                // success
+                                // disabled
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <MDInput
+                                    fullWidth
                                     label="Quantity Achieved"
                                     name="Quantity Achieved"
-                                    type="number"
+                                    type="text"
                                     size="small"
                                     variant="outlined"
                                     value={log.quantity ? log.quantity : ""}
-                                    onChange={(e) => setLog({ ...log, quantity: e.target.value })}
+                                    onChange={(e) => {
+                                        const value = e.target.value.replace(/[^0-9]/g, ''); // remove non-numeric characters
+                                        setLog({ ...log, quantity: value })
+                                    }}
                                     required
                                     success
                                 // disabled
@@ -141,13 +172,33 @@ function ProductionLog({ product_id }) {
                                     fullWidth
                                     label="Quantity Rejected"
                                     name="rejected"
-                                    type="number"
                                     size="small"
                                     variant="outlined"
                                     value={log.rejected ? log.rejected : ""}
-                                    onChange={(e) => setLog({ ...log, rejected: e.target.value })}
+                                    type="text"
+                                    pattern="[0-9]*"
+                                    onChange={(e) => {
+                                        const value = e.target.value.replace(/[^0-9]/g, ''); // remove non-numeric characters
+                                        setLog({ ...log, rejected: value });
+                                    }}
                                     required
                                     error
+                                // disabled
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <MDInput
+                                    fullWidth
+                                    label="Failure Reason"
+                                    name="failure reason"
+                                    size="small"
+                                    variant="outlined"
+                                    value={log.reason ? log.reason : ""}
+                                    type="text"
+                                    onChange={(e) => setLog({ ...log, reason: e.target.value })}
+                                // required if rejected > 0
+                                // required={log.rejected > 0 ? true : false}
+                                // error
                                 // disabled
                                 />
                             </Grid>
@@ -171,12 +222,21 @@ function ProductionLog({ product_id }) {
                         onClick={async () => {
                             // console.log(log);
                             // check if all fields are filled
-                            if (!log.product_id || !log.quantity || !log.rejected || !log.shift || !log.date) {
-                                alert("Please fill all fields");
+                            // console.log("logged by: ", getCurrentUser());
+                            log.logged_by = getCurrentUser();
+                            log.product_id = product_id;
+                            if (!log.product_id || !log.quantity || !log.rejected || !log.shift || !log.date || !log.planned) {
+                                alert("Please fill all essential fields");
+                                return;
+                            }
+                            // reason is required if rejected > 0
+                            if (log.rejected > 0 && !log.reason) {
+                                alert("Please fill the reason for rejection");
                                 return;
                             }
                             // create a new log _id 
                             log._id = uuidv4();
+
                             // log.date = log.date.toLocaleDateString();
                             const resp = await postToProductionLogs(log);
                             // close modal
