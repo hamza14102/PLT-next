@@ -87,7 +87,7 @@ function Analytics() {
 
       setProducts(res);
     });
-  }, []);
+  }, [modalOpen]);
 
   return (
     <DashboardLayout>
