@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import MDDatePicker from "/components/MDDatePicker";
 
 
-function ProductionLog() {
+function ProductionLog({ product_id }) {
     const [log, setLog] = useState({});
     const [products, setProducts] = useState([]);
     const [productName, setProductName] = useState("");
@@ -81,6 +81,7 @@ function ProductionLog() {
                                         setLog({ ...log, product_id: newValue });
                                     }
                                     }
+                                    defaultValue={product_id}
                                     disablePortal
                                     sx={{ width: "100%", mr: 1 }}
                                     id="combo-box-demo"
