@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField';
 import { useEffect } from "react";
 import { postToProductionLogs } from "/apiHelpers/productionLogs.js";
 import { v4 as uuidv4 } from 'uuid';
+import MDDatePicker from "/components/MDDatePicker";
 
 
 function ProductionLog() {
@@ -73,19 +74,6 @@ function ProductionLog() {
                     >
                         <Grid container spacing={2} justify="center" style={{ margin: '1rem' }}>
                             <Grid item xs={6}>
-                                {/* <MDInput
-                                    fullWidth
-                                    label="Select Product"
-                                    placeholder="Product Name"
-                                    name="product_id"
-                                    size="small"
-                                    variant="outlined"
-                                    value={log.product_id || 0}
-                                    onChange={(e) => setLog({ ...log, product_id: e.target.value })}
-                                // value="123456"
-                                // disabled
-                                /> */}
-
                                 <Autocomplete
                                     onChange={(event, newValue) => {
                                         setProductName(newValue);
@@ -105,6 +93,7 @@ function ProductionLog() {
                                     fullWidth
                                     label="Quantity Produced"
                                     name="Quantity Produced"
+                                    type="number"
                                     size="small"
                                     variant="outlined"
                                     value={log.quantity ? log.quantity : ""}
@@ -118,6 +107,7 @@ function ProductionLog() {
                                     fullWidth
                                     label="Rejected Pieces"
                                     name="rejected"
+                                    type="number"
                                     size="small"
                                     variant="outlined"
                                     value={log.rejected ? log.rejected : ""}
@@ -139,6 +129,17 @@ function ProductionLog() {
                                 // disabled
                                 />
                             </Grid>
+                            <Grid item xs={6}>
+                                <MDInput
+                                    input={{ placeholder: "Log Date" }}
+                                    value={log.date ? log.date : new Date()}
+                                    label="Log Date"
+                                    type="date"
+                                    // set default calendar date to today
+                                    onChange={(e) => setLog({ ...log, date: e.target.value })}
+                                    required
+                                />
+                            </Grid>
                         </Grid>
                     </MDBox>
                     <MDButton
@@ -147,11 +148,12 @@ function ProductionLog() {
                         style={{ margin: '1rem' }}
                         onClick={async () => {
                             console.log(log);
-                            // check if log.product_id is set
-                            if (!log.product_id) {
-                                alert("Please select a product");
+                            // check if all fields are filled
+                            if (!log.product_id || !log.quantity || !log.rejected || !log.shift || !log.date) {
+                                alert("Please fill all fields");
                                 return;
                             }
+                            // log.date = log.date.toLocaleDateString();
                             const resp = await postToProductionLogs(log);
                             // close modal
                             alert("Successfully logged production");
