@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -30,10 +30,24 @@ import FormField from "/pagesComponents/ecommerce/products/new-product/component
 import MDButton from "/components/MDButton";
 import { useAuth } from "hooks/use-auth";
 
+import { getUsers } from "apiHelpers/users";
+
 function ProductInfo({ formData }) {
   const [editorValue, setEditorValue] = useState(
     "<p>Some initial <strong>bold</strong> text</p><br><br><br><br>",
   );
+
+  const [listOfUsers, setListOfUsers] = useState([]);
+
+  useEffect(() => {
+    const getUsersFromApi = async () => {
+      const users = await getUsers();
+      setListOfUsers(users.map((user) => user.name));
+    };
+    getUsersFromApi();
+  }, []);
+
+
   // !!! Rename variables to match your schema
   const { formField, values, errors, touched } = formData;
   const { firstName, lastName, department, email, address1, address2 } =
@@ -131,7 +145,7 @@ function ProductInfo({ formData }) {
             <Autocomplete
               multiple
               id="tags-standard"
-              options={['User 1', 'User 2', 'User 3', ...getCurrentUser()]}
+              options={listOfUsers}
               getOptionLabel={(option) => option}
               defaultValue={[]}
               onChange={(event, value) => handleChange(value)}

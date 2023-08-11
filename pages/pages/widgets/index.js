@@ -51,7 +51,7 @@ import categoriesListData from "/pagesComponents/pages/widgets/data/categoriesLi
 import caloriesChartData from "/pagesComponents/pages/widgets/data/caloriesChartData";
 
 import { getFromProductsByID, postToProducts, deleteFromProductsByID, putToProductsByID, getFromProductsByAssignedUser, getFromProductsByAssignedUserAndSpecifiedAttribute } from "/apiHelpers/products";
-import { getAttributeFromUsers } from "/apiHelpers/users";
+import { getUsers } from "/apiHelpers/users";
 import MDInput from "/components/MDInput";
 import MDButton from "/components/MDButton";
 import MDSnackbar from "/components/MDSnackbar";
@@ -152,7 +152,7 @@ function Widgets() {
                 if (productID === "") {
                   return;
                 }
-                const product = await getAttributeFromUsers(['email', 'name']);
+                const product = await getUsers();
                 console.log(product);
               }}>GET ATTR USER</MDButton>
 
