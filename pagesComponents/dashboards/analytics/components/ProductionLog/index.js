@@ -16,7 +16,7 @@ import MDDatePicker from "/components/MDDatePicker";
 
 
 function ProductionLog() {
-    const [log, setLog] = useState({ _id: uuidv4() });
+    const [log, setLog] = useState({});
     const [products, setProducts] = useState([]);
     const [productName, setProductName] = useState("");
     const [selectedProduct, setSelectedProduct] = useState({});
@@ -147,12 +147,14 @@ function ProductionLog() {
                         color="dark"
                         style={{ margin: '1rem' }}
                         onClick={async () => {
-                            console.log(log);
+                            // console.log(log);
                             // check if all fields are filled
                             if (!log.product_id || !log.quantity || !log.rejected || !log.shift || !log.date) {
                                 alert("Please fill all fields");
                                 return;
                             }
+                            // create a new log _id 
+                            log._id = uuidv4();
                             // log.date = log.date.toLocaleDateString();
                             const resp = await postToProductionLogs(log);
                             // close modal
