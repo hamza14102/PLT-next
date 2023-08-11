@@ -152,7 +152,7 @@ function Widgets() {
                 if (productID === "") {
                   return;
                 }
-                const product = await getAttributeFromUsers(['sub', 'email']);
+                const product = await getAttributeFromUsers(['email', 'name']);
                 console.log(product);
               }}>GET ATTR USER</MDButton>
 
