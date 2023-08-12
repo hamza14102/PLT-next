@@ -75,6 +75,7 @@ function UserInfo({ formData }) {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <FormField
+              // department can only be from ['Metal', 'Wood', 'Stone', 'Packing', 'Unit-2', 'Fabric', 'Leather', 'Admin', 'HR', 'Accounts', 'Quality', 'Purchase', 'Merchandising', 'IT', 'Maintenance', 'Store', 'Other']
               type={department.type}
               label={department.label}
               name={department.name}
