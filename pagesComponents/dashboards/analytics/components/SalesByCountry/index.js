@@ -33,6 +33,7 @@ import salesTableData from "/pagesComponents/dashboards/analytics/components/Sal
 import { getFromProductsByAssignedUser } from "apiHelpers/products";
 import { useAuth } from "hooks/use-auth";
 import { CircularProgress } from "@mui/material";
+import MDButton from "/components/MDButton";
 
 function SalesByCountry() {
   const [products, setProducts] = useState([]);
@@ -124,7 +125,7 @@ function SalesByCountry() {
     if (mapContainer && mapContainer.children.length === 0) createMap();
 
     () => mapContainer.children[0].remove();
-  }, []);
+  }, [loading]);
 
   return (
     <Card sx={{ width: "100%" }}>
@@ -151,7 +152,7 @@ function SalesByCountry() {
           Production by Product
         </MDTypography>
         {
-          loading && (
+          loading ? (
             <CircularProgress
               sx={{
                 position: "absolute",
@@ -160,6 +161,22 @@ function SalesByCountry() {
               }}
 
             />
+          ) : (
+            <MDButton
+              variant="gradient"
+              color="success"
+              size="small"
+              sx={{
+                position: "absolute",
+                right: "1rem",
+                top: "1rem",
+              }}
+              onClick={() => {
+                setLoading(true);
+              }}
+            >
+              Refresh
+            </MDButton>
           )
         }
       </MDBox>

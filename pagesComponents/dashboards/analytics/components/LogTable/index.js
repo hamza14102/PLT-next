@@ -27,6 +27,7 @@ function LogTable({ product_id }) {
                     efficiency: (log.quantity / log.planned * 100).toFixed(1) + "%",
                     logged_by: log.logged_by,
                     reason: log.reason,
+                    manpower: log.manpower,
                 };
             }));
 
@@ -73,13 +74,15 @@ function LogTable({ product_id }) {
                                 table={{
                                     columns: [
                                         { Header: "Product Name", accessor: "product_id" },
-                                        { Header: "Shift", accessor: "shift", width: "10%" },
-                                        { Header: "Date", accessor: "date", width: "12%" },
-                                        { Header: "Planned Quantity", accessor: "planned", width: "12%" },
-                                        { Header: "Quantity Achieved", accessor: "quantity", width: "12%" },
-                                        { Header: "Rejected Quantity", accessor: "rejected", width: "12%" },
-                                        { Header: "Plan Efficiency", accessor: "efficiency", width: "12%" },
+                                        { Header: "Shift", accessor: "shift", width: "8%" },
+                                        { Header: "Date", accessor: "date", width: "8%" },
+                                        { Header: "Manpower", accessor: "manpower", width: "8%" },
+                                        { Header: "Planned Quantity", accessor: "planned", width: "8%" },
+                                        { Header: "Quantity Achieved", accessor: "quantity", width: "8%" },
+                                        { Header: "Rejected Quantity", accessor: "rejected", width: "8%" },
+                                        { Header: "Plan Efficiency", accessor: "efficiency", width: "8%" },
                                         { Header: "Logged By", accessor: "logged_by" },
+                                        { Header: "Failure Reason", accessor: "reason" },
                                     ],
                                     rows: logs,
                                 }}

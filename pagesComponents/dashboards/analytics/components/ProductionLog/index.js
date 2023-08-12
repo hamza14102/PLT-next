@@ -235,6 +235,22 @@ function ProductionLog({ product_id }) {
                             </Grid>
                             <Grid item xs={6}>
                                 <MDInput
+                                    fullWidth
+                                    label="Manpower"
+                                    name="manpower"
+                                    size="small"
+                                    variant="outlined"
+                                    value={log.manpower ? log.manpower : ""}
+                                    type="text"
+                                    onChange={(e) => setLog({ ...log, manpower: e.target.value })}
+                                    required
+                                // error
+                                // disabled
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <MDInput
+                                    fullWidth
                                     input={{ placeholder: "Log Date" }}
                                     value={log.date ? log.date : new Date()}
                                     label="Log Date"
@@ -261,7 +277,7 @@ function ProductionLog({ product_id }) {
                                     // console.log("logged by: ", getCurrentUser());
                                     log.logged_by = getCurrentUser();
                                     log.product_id = product_id;
-                                    if (!log.product_id || !log.quantity || !log.shift || !log.date || !log.planned) {
+                                    if (!log.product_id || !log.quantity || !log.shift || !log.date || !log.planned || !log.manpower) {
                                         // alert("Please fill all essential fields");
                                         setSnackbarContent({
                                             ...snackbarContent,
