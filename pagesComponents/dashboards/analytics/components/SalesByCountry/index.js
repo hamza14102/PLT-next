@@ -145,7 +145,7 @@ function SalesByCountry() {
           mt={-2}
         >
           <Icon fontSize="medium" color="inherit">
-            language
+            sell
           </Icon>
         </MDBox>
         <MDTypography variant="h6" sx={{ mt: 2, mb: 1, ml: 2 }}>
@@ -165,7 +165,7 @@ function SalesByCountry() {
             <MDButton
               variant="gradient"
               color="success"
-              size="small"
+              size="medium"
               sx={{
                 position: "absolute",
                 right: "1rem",
@@ -174,8 +174,9 @@ function SalesByCountry() {
               onClick={() => {
                 setLoading(true);
               }}
+              iconOnly
             >
-              Refresh
+              <Icon>refresh</Icon>
             </MDButton>
           )
         }
