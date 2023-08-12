@@ -50,7 +50,7 @@ function ProductInfo({ formData }) {
 
   // !!! Rename variables to match your schema
   const { formField, values, errors, touched } = formData;
-  const { firstName, lastName, department, email, address1, address2 } =
+  const { firstName, lastName, department, email, address1, address2, city } =
     formField;
   const {
     firstName: firstNameV,
@@ -59,6 +59,7 @@ function ProductInfo({ formData }) {
     email: emailV,
     address1: address1V,
     address2: address2V,
+    city: cityV,
   } = values;
 
   // get current user sub from auth hook
@@ -97,6 +98,17 @@ function ProductInfo({ formData }) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormField
+              type={department.type}
+              label={department.label}
+              name={department.name}
+              value={departmentV}
+              placeholder={department.placeholder}
+              error={errors.department && touched.department}
+              success={departmentV.length > 0 && !errors.department}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormField
               type={lastName.type}
               label={lastName.label}
               name={lastName.name}
@@ -108,6 +120,17 @@ function ProductInfo({ formData }) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormField
+              type={city.type}
+              label={city.label}
+              name={city.name}
+              value={cityV}
+              placeholder={city.placeholder}
+              error={errors.city && touched.city}
+              success={cityV.length > 0 && !errors.city}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormField
               type={address1.type}
               label={address1.label}
               name={address1.name}
@@ -115,17 +138,6 @@ function ProductInfo({ formData }) {
               placeholder={address1.placeholder}
               error={errors.address1 && touched.address1}
               success={address1V.length > 0 && !errors.address1}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormField
-              type={department.type}
-              label={department.label}
-              name={department.name}
-              value={departmentV}
-              placeholder={department.placeholder}
-              error={errors.department && touched.department}
-              success={departmentV.length > 0 && !errors.department}
             />
           </Grid>
 
@@ -153,7 +165,7 @@ function ProductInfo({ formData }) {
                 <MDInput
                   {...params}
                   variant="standard"
-                  label="Assign Users"
+                  label="Assign Head of Departments"
                 // placeholder="Users"
                 />
               )}

@@ -118,10 +118,10 @@ function Cover() {
     alert(JSON.stringify(values, null, 2));
 
     const product_post_response = await postToProducts({
-      "_id": values.firstName, "SKU": values.lastName, "Buyer": values.department, "Ship By Date": values.email, "Processes": JSON.parse(values.password), "Quantity": values.address1, "user_ids": values.address2, "remaining": values.address1, "rejected": 0,
+      "_id": values.firstName, "SKU": values.lastName, "Buyer": values.department, "Ship By Date": values.email, "Processes": JSON.parse(values.password), "Quantity": values.address1, "user_ids": values.address2, "remaining": values.address1, "rejected": 0, "PO/OMS": values.city,
       //  "quantity": values.repeatPassword, "image": values.address1, "processes": values.address2, "tags": values.city, "category": values.zip, "rating": values.twitter, "reviews": values.facebook, "date": values.instagram, "status": values.publicEmail, "featured": values.bio 
     });
-    console.log(product_post_response);
+    // console.log(product_post_response);
     // reset the form upon submission to initial values
     actions.resetForm({
       values: initialValues

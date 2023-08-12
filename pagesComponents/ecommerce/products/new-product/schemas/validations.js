@@ -39,6 +39,7 @@ const validations = [
     [department.name]: Yup.string().required(department.errorMsg),
     [email.name]: Yup.date().required(email.errorMsg).min(new Date(), email.invalidMsg),
     [address1.name]: Yup.string().required(address1.errorMsg),
+    [city.name]: Yup.string().required(city.errorMsg),
     // address2 is a list of strings that is required and minimum length of 1
     // [address2.name]: Yup.array().of(Yup.string().required()).min(1, address2.errorMsg),
     // [password.name]: Yup.string()
@@ -54,7 +55,7 @@ const validations = [
   }),
   // Yup.object().shape({
   //   [address1.name]: Yup.string().required(address1.errorMsg),
-  //   [city.name]: Yup.string().required(city.errorMsg),
+  // [city.name]: Yup.string().required(city.errorMsg),
   //   [zip.name]: Yup.string().required(zip.errorMsg).min(6, zip.invalidMsg),
   // }),
   // Yup.object().shape({
