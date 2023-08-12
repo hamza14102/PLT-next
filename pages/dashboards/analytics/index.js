@@ -78,7 +78,7 @@ function Analytics() {
           // total: product.price * product.quantity,
           'Shipment Date': product['Ship By Date'],
           Buyer: product.Buyer,
-          Rejection: product.Rejection ? product.Rejection : "0%",
+          // Rejection: product.rejected ? product.rejected : "0%",
           remaining: product.remaining ? product.remaining : product.Quantity,
           // status: product.status,
           // createdAt: product.createdAt,

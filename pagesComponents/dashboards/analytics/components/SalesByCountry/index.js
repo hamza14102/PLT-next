@@ -61,9 +61,11 @@ function SalesByCountry() {
           name: product._id,
           quantity: product.Quantity,
           // total: product.price * product.quantity,
-          'Shipment Date': product['Ship By Date'],
+          'Date': product['Ship By Date'],
           Buyer: product.Buyer,
-          Rejection: product.Rejection ? product.Rejection : "0%",
+          Rejection: product.rejected > 0 ? product.rejected / product.Quantity * 100 + "%" : "0%",
+          Progress: 100 - (product.remaining / product.Quantity * 100) + "%",
+          // remaining: product.remaining,
           // status: product.status,
           // createdAt: product.createdAt,
         };
@@ -163,10 +165,10 @@ function SalesByCountry() {
       </MDBox>
       <MDBox p={2}>
         <Grid container>
-          <Grid item xs={12} md={7} lg={6}>
+          <Grid item xs={12} md={10} lg={10}>
             <SalesTable rows={products} shadow={false} />
           </Grid>
-          <Grid item xs={12} md={5} lg={6} sx={{ mt: { xs: 5, lg: 0 } }}>
+          <Grid item xs={12} md={2} lg={2} sx={{ mt: { xs: 5, lg: 0 } }}>
             <MDBox id="map" width="100%" height="100%" mt={-3} />
           </Grid>
         </Grid>
