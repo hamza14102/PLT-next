@@ -219,9 +219,9 @@ export const AuthProvider = (props) => {
           const decodedPayload = JSON.parse(atob(payload));
 
           // Set the session timeout to the expiration time of the token
-          const timeout = decodedPayload.exp * 1000 - new Date().getTime() + 10000;
-          timeoutIdRef.current = setTimeout(() => {
-            signOut();
+          const timeout = decodedPayload.exp * 1000 - new Date().getTime() + 1000;
+          timeoutIdRef.current = setTimeout(async () => {
+            await signOut();
             window.location.reload();
           }, timeout);
 
