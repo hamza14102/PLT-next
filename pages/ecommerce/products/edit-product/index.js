@@ -40,6 +40,9 @@ import { Icon, IconButton } from "@mui/material";
 
 import { useState, useRef, useEffect, Fragment, use } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
+import { getUsers } from "apiHelpers/users";
+import MDInput from "/components/MDInput";
+import { addUsersToProductByID } from "apiHelpers/products";
 
 function EditProduct() {
 
@@ -52,6 +55,20 @@ function EditProduct() {
 
   const [open, setOpen] = useState(false);
   const loading = open && products.length === 0;
+
+  const [listOfUsers, setListOfUsers] = useState([]);
+  const [assignedUsers, setAssignedUsers] = useState([]);
+  useEffect(() => {
+    const getUsersFromApi = async () => {
+      const users = await getUsers();
+      setListOfUsers(users.map((user) => user.name));
+    };
+    getUsersFromApi();
+  }, []);
+
+  const handleChange = (value) => {
+    setAssignedUsers(value);
+  };
 
   useEffect(() => {
     if (selectedProduct && selectedProduct.Processes) {
@@ -173,7 +190,44 @@ function EditProduct() {
             <OrdersOverview />
           </Grid>
           <Grid item xs={12} lg={8}>
-            <SingleDepartment department={selectedDepartment} />
+            <Grid item xs={12} lg={12}>
+              <SingleDepartment department={selectedDepartment} />
+            </Grid>
+            <Grid item xs={12} lg={12} mt={3} sx={{ display: "flex", alignItems: "center", gap: 2 }} >
+              <Autocomplete
+                sx={{ width: "50%" }}
+                multiple
+                id="tags-standard"
+                options={listOfUsers}
+                getOptionLabel={(option) => option}
+                defaultValue={[]}
+                onChange={(event, value) => handleChange(value)}
+                renderInput={(params) => (
+                  <MDInput
+                    {...params}
+                    variant="standard"
+                    label="Add Team Members"
+                  // placeholder="Users"
+                  />
+                )}
+              />
+              <MDButton
+                variant="gradient"
+                color="dark"
+                onClick={async () => {
+                  if (selectedProduct && selectedProduct._id && assignedUsers && assignedUsers.length > 0) {
+
+                    const response = await addUsersToProductByID(selectedProduct._id, assignedUsers);
+                    alert("Users added successfully!");
+                  } else {
+                    alert("Please select a product and add users to it!");
+                  }
+                }
+                }
+              >
+                Add
+              </MDButton>
+            </Grid>
           </Grid>
         </Grid>
       </MDBox>

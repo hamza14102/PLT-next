@@ -193,3 +193,34 @@ export async function addLogsToProductByID(product_id, achieved, rejected) {
     // check status code and return accordingly
     return data;
 }
+
+export async function addUsersToProductByID(product_id, usersToAdd) {
+    const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
+    const params = new URLSearchParams({
+        TableName: 'Products',
+    });
+    const existingUsers = await getFromProductsByID(product_id);
+    const existingUserIDs = existingUsers[0].user_ids;
+    const newUsers = usersToAdd.filter((user) => !existingUserIDs.includes(user));
+
+    const response = await fetch(`${url}?${params}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            "Key": {
+                "_id": product_id,
+            },
+            "UpdateExpression": "SET user_ids = list_append(user_ids, :u)",
+            "ExpressionAttributeValues": {
+                ":u": newUsers,
+            },
+            "ReturnValues": "UPDATED_NEW"
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
+    });
+    const data = await response.json();
+    // check status code and return accordingly
+    return data;
+}
