@@ -43,6 +43,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { getUsers } from "apiHelpers/users";
 import MDInput from "/components/MDInput";
 import { addUsersToProductByID } from "apiHelpers/products";
+import { Card } from "@mui/material";
 
 function EditProduct() {
 
@@ -190,43 +191,58 @@ function EditProduct() {
             <OrdersOverview />
           </Grid>
           <Grid item xs={12} lg={8}>
-            <Grid item xs={12} lg={12}>
-              <SingleDepartment department={selectedDepartment} />
-            </Grid>
-            <Grid item xs={12} lg={12} mt={3} sx={{ display: "flex", alignItems: "center", gap: 2 }} >
-              <Autocomplete
-                sx={{ width: "50%" }}
-                multiple
-                id="tags-standard"
-                options={listOfUsers}
-                getOptionLabel={(option) => option}
-                defaultValue={[]}
-                onChange={(event, value) => handleChange(value)}
-                renderInput={(params) => (
-                  <MDInput
-                    {...params}
-                    variant="standard"
-                    label="Add Team Members"
-                  // placeholder="Users"
-                  />
-                )}
-              />
-              <MDButton
-                variant="gradient"
-                color="dark"
-                onClick={async () => {
-                  if (selectedProduct && selectedProduct._id && assignedUsers && assignedUsers.length > 0) {
-
-                    const response = await addUsersToProductByID(selectedProduct._id, assignedUsers);
-                    alert("Users added successfully!");
-                  } else {
-                    alert("Please select a product and add users to it!");
+            <Grid item xs={12} lg={12} sx={{ display: "flex", alignItems: "center", gap: 2 }} >
+              <Card
+                sx={
+                  {
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 2,
+                    p: 2,
+                    borderRadius: 2,
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                   }
                 }
-                }
               >
-                Add
-              </MDButton>
+                <Autocomplete
+                  sx={{ width: "50%" }}
+                  multiple
+                  id="tags-standard"
+                  options={listOfUsers}
+                  getOptionLabel={(option) => option}
+                  defaultValue={[]}
+                  onChange={(event, value) => handleChange(value)}
+                  renderInput={(params) => (
+                    <MDInput
+                      {...params}
+                      variant="standard"
+                      label="Add Team Members"
+                    // placeholder="Users"
+                    />
+                  )}
+                />
+                <MDButton
+                  variant="gradient"
+                  color="dark"
+                  onClick={async () => {
+                    if (selectedProduct && selectedProduct._id && assignedUsers && assignedUsers.length > 0) {
+
+                      const response = await addUsersToProductByID(selectedProduct._id, assignedUsers);
+                      alert("Users added successfully!");
+                    } else {
+                      alert("Please select a product and add users to it!");
+                    }
+                  }
+                  }
+                >
+                  Add
+                </MDButton>
+              </Card>
+            </Grid>
+            <Grid item xs={12} lg={12} mt={3}>
+              <SingleDepartment department={selectedDepartment} />
             </Grid>
           </Grid>
         </Grid>
