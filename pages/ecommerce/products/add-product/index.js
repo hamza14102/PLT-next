@@ -106,6 +106,8 @@ function Cover() {
   const currentValidation = validations[activeStep];
   const isLastStep = activeStep === steps.length - 1;
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
   const sleep = (ms) =>
     new Promise((resolve) => {
       setTimeout(resolve, ms);
@@ -114,14 +116,23 @@ function Cover() {
 
   const submitForm = async (values, actions) => {
 
-    await sleep(1000);
-    alert(JSON.stringify(values, null, 2));
+    // await sleep(1000);
+    // alert(JSON.stringify(values, null, 2));
 
     const product_post_response = await postToProducts({
       "_id": values.firstName, "SKU": values.lastName, "Buyer": values.department, "Ship By Date": values.email, "Processes": JSON.parse(values.password), "Quantity": values.address1, "user_ids": values.address2, "remaining": values.address1, "rejected": 0, "PO/OMS": values.city,
       //  "quantity": values.repeatPassword, "image": values.address1, "processes": values.address2, "tags": values.city, "category": values.zip, "rating": values.twitter, "reviews": values.facebook, "date": values.instagram, "status": values.publicEmail, "featured": values.bio 
     });
-    // console.log(product_post_response);
+
+    // if (product_post_response.status === 200) {
+    //   setSnackbarOpen(true);
+    // } else {
+    //   setErrors(product_post_response.data);
+    //   toggleSnackbar();
+    // }
+
+    setSnackbarOpen(true);
+
     // reset the form upon submission to initial values
     actions.resetForm({
       values: initialValues
@@ -155,6 +166,18 @@ function Cover() {
         mb={1}
         textAlign="center"
       >
+        <MDSnackbar
+          open={snackbarOpen}
+          color="success"
+          icon="notifictions"
+          title="Successfully created product!"
+          content="You have successfully created a new product."
+          autoHideDuration={6000}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          close={() => setSnackbarOpen(false)}
+          message="You have successfully created a new product."
+        />
+
         <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
           Create a new product
         </MDTypography>
