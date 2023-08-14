@@ -24,9 +24,9 @@ const form = {
     },
     lastName: {
       name: "lastName",
-      label: "SKU",
+      label: "Hall# / Line#",
       type: "text",
-      errorMsg: "SKU is required.",
+      errorMsg: "Hall# / Line# is required.",
     },
     department: {
       name: "department",
