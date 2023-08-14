@@ -73,7 +73,7 @@ function Footer({ company, links }) {
           &nbsp;Marque Impex&nbsp;
         </MDTypography>
         {/* </Link> */}
-        by Hamza Husain
+        by Cobalt
       </MDBox>
       <MDBox
         component="ul"
