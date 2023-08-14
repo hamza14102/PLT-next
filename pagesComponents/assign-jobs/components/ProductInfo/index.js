@@ -26,7 +26,7 @@ import MDEditor from "/components/MDEditor";
 import MDInput from "/components/MDInput";
 
 // NewProduct page components
-import FormField from "/pagesComponents/ecommerce/products/new-product/components/FormField";
+import FormField from "/pagesComponents/assign-jobs/components/FormField";
 import MDButton from "/components/MDButton";
 import { useAuth } from "hooks/use-auth";
 

@@ -21,7 +21,7 @@ import MDBox from "/components/MDBox";
 import MDTypography from "/components/MDTypography";
 
 // NewProduct page components
-import FormField from "/pagesComponents/ecommerce/products/new-product/components/FormField";
+import FormField from "/pagesComponents/assign-jobs/components/FormField";
 
 import { useEffect, useState } from "react";
 import MDInput from "/components/MDInput";
