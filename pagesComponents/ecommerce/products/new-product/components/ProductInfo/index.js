@@ -118,7 +118,7 @@ function ProductInfo({ formData }) {
               success={lastNameV.length > 0 && !errors.lastName}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <FormField
               type={city.type}
               label={city.label}
@@ -128,8 +128,8 @@ function ProductInfo({ formData }) {
               error={errors.city && touched.city}
               success={cityV.length > 0 && !errors.city}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid> */}
+          {/* <Grid item xs={12} sm={6}>
             <FormField
               type={address1.type}
               label={address1.label}
@@ -139,9 +139,9 @@ function ProductInfo({ formData }) {
               error={errors.address1 && touched.address1}
               success={address1V.length > 0 && !errors.address1}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <FormField
               type={email.type}
               label={email.label}
@@ -151,7 +151,7 @@ function ProductInfo({ formData }) {
               error={errors.email && touched.email}
               success={emailV.length > 0 && !errors.email}
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={12} sm={6}>
             <Autocomplete
