@@ -36,10 +36,10 @@ const form = {
     },
     email: {
       name: "email",
-      label: "Ship by Date",
+      label: "Due Date",
       type: "date",
-      errorMsg: "Ship by Date is required.",
-      invalidMsg: "Your Ship by Date has to be in the future",
+      errorMsg: "Due Date is required.",
+      invalidMsg: "Your Due Date has to be in the future",
     },
     password: {
       name: "password",
