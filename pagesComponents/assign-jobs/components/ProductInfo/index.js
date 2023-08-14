@@ -165,7 +165,7 @@ function ProductInfo({ formData }) {
                 <MDInput
                   {...params}
                   variant="standard"
-                  label="Assign Head of Departments"
+                  label="Assign to People"
                 // placeholder="Users"
                 />
               )}
