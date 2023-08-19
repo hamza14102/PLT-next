@@ -33,51 +33,16 @@ import { useAuth } from "hooks/use-auth";
 import { getUsers } from "apiHelpers/users";
 
 function ProductInfo({ formData }) {
-  const [editorValue, setEditorValue] = useState(
-    "<p>Some initial <strong>bold</strong> text</p><br><br><br><br>",
-  );
-
-  const [listOfUsers, setListOfUsers] = useState([]);
-
-  useEffect(() => {
-    const getUsersFromApi = async () => {
-      const users = await getUsers();
-      setListOfUsers(users.map((user) => user.name));
-    };
-    getUsersFromApi();
-  }, []);
-
 
   // !!! Rename variables to match your schema
   const { formField, values, errors, touched } = formData;
-  const { firstName, lastName, department, email, address1, address2, city } =
+  const { firstName, lastName, department } =
     formField;
   const {
     firstName: firstNameV,
     lastName: lastNameV,
     department: departmentV,
-    email: emailV,
-    address1: address1V,
-    address2: address2V,
-    city: cityV,
   } = values;
-
-  // get current user sub from auth hook
-  const { isLoading, user } = useAuth();
-
-  const getCurrentUser = () => {
-    if (!isLoading && user) {
-      return [user.find((attr) => attr.Name === "name").Value];
-    }
-    return [];
-  };
-
-  const [assignedUsers, setAssignedUsers] = useState([]);
-
-  const handleChange = (value) => {
-    setAssignedUsers(value);
-    values.address2 = value;
-  };
 
 
   return (
@@ -153,7 +118,7 @@ function ProductInfo({ formData }) {
             />
           </Grid> */}
 
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <Autocomplete
               multiple
               id="tags-standard"
@@ -170,7 +135,7 @@ function ProductInfo({ formData }) {
                 />
               )}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
       </MDBox>
     </MDBox>
