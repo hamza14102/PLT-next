@@ -31,8 +31,7 @@ export async function postToProducts(product) {
         },
     });
     const data = await response.json();
-    // check status code and return accordingly
-    return data;
+    return { data: data, status: response.status };
 }
 
 export async function deleteFromProductsByID(_id) {
