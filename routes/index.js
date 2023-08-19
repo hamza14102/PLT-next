@@ -50,23 +50,24 @@ const routes = [
     name: "Account",
     key: "account",
     icon: <MDAvatar src={AccountCircleIcon.src} alt="Account" size="sm" />,
-    collapse: [
-      // {
-      //   name: "My Profile",
-      //   key: "my-profile",
-      //   route: "/pages/profile/profile-overview",
-      // },
-      // {
-      //   name: "Settings",
-      //   key: "profile-settings",
-      //   route: "/pages/account/settings",
-      // },
-      // {
-      //   name: "Logout",
-      //   key: "logout",
-      //   route: "/authentication/sign-in/basic",
-      // },
-    ],
+    noCollapse: true,
+    // collapse: [
+    // {
+    //   name: "My Profile",
+    //   key: "my-profile",
+    //   route: "/pages/profile/profile-overview",
+    // },
+    // {
+    //   name: "Settings",
+    //   key: "profile-settings",
+    //   route: "/pages/account/settings",
+    // },
+    // {
+    //   name: "Logout",
+    //   key: "logout",
+    //   route: "/authentication/sign-in/basic",
+    // },
+    // ],
   },
   { type: "divider", key: "divider-0" },
   { type: "title", title: "Dashboards", key: "title-pages" },
