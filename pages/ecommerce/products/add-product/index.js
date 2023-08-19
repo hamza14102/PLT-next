@@ -65,6 +65,7 @@ import MDSnackbar from "/components/MDSnackbar";
 import { CircularProgress } from "@mui/material";
 
 import { postToProducts } from "/apiHelpers/products";
+import icon from "assets/theme/components/icon";
 
 
 function getSteps() {
@@ -105,6 +106,13 @@ function Cover() {
   const { formId, formField } = form;
   const currentValidation = validations[activeStep];
   const isLastStep = activeStep === steps.length - 1;
+  const [snackbarContent, setSnackbarContent] = useState({
+    message: "",
+    color: "",
+    title: "",
+    content: ""
+  });
+
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
@@ -124,7 +132,24 @@ function Cover() {
       //  "quantity": values.repeatPassword, "image": values.address1, "processes": values.address2, "tags": values.city, "category": values.zip, "rating": values.twitter, "reviews": values.facebook, "date": values.instagram, "status": values.publicEmail, "featured": values.bio 
     });
 
-    console.log(product_post_response);
+    // console.log(product_post_response);
+    if (product_post_response.status === 200) {
+      setSnackbarContent({
+        message: "Product created successfully",
+        color: "success",
+        title: "Product created successfully",
+        content: "Product created successfully",
+        icon: "notifications"
+      });
+    } else {
+      setSnackbarContent({
+        message: "Product creation failed",
+        color: "error",
+        title: "Product creation failed",
+        content: product_post_response.data,
+        icon: "notifications"
+      });
+    }
 
     // if (product_post_response.status === 200) {
     //   setSnackbarOpen(true);
@@ -170,14 +195,14 @@ function Cover() {
       >
         <MDSnackbar
           open={snackbarOpen}
-          color="success"
-          icon="notifictions"
-          title="Successfully created product!"
-          content="You have successfully created a new product."
+          color={snackbarContent.color}
+          icon={snackbarContent.icon}
+          title={snackbarContent.title}
+          content={snackbarContent.content}
           autoHideDuration={6000}
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
           close={() => setSnackbarOpen(false)}
-          message="You have successfully created a new product."
+        // message={snackbarContent.message}
         />
 
         <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
