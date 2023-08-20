@@ -47,11 +47,9 @@ function ProductInfo({ product }) {
 
 
   useEffect(() => {
-    setProductName(product ? product._id : "");
-    setSKU(product ? product.SKU : "");
-    setBuyer(product ? product.Buyer : "");
-    setQuantity(product ? product.Quantity : "");
-    setDescription(product ? product.Description ? product.Description : "" : "");
+    setProductName(product ? product.name : "");
+    setSKU(product ? product._id : "");
+    setBuyer(product ? product.buyer : "");
   }, [product]);
 
 
@@ -87,22 +85,10 @@ function ProductInfo({ product }) {
             <Grid item xs={12} sm={3}>
               <FormField type="text" label="Buyer" value={Buyer} onChange={(e) => setBuyer(e.target.value)} />
             </Grid>
-            {/* <Grid item xs={12} sm={3}>
-              <FormField type="text" label="Price" defaultValue="$90" />
-            </Grid> */}
-            <Grid item xs={12} sm={3}>
-              <FormField type="number" label="Quantity" value={Quantity} onChange={(e) => setQuantity(e.target.value)} />
-            </Grid>
-            <Grid item xs={12} sm={3}>
-              <MDDatePicker input={{ placeholder: "Ship by Date" }} />
-            </Grid>
           </Grid>
         </MDBox>
         <MDBox mt={1}>
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={12}>
-              <FormField type="text" label="Description (optional)" value={Description} onChange={(e) => setDescription(e.target.value)} />
-            </Grid>
             <Grid item xs={12} sm={12}>
               <Grid container justifyContent="flex-end">
                 <Grid item>
