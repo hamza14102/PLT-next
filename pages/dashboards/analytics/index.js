@@ -67,6 +67,13 @@ function Analytics() {
     return [];
   };
 
+  document.addEventListener('keydown', function (event) {
+    if (event.key === "Escape" && modalOpen) {
+      // code to close the modal
+      setModalOpen(false);
+    }
+  });
+
   useEffect(() => {
     const userID = getCurrentUserID();
     getFromProductsByAssignedUser(userID).then((res) => {
