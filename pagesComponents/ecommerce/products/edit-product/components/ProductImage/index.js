@@ -29,20 +29,26 @@ import productImageDefault from "/assets/images/Door Stopper.jpg";
 import { useEffect, useState } from "react";
 
 import { getProductImagePresignedUrlFromImageKey } from "apiHelpers/products";
+import { CircularProgress } from "@mui/material";
 
 function ProductImage({ product }) {
   const [productImage, setProductImage] = useState(null);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
     console.log(product);
     // fetch image from s3
-    const image_key = product?.image_key;
-    if (image_key) {
-      getProductImagePresignedUrlFromImageKey(image_key).then((url) => {
-        setProductImage(url);
-      });
+    if (product) {
+      setLoading(true);
+      const image_key = product?.image_key;
+      if (image_key) {
+        getProductImagePresignedUrlFromImageKey(image_key).then((url) => {
+          setProductImage(url);
+          setLoading(false);
+        });
+      }
+      // setLoading(false);
     }
   }, [product]);
 
@@ -73,18 +79,25 @@ function ProductImage({ product }) {
           mb={2}
           overflow="hidden"
         >
-          <Image
-            src={productImage ? productImage : productImageDefault}
-            alt="Product Image"
-            sizes="100%"
-            width={1000}
-            height={1000}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-          />
+          {/* if loading then show CircularProgress else show Image */}
+          {loading ? (
+            <MDBox display="flex" justifyContent="center" alignItems="center" height="100%">
+              <CircularProgress color="white" size={120} />
+            </MDBox>
+          ) : (
+            <Image
+              src={productImage ? productImage : productImageDefault}
+              alt="Product Image"
+              sizes="100%"
+              width={1000}
+              height={1000}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+          )}
         </MDBox>
       </MDBox>
       <MDBox textAlign="center" pt={2} pb={3} px={3}>
