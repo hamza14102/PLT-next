@@ -69,9 +69,9 @@ const form = {
     },
     city: {
       name: "city",
-      label: "PO / OMS #",
-      type: "text",
-      errorMsg: "PO/OMS # is required.",
+      label: "Image",
+      type: "file",
+      errorMsg: "Image is required.",
     },
     zip: {
       name: "zip",

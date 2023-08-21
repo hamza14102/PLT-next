@@ -36,13 +36,23 @@ function ProductInfo({ formData }) {
 
   // !!! Rename variables to match your schema
   const { formField, values, errors, touched } = formData;
-  const { firstName, lastName, department } =
+  const { firstName, lastName, department, city } =
     formField;
   const {
     firstName: firstNameV,
     lastName: lastNameV,
     department: departmentV,
+    city: cityV,
   } = values;
+
+  const [imageFlag, setImageFlag] = useState(false);
+  function handleCityChange(event) {
+    values.city = event.target.files[0];
+    setImageFlag(true);
+
+    console.log(event.target.files[0]);
+  }
+
 
 
   return (
@@ -83,8 +93,8 @@ function ProductInfo({ formData }) {
               success={lastNameV.length > 0 && !errors.lastName}
             />
           </Grid>
-          {/* <Grid item xs={12} sm={6}>
-            <FormField
+          <Grid item xs={12} sm={6}>
+            {/* <FormField
               type={city.type}
               label={city.label}
               name={city.name}
@@ -92,8 +102,24 @@ function ProductInfo({ formData }) {
               placeholder={city.placeholder}
               error={errors.city && touched.city}
               success={cityV.length > 0 && !errors.city}
-            />
-          </Grid> */}
+              accept="image/*"
+            /> */}
+            {/* input as MDInput */}
+            <MDTypography variant="body2" color="white">
+              Image
+            </MDTypography>
+            <MDBox >
+
+              <input
+                type="file"
+                accept=".png, .jpeg, .jpg"
+                onChange={handleCityChange}
+              />
+            </MDBox>
+            <MDTypography variant="body2" color="warning">
+              {imageFlag ? "" : "Image is required"}
+            </MDTypography>
+          </Grid>
           {/* <Grid item xs={12} sm={6}>
             <FormField
               type={address1.type}
@@ -138,7 +164,7 @@ function ProductInfo({ formData }) {
           </Grid> */}
         </Grid>
       </MDBox>
-    </MDBox>
+    </MDBox >
   );
 }
 

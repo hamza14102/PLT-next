@@ -22,6 +22,12 @@ export async function postToProducts(product) {
     const params = new URLSearchParams({
         TableName: 'Products',
     });
+
+    // post image to s3 bucket, get key as response, add image_key to product and remove image from product
+    const image_key = await postProductImageToS3(product.image);
+    product.image_key = image_key;
+    delete product.image;
+
     const response = await fetch(`${url}?${params}`, {
         method: 'POST',
         body: JSON.stringify(product),
@@ -222,4 +228,33 @@ export async function addUsersToProductByID(product_id, usersToAdd) {
     const data = await response.json();
     // check status code and return accordingly
     return data;
+}
+
+async function convertImageToBase64(image) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]); // Extract base64 data from Data URL
+        reader.onerror = reject;
+        reader.readAsDataURL(image);
+    });
+}
+
+export async function postProductImageToS3(image) {
+    const apiUrl = 'https://t141t9eeu2.execute-api.us-east-2.amazonaws.com/default/production-ai-s3-uploads-lambda'; // Replace this with your actual API endpoint
+    const base64Image = await convertImageToBase64(image);
+
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        body: base64Image,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Image upload failed');
+    }
+
+    const responseData = await response.json();
+    return responseData['image_key'];
 }

@@ -66,6 +66,7 @@ import { CircularProgress } from "@mui/material";
 
 import { postToProducts } from "/apiHelpers/products";
 import icon from "assets/theme/components/icon";
+// import ImageUploader from "/pagesComponents/ecommerce/products/new-product/components/ImageUploader/index.js"
 
 
 function getSteps() {
@@ -128,7 +129,7 @@ function Cover() {
     // alert(JSON.stringify(values, null, 2));
 
     const product_post_response = await postToProducts({
-      "name": values.firstName, "_id": values.lastName, "buyer": values.department, "pfc": JSON.parse(values.password.length > 0 ? values.password : "[]"),
+      "name": values.firstName, "_id": values.lastName, "buyer": values.department, "pfc": JSON.parse(values.password.length > 0 ? values.password : "[]"), "image": values.city,
       //  "quantity": values.repeatPassword, "image": values.address1, "processes": values.address2, "tags": values.city, "category": values.zip, "rating": values.twitter, "reviews": values.facebook, "date": values.instagram, "status": values.publicEmail, "featured": values.bio 
     });
 
@@ -212,6 +213,7 @@ function Cover() {
           Fill in the form below to create a new product
         </MDTypography>
       </MDBox>
+      {/* <ImageUploader /> */}
       <MDBox mb={2}>
         <Grid
           container
