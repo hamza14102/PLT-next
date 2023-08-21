@@ -191,7 +191,7 @@ function EditProduct() {
             <OrdersOverview />
           </Grid>
           <Grid item xs={12} lg={8}>
-            <Grid item xs={12} lg={12} sx={{ display: "flex", alignItems: "center", gap: 2 }} >
+            {/* <Grid item xs={12} lg={12} sx={{ display: "flex", alignItems: "center", gap: 2 }} >
               <Card
                 sx={
                   {
@@ -240,8 +240,8 @@ function EditProduct() {
                   Add
                 </MDButton>
               </Card>
-            </Grid>
-            <Grid item xs={12} lg={12} mt={3}>
+            </Grid> */}
+            <Grid item xs={12} lg={12}>
               <SingleDepartment department={selectedDepartment} />
             </Grid>
           </Grid>
