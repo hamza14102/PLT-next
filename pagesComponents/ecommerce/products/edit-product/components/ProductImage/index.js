@@ -24,9 +24,29 @@ import MDTypography from "/components/MDTypography";
 import MDButton from "/components/MDButton";
 
 // Images
-import productImage from "/assets/images/Door Stopper.jpg";
+import productImageDefault from "/assets/images/Door Stopper.jpg";
+// change deafult image to something else
+import { useEffect, useState } from "react";
 
-function ProductImage() {
+import { getProductImagePresignedUrlFromImageKey } from "apiHelpers/products";
+
+function ProductImage({ product }) {
+  const [productImage, setProductImage] = useState(null);
+  // const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+    console.log(product);
+    // fetch image from s3
+    const image_key = product?.image_key;
+    if (image_key) {
+      getProductImagePresignedUrlFromImageKey(image_key).then((url) => {
+        setProductImage(url);
+      });
+    }
+  }, [product]);
+
+
   return (
     <Card
       sx={{
@@ -54,7 +74,7 @@ function ProductImage() {
           overflow="hidden"
         >
           <Image
-            src={productImage}
+            src={productImage ? productImage : productImageDefault}
             alt="Product Image"
             sizes="100%"
             width={1000}

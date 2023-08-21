@@ -258,3 +258,21 @@ export async function postProductImageToS3(image) {
     const responseData = await response.json();
     return responseData['image_key'];
 }
+
+export async function getProductImagePresignedUrlFromImageKey(image_key) {
+    const url = `https://t141t9eeu2.execute-api.us-east-2.amazonaws.com/default/production-ai-s3-uploads-lambda`;
+    const params = new URLSearchParams({
+        image_key: image_key,
+    });
+    const response = await fetch(`${url}?${params}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
+    });
+    const data = await response.json();
+    // check status code and return accordingly
+    const new_data = data['presignedUrl'];
+    return new_data;
+}

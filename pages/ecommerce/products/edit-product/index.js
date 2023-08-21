@@ -181,7 +181,7 @@ function EditProduct() {
         </MDBox>
         <Grid container spacing={3}>
           <Grid item xs={12} lg={4}>
-            <ProductImage />
+            <ProductImage product={selectedProduct} />
           </Grid>
           <Grid item xs={12} lg={8}>
             <ProductInfo product={selectedProduct} />
