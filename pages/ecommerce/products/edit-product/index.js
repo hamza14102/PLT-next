@@ -72,9 +72,9 @@ function EditProduct() {
   };
 
   useEffect(() => {
-    if (selectedProduct && selectedProduct.Processes) {
+    if (selectedProduct && selectedProduct.pfc) {
       // create a list of names of processes for the selected product
-      setDepartments(selectedProduct.Processes);
+      setDepartments(selectedProduct.pfc);
       // console.log(departments);
     }
   }, [selectedProduct]);

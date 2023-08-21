@@ -122,7 +122,7 @@ function Cover() {
     // alert(JSON.stringify(values, null, 2));
 
     const product_post_response = await putToTasks({
-      "_id": uuidv4(), "product_id": values.lastName, "PO/OMS": values.city, "quantity": values.address1, "user_ids": values.address2, "remaining": values.address1, "rejected": 0, "shipment_date": values.email,
+      "_id": uuidv4(), "product_id": values.lastName._id, "PO/OMS": values.city, "quantity": values.address1, "user_ids": values.address2, "remaining": values.address1, "rejected": 0, "shipment_date": values.email, "image_key": values.lastName.image_key,
       //  "quantity": values.repeatPassword, "image": values.address1, "processes": values.address2, "tags": values.city, "category": values.zip, "rating": values.twitter, "reviews": values.facebook, "date": values.instagram, "status": values.publicEmail, "featured": values.bio 
     });
 

@@ -112,7 +112,7 @@ function ProductInfo({ formData }) {
               id="asynchronous-demo"
               onChange={(event, newValue) => {
                 selectProduct(newValue);
-                console.log(newValue?._id);
+                // console.log(newValue?._id);
               }
               }
               disablePortal

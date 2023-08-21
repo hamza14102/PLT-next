@@ -44,7 +44,9 @@ import product2 from "/assets/images/3 hook.jpg";
 import product3 from "/assets/images/Door Stopper.jpg";
 import { useEffect, useState } from "react";
 import { useAuth } from "hooks/use-auth";
-import { getFromProductsByAssignedUser } from "apiHelpers/products";
+// import { getFromProductsByAssignedUser } from "apiHelpers/products";
+import { getFromTasksByAssignedUser } from "apiHelpers/tasks";
+import { getProductImagePresignedUrlFromImageKey } from "apiHelpers/products";
 import { Modal } from "@mui/material";
 import MDButton from "/components/MDButton";
 import DataTable from "/examples/Tables/DataTable";
@@ -57,6 +59,7 @@ function Analytics() {
   const { sales, tasks } = reportsLineChartData;
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const [products, setProducts] = useState([]);
   const auth = useAuth();
@@ -76,17 +79,20 @@ function Analytics() {
 
   useEffect(() => {
     const userID = getCurrentUserID();
-    getFromProductsByAssignedUser(userID).then((res) => {
+    getFromTasksByAssignedUser(userID).then((res) => {
       // change variable names to match your schema
-      res = res.map((product) => {
+      res = res.map((task) => {
+        // const presignedUrl = await getProductImagePresignedUrlFromImageKey(task.image_key);
+        // console.log(presignedUrl);
         return {
-          name: product._id,
-          quantity: product.Quantity,
+          name: task.product_id,
+          quantity: task.quantity,
+          // image_url: presignedUrl,
           // total: product.price * product.quantity,
-          'Shipment Date': product['Ship By Date'],
-          Buyer: product.Buyer,
+          'Shipment Date': task.shipment_date,
+          Buyer: task.Buyer,
           // Rejection: product.rejected ? product.rejected : "0%",
-          remaining: product.remaining ? product.remaining : product.Quantity,
+          remaining: task.remaining ? task.remaining : task.quantity,
           // status: product.status,
           // createdAt: product.createdAt,
         };
@@ -95,6 +101,33 @@ function Analytics() {
       setProducts(res);
     });
   }, [modalOpen]);
+
+  useEffect(() => {
+    const userID = getCurrentUserID();
+    getFromTasksByAssignedUser(userID).then((res) => {
+      // change variable names to match your schema
+      res = res.map((task) => {
+        // const presignedUrl = await getProductImagePresignedUrlFromImageKey(task.image_key);
+        // console.log(presignedUrl);
+        return {
+          name: task.product_id,
+          quantity: task.quantity,
+          // image_url: presignedUrl,
+          // total: product.price * product.quantity,
+          'Shipment Date': task.shipment_date,
+          Buyer: task.Buyer,
+          // Rejection: product.rejected ? product.rejected : "0%",
+          remaining: task.remaining ? task.remaining : task.quantity,
+          // status: product.status,
+          // createdAt: product.createdAt,
+        };
+      });
+
+      setProducts(res);
+
+      setLoading(false);
+    });
+  }, [loading]);
 
   return (
     <DashboardLayout>
@@ -106,9 +139,9 @@ function Analytics() {
         )}
       </Modal>
       <MDBox py={3}>
-        <Grid container>
+        {/* <Grid container>
           <SalesByCountry />
-        </Grid>
+        </Grid> */}
         {/* <MDBox mt={6}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
@@ -224,11 +257,41 @@ function Analytics() {
           <Grid container spacing={3}>
             {/* create a Booking card for each product in products */}
             {
+              loading ? (
+                <CircularProgress
+                  sx={{
+                    position: "absolute",
+                    right: "1rem",
+                    top: "5rem",
+                  }}
+
+                />
+              ) : (
+                <MDButton
+                  variant="gradient"
+                  color="success"
+                  size="medium"
+                  sx={{
+                    position: "absolute",
+                    right: "1rem",
+                    top: "5rem",
+                  }}
+                  onClick={() => {
+                    setLoading(true);
+                  }}
+                  iconOnly
+                >
+                  <Icon>refresh</Icon>
+                </MDButton>
+              )
+            }
+            {
               products.map((product) => {
                 return (
                   <Grid item xs={12} md={6} lg={4} key={product.name}>
                     <MDBox mt={3}>
                       <BookingCard
+                        // image={product.image_url ? <image src={product.image_url} alt={product.name} /> : product1}
                         image={product1}
                         title={product.name}
                         // description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
