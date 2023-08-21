@@ -31,6 +31,7 @@ import MDButton from "/components/MDButton";
 import { useAuth } from "hooks/use-auth";
 
 import { getUsers } from "apiHelpers/users";
+import { getAllProducts } from "/apiHelpers/products";
 
 function ProductInfo({ formData }) {
   const [editorValue, setEditorValue] = useState(
@@ -38,6 +39,7 @@ function ProductInfo({ formData }) {
   );
 
   const [listOfUsers, setListOfUsers] = useState([]);
+  const [listOfProducts, setListOfProducts] = useState([]);
 
   useEffect(() => {
     const getUsersFromApi = async () => {
@@ -45,6 +47,13 @@ function ProductInfo({ formData }) {
       setListOfUsers(users.map((user) => user.name));
     };
     getUsersFromApi();
+    const getProductsFromApi = async () => {
+      const products = await getAllProducts();
+      setListOfProducts(products);
+
+      console.log(listOfProducts);
+    }
+    getProductsFromApi();
   }, []);
 
 
@@ -72,11 +81,15 @@ function ProductInfo({ formData }) {
     return [];
   };
 
-  const [assignedUsers, setAssignedUsers] = useState([]);
+  // const [assignedUsers, setAssignedUsers] = useState([]);
 
   const handleChange = (value) => {
-    setAssignedUsers(value);
+    // setAssignedUsers(value);
     values.address2 = value;
+  };
+
+  const selectProduct = (value) => {
+    values.lastName = value;
   };
 
 
@@ -86,7 +99,7 @@ function ProductInfo({ formData }) {
       <MDBox mt={3}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <FormField
+            {/* <FormField
               type={firstName.type}
               label={firstName.label}
               name={firstName.name}
@@ -94,7 +107,22 @@ function ProductInfo({ formData }) {
               placeholder={firstName.placeholder}
               error={errors.firstName && touched.firstName}
               success={firstNameV.length > 0 && !errors.firstName}
+            /> */}
+            <Autocomplete
+              id="asynchronous-demo"
+              onChange={(event, newValue) => {
+                selectProduct(newValue);
+                console.log(newValue?._id);
+              }
+              }
+              disablePortal
+              sx={{ width: "100%" }}
+              // id="combo-box-demo"
+              options={listOfProducts}
+              getOptionLabel={(option) => option.name}
+              renderInput={(params) => <MDInput {...params} label="Product" />}
             />
+
           </Grid>
           {/* <Grid item xs={12} sm={6}>
             <FormField

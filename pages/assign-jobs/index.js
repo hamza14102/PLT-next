@@ -53,9 +53,9 @@ import Footer from "/examples/Footer";
 
 // NewProduct page components
 import ProductInfo from "/pagesComponents/assign-jobs/components/ProductInfo";
-import Media from "/pagesComponents/ecommerce/products/new-product/components/Media";
+// import Media from "/pagesComponents/ecommerce/products/new-product/components/Media";
 // import Process from "/pagesComponents/ecommerce/products/new-product/components/Process";
-import Pricing from "/pagesComponents/ecommerce/products/new-product/components/Pricing";
+// import Pricing from "/pagesComponents/ecommerce/products/new-product/components/Pricing";
 
 // NewUser layout schemas for form and form feilds
 import validations from "/pagesComponents/assign-jobs/schemas/validations";
@@ -64,7 +64,9 @@ import initialValues from "/pagesComponents/assign-jobs/schemas/initialValues";
 import MDSnackbar from "/components/MDSnackbar";
 import { CircularProgress } from "@mui/material";
 
-import { postToProducts } from "/apiHelpers/products";
+import { putToTasks } from "/apiHelpers/tasks";
+
+import { v4 as uuidv4 } from 'uuid';
 
 
 function getSteps() {
@@ -119,8 +121,8 @@ function Cover() {
     // await sleep(1000);
     // alert(JSON.stringify(values, null, 2));
 
-    const product_post_response = await postToProducts({
-      "_id": values.firstName, "SKU": values.lastName, "Buyer": values.department, "Ship By Date": values.email, "Processes": JSON.parse(values.password), "Quantity": values.address1, "user_ids": values.address2, "remaining": values.address1, "rejected": 0, "PO/OMS": values.city,
+    const product_post_response = await putToTasks({
+      "_id": uuidv4(), "product_id": values.lastName, "PO/OMS": values.city, "quantity": values.address1, "user_ids": values.address2, "remaining": values.address1, "rejected": 0, "shipment_date": values.email,
       //  "quantity": values.repeatPassword, "image": values.address1, "processes": values.address2, "tags": values.city, "category": values.zip, "rating": values.twitter, "reviews": values.facebook, "date": values.instagram, "status": values.publicEmail, "featured": values.bio 
     });
 
@@ -130,22 +132,22 @@ function Cover() {
     //   setErrors(product_post_response.data);
     //   toggleSnackbar();
     // }
+    console.log(product_post_response);
 
     setSnackbarOpen(true);
 
     // reset the form upon submission to initial values
-    actions.resetForm({
-      values: initialValues
-    });
+    // actions.resetForm({
+    //   values: initialValues
+    // });
     setActiveStep(0);
     actions.setSubmitting(false);
   };
 
   const handleSubmit = (values, actions) => {
     if (isLastStep) {
-      alert(JSON.stringify(values, null, 2));
-      actions.setSubmitting(false);
-      // submitForm(values, actions);
+      // alert(JSON.stringify(values, null, 2));
+      submitForm(values, actions);
     } else {
       console.log("moving to next step")
       setActiveStep(activeStep + 1);
@@ -173,12 +175,12 @@ function Cover() {
           open={snackbarOpen}
           color="success"
           icon="notifictions"
-          title="Successfully created product!"
-          content="You have successfully created a new product."
+          title="Successfully assigned a new task!"
+          content="You have successfully assigned a new task."
           autoHideDuration={6000}
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
           close={() => setSnackbarOpen(false)}
-          message="You have successfully created a new product."
+          message="You have successfully assigned a new task."
         />
 
         <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
@@ -198,7 +200,7 @@ function Cover() {
           <Grid item xs={12} lg={8}>
             <Formik
               initialValues={initialValues}
-              validationSchema={currentValidation}
+              // validationSchema={currentValidation}
               onSubmit={handleSubmit}
             >
               {({ values, errors, touched, isSubmitting }) => (

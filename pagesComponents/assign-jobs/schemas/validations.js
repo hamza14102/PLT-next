@@ -34,8 +34,8 @@ const {
 
 const validations = [
   Yup.object().shape({
-    [firstName.name]: Yup.string().required(firstName.errorMsg),
-    // [lastName.name]: Yup.string().required(lastName.errorMsg),
+    // [firstName.name]: Yup.string().required(firstName.errorMsg),
+    [lastName.name]: Yup.string().required(lastName.errorMsg),
     // [department.name]: Yup.string().required(department.errorMsg),
     [email.name]: Yup.date().required(email.errorMsg).min(new Date(), email.invalidMsg),
     [address1.name]: Yup.string().required(address1.errorMsg),
