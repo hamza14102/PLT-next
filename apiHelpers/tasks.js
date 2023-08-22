@@ -55,3 +55,31 @@ export async function putToTasks(item) {
 }
 
 
+
+export async function addLogsToTaskByID(task_id, achieved, rejected) {
+    const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
+    const params = new URLSearchParams({
+        TableName: 'Tasks',
+    });
+    const response = await fetch(`${url}?${params}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            "Key": {
+                "_id": task_id,
+            },
+            "UpdateExpression": "ADD rejected :j, remaining :r",
+            "ExpressionAttributeValues": {
+                ":j": Number(rejected),
+                ":r": -Number(achieved)
+            },
+            "ReturnValues": "UPDATED_NEW"
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
+    });
+    const data = await response.json();
+    // check status code and return accordingly
+    return data;
+}

@@ -202,14 +202,14 @@ const routes = [
   //   icon: <Icon fontSize="medium">bug_report</Icon>,
   //   noCollapse: true,
   // },
-  {
-    type: "collapse",
-    name: "Assign Jobs",
-    key: "assign-jobs",
-    route: "/assign-jobs",
-    icon: <Icon fontSize="medium">work</Icon>,
-    noCollapse: true,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Assign Jobs",
+  //   key: "assign-jobs",
+  //   route: "/assign-jobs",
+  //   icon: <Icon fontSize="medium">work</Icon>,
+  //   noCollapse: true,
+  // },
   {
     type: "collapse",
     name: "Start Order",

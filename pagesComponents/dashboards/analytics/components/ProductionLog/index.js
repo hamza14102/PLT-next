@@ -16,10 +16,10 @@ import MDDatePicker from "/components/MDDatePicker";
 import { Switch } from "@mui/material";
 import { useAuth } from "hooks/use-auth";
 import MDSnackbar from "/components/MDSnackbar";
-import { addLogsToProductByID } from "/apiHelpers/products.js";
+import { addLogsToTaskByID } from "/apiHelpers/tasks";
 
 
-function ProductionLog({ product_id }) {
+function ProductionLog({ product_id, task_id }) {
     const [log, setLog] = useState({ shift: 'A' });
     const [products, setProducts] = useState([]);
     const [productName, setProductName] = useState("");
@@ -327,7 +327,7 @@ function ProductionLog({ product_id }) {
                                         message: "Successfully logged production",
                                     });
                                     setOpen(true);
-                                    addLogsToProductByID(log.product_id, log.quantity, log.rejected);
+                                    addLogsToTaskByID(task_id, log.quantity, log.rejected);
                                     setSubmitting(false);
                                 }}
                             >
