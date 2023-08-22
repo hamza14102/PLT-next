@@ -257,7 +257,7 @@ function NewOrderForm({ product_id }) {
                                             image_key: selectedProduct.image_key,
                                             rejected: 0,
                                             remaining: log.quantity,
-                                            job_name: `${selectedProduct.name} - ${job_name}`,
+                                            job_name: `${selectedProduct.name} | ${job_name}`,
                                         };
                                         const product_post_response = await putToTasks(logData);
                                         console.log(product_post_response);

@@ -77,6 +77,32 @@ function Analytics() {
     }
   });
 
+  // useEffect(() => {
+  //   const userID = getCurrentUserID();
+  //   getFromTasksByAssignedUser(userID).then((res) => {
+  //     // change variable names to match your schema
+  //     res = res.map((task) => {
+  //       // const presignedUrl = await getProductImagePresignedUrlFromImageKey(task.image_key);
+  //       // console.log(presignedUrl);
+  //       return {
+  //         name: task.job_name,
+  //         quantity: task.quantity,
+  //         image_key: task.image_key,
+  //         // image_url: presignedUrl,
+  //         // total: product.price * product.quantity,
+  //         'Shipment Date': task.shipment_date,
+  //         Buyer: task.Buyer,
+  //         // Rejection: product.rejected ? product.rejected : "0%",
+  //         remaining: task.remaining ? task.remaining : task.quantity,
+  //         // status: product.status,
+  //         // createdAt: product.createdAt,
+  //       };
+  //     });
+
+  //     setProducts(res);
+  //   });
+  // }, [modalOpen]);
+
   useEffect(() => {
     const userID = getCurrentUserID();
     getFromTasksByAssignedUser(userID).then((res) => {
@@ -85,33 +111,9 @@ function Analytics() {
         // const presignedUrl = await getProductImagePresignedUrlFromImageKey(task.image_key);
         // console.log(presignedUrl);
         return {
-          name: task.product_id,
+          name: task.job_name,
           quantity: task.quantity,
-          // image_url: presignedUrl,
-          // total: product.price * product.quantity,
-          'Shipment Date': task.shipment_date,
-          Buyer: task.Buyer,
-          // Rejection: product.rejected ? product.rejected : "0%",
-          remaining: task.remaining ? task.remaining : task.quantity,
-          // status: product.status,
-          // createdAt: product.createdAt,
-        };
-      });
-
-      setProducts(res);
-    });
-  }, [modalOpen]);
-
-  useEffect(() => {
-    const userID = getCurrentUserID();
-    getFromTasksByAssignedUser(userID).then((res) => {
-      // change variable names to match your schema
-      res = res.map((task) => {
-        // const presignedUrl = await getProductImagePresignedUrlFromImageKey(task.image_key);
-        // console.log(presignedUrl);
-        return {
-          name: task.product_id,
-          quantity: task.quantity,
+          image_key: task.image_key,
           // image_url: presignedUrl,
           // total: product.price * product.quantity,
           'Shipment Date': task.shipment_date,
