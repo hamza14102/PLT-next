@@ -17,6 +17,8 @@ import { Switch } from "@mui/material";
 import { useAuth } from "hooks/use-auth";
 import MDSnackbar from "/components/MDSnackbar";
 import { addLogsToProductByID } from "/apiHelpers/products.js";
+import { getUsers } from "apiHelpers/users";
+import { putToTasks } from "/apiHelpers/tasks";
 
 
 function NewOrderForm({ product_id }) {
@@ -28,6 +30,7 @@ function NewOrderForm({ product_id }) {
     const [submitting, setSubmitting] = useState(false);
     const [open, setOpen] = useState(false);
     const [selectedPFC, setSelectedPFC] = useState([]);
+    const [listOfUsers, setListOfUsers] = useState([]);
 
     useEffect(() => {
         setSnackbarContent({
@@ -56,6 +59,8 @@ function NewOrderForm({ product_id }) {
         async function fetchData() {
             const data = await getAllProducts();
             setProducts(data);
+            const users = await getUsers();
+            setListOfUsers(users.map((user) => user.name));
         }
         fetchData();
     }, []);
@@ -198,7 +203,7 @@ function NewOrderForm({ product_id }) {
                                         <Autocomplete
                                             multiple
                                             id="tags-standard"
-                                            options={['User 1', 'User 2', 'User 3', 'User 4', 'User 5']}
+                                            options={listOfUsers}
                                             getOptionLabel={(option) => option}
                                             defaultValue={[]}
                                             onChange={(e, value) => {
@@ -254,7 +259,9 @@ function NewOrderForm({ product_id }) {
                                             remaining: log.quantity,
                                             job_name: `${selectedProduct.name} - ${job_name}`,
                                         };
-                                        console.log(logData);
+                                        const product_post_response = await putToTasks(logData);
+                                        console.log(product_post_response);
+                                        // console.log(logData);
                                         // await postToProductionLogs(logData);
                                         // await addLogsToProductByID(log.product_id, job_id);
                                     }
