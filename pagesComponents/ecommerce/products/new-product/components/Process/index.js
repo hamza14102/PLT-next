@@ -4,6 +4,15 @@ import MDBox from '/components/MDBox';
 import MDTypography from '/components/MDTypography';
 
 function Process({ formData }) {
+
+  const { formField, values, errors, touched } = formData;
+  const { password } =
+    formField;
+  const {
+    password: passwordV,
+  } = values;
+
+
   const categories = [
     ['Mach Shop', 'Fabrication', 'Finish', 'Outsourced', 'Others'],
     ['Mach Shop', 'Fabrication', 'Finish', 'Outsourced', 'Others'],
@@ -63,6 +72,23 @@ function Process({ formData }) {
   useEffect(() => {
 
     // formData.process = checked;
+    const listOfChecked = checked.map((category, categoryIndex) => {
+      const groupChecked = category.some((checkbox) => checkbox);
+      const groupCheckboxes = category
+        .map((checkbox, checkboxIndex) => {
+          return {
+            name: categories[categoryIndex][checkboxIndex],
+            checked: checkbox
+          };
+        })
+        .filter((checkbox) => checkbox.checked);
+      const checkedNames = [
+        ...(groupChecked ? [`${departmentNames[categoryIndex]}`] : []),
+        ...groupCheckboxes.map((checkbox) => checkbox.name)
+      ];
+      return [...new Set(checkedNames)];
+    });
+    values.password = listOfChecked;
   }, [checked]);
 
 

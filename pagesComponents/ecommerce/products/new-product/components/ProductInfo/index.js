@@ -50,7 +50,7 @@ function ProductInfo({ formData }) {
     values.city = event.target.files[0];
     setImageFlag(true);
 
-    console.log(event.target.files[0]);
+    // console.log(event.target.files[0]);
   }
 
 
