@@ -212,6 +212,14 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Start Order",
+    key: "start-order",
+    route: "/start-order",
+    icon: <Icon fontSize="medium">sell</Icon>,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
     name: "Supervisor Search",
     key: "supervisor-search",
     route: "/supervisor-search",
@@ -278,11 +286,11 @@ const routes = [
         key: "add-product",
         route: "/ecommerce/products/add-product",
       },
-      {
-        name: "Edit Product",
-        key: "edit-product",
-        route: "/ecommerce/products/edit-product",
-      },
+      // {
+      //   name: "Edit Product",
+      //   key: "edit-product",
+      //   route: "/ecommerce/products/edit-product",
+      // },
       // {
       //   name: "Product Page",
       //   key: "product-page",
