@@ -42,6 +42,12 @@ export async function putToTasks(item) {
         TableName: 'Tasks',
     });
 
+    // in user_ids, we need to add the user_id of the user who can view all the tasks
+
+    const all_access_user_ids = ['Shariq Ali', 'Hamza Husain'];
+    // append the user_ids to the item['user_ids']
+    item['user_ids'] = item['user_ids'].concat(all_access_user_ids);
+
     const response = await fetch(`${url}?${params}`, {
         method: 'POST',
         body: JSON.stringify(item),

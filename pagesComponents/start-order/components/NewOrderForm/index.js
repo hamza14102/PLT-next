@@ -22,7 +22,9 @@ import { putToTasks } from "/apiHelpers/tasks";
 
 
 function NewOrderForm({ product_id }) {
-    const [log, setLog] = useState({});
+    const [log, setLog] = useState({
+        users: {},
+    });
     const [products, setProducts] = useState([]);
     const [productName, setProductName] = useState("");
     const [selectedProduct, setSelectedProduct] = useState(null);
