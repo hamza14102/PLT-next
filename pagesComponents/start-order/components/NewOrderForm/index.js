@@ -38,11 +38,11 @@ function NewOrderForm({ product_id }) {
         setSnackbarContent({
             color: "success",
             icon: "notifications",
-            title: "LOG SUCCESSFUL",
-            content: "Successfully logged production",
+            title: "NEW TASK SUCCESSFUL",
+            content: "Successfully created new task",
             autoHideDuration: 6000,
             anchorOrigin: { vertical: 'top', horizontal: 'right' },
-            message: "Successfully logged production",
+            message: "Successfully created new task",
             severity: "success"
         });
     }, []);
@@ -269,6 +269,12 @@ function NewOrderForm({ product_id }) {
                                     }
 
                                     setSubmitting(false);
+                                    setOpen(true);
+                                    // reset log
+                                    setLog({
+                                        users: {},
+                                    });
+
                                 }}
                             >
                                 Start Order
