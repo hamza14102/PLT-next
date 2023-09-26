@@ -60,8 +60,10 @@ function Analytics() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState({});
   const [loading, setLoading] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const auth = useAuth();
   const getCurrentUserID = () => {
     if (!auth.isLoading && auth.user) {
@@ -101,14 +103,34 @@ function Analytics() {
       });
 
       setProducts(res);
+      setFilteredProducts(res);
 
       setLoading(false);
     });
-  }, [loading]);
+  }, []);
+
+  useEffect(() => {
+    console.log('Dashboard - ' + searchText);
+    // if searchText is empty, then set products to all products
+    if (searchText === '') {
+      setLoading(true);
+      setFilteredProducts(products);
+    } else {
+      // else, filter products by searchText
+
+      const filteredProducts = products.filter((product) => {
+        return product.name.toLowerCase().includes(searchText.toLowerCase());
+      }
+      );
+      // setProducts(filteredProducts);
+      setFilteredProducts(filteredProducts);
+      // setLoading(false);
+    }
+  }, [searchText]);
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
+      <DashboardNavbar setSearchText={setSearchText} />
       <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
         {/* if modalContent then display modalContent.title */}
         {modalContent && (
@@ -233,7 +255,7 @@ function Analytics() {
         <MDBox mt={2}>
           <Grid container spacing={3}>
             {/* create a Booking card for each product in products */}
-            {
+            {/* {
               loading ? (
                 <CircularProgress
                   sx={{
@@ -261,9 +283,9 @@ function Analytics() {
                   <Icon>refresh</Icon>
                 </MDButton>
               )
-            }
+            } */}
             {
-              products.map((product) => {
+              filteredProducts.map((product) => {
                 return (
                   <Grid item xs={12} md={6} lg={4} key={product.task_id}>
                     <MDBox mt={3}>

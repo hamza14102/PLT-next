@@ -56,9 +56,12 @@ import {
   setOpenConfigurator,
 } from "/context";
 
-function DashboardNavbar({ absolute, light, isMini }) {
+function DashboardNavbar({ absolute, light, isMini, setSearchText }) {
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
+  const [tempText, setTempText] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const {
     miniSidenav,
     transparentNavbar,
@@ -68,6 +71,20 @@ function DashboardNavbar({ absolute, light, isMini }) {
   } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useRouter().pathname.split("/").slice(1);
+
+  // listen for pressed enter key and set search text only when enter is pressed
+  // document.addEventListener('keyup', (e) => {
+  //   if (e.key === 'Enter') {
+  //     console.log('Navbar - ' + e.target.value);
+  //     // setSearchText(tempText);
+  //   }
+  // });
+  // document.addEventListener('keydown', (e) => {
+  //   if (e.key === 'Enter') {
+  //     console.log('Navbar - ' + e.target.value);
+  //     // setSearchText(tempText);
+  //   }
+  // });
 
   useEffect(() => {
     // Setting the navbar type
@@ -196,7 +213,35 @@ function DashboardNavbar({ absolute, light, isMini }) {
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
             <MDBox pr={1}>
-              <MDInput label="Search here" />
+              {/* replace with OMS / Product name search to filter products */}
+              {/* input searchText here */}
+              <MDInput label="Search here" value={tempText} onChange={(e) => {
+                // setSearchText(e.target.value);
+                setTempText(e.target.value);
+              }} />
+            </MDBox>
+            <MDBox>
+              {/* icon for search */}
+              {/* if loading then set icon to Loading */}
+              {/* if not loading then set icon to search */}
+
+              <IconButton
+                size="small"
+                disableRipple
+                color="inherit"
+                sx={navbarIconButton}
+                onClick={() => {
+                  setLoading(true);
+                  setSearchText(tempText)
+                  setTimeout(() => {
+                    setLoading(false);
+                  }
+                    , 1000);
+                }
+                }
+              >
+                {loading ? <Icon sx={iconsStyle}>hourglass_empty</Icon> : <Icon sx={iconsStyle}>search</Icon>}
+              </IconButton>
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
               {/* <Link href="/authentication/sign-in/basic" passHref> */}
