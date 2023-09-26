@@ -91,6 +91,7 @@ function Analytics() {
           task_id: task._id,
           quantity: task.quantity,
           image_key: task.image_key,
+          OMS: task['PO/OMS'],
           // image_url: presignedUrl,
           // total: product.price * product.quantity,
           'Shipment Date': task.shipment_date,
@@ -295,7 +296,7 @@ function Analytics() {
                         title={product.name}
                         // description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
                         price={product.remaining + " units"}
-                        location={product.Buyer}
+                        location={product.OMS}
                         action={<>
                           <Tooltip title="Log Production" placement="bottom">
                             <MDTypography
