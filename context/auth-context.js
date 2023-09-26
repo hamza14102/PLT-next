@@ -265,6 +265,10 @@ export const AuthProvider = (props) => {
       new CognitoUserAttribute({
         Name: 'name',
         Value: name
+      }),
+      new CognitoUserAttribute({
+        Name: 'custom:user_type',
+        Value: 'default'
       })
     ];
 
