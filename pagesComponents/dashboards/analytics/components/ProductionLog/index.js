@@ -248,7 +248,7 @@ function ProductionLog({ product_id, task_id }) {
                                 // disabled
                                 />
                             </Grid>
-                            <Grid item xs={6}>
+                            {/* <Grid item xs={6}>
                                 <MDInput
                                     fullWidth
                                     input={{ placeholder: "Log Date" }}
@@ -259,7 +259,7 @@ function ProductionLog({ product_id, task_id }) {
                                     onChange={(e) => setLog({ ...log, date: e.target.value })}
                                     required
                                 />
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                     </MDBox>
                     {
@@ -277,7 +277,7 @@ function ProductionLog({ product_id, task_id }) {
                                     // console.log("logged by: ", getCurrentUser());
                                     log.logged_by = getCurrentUser();
                                     log.product_id = product_id;
-                                    if (!log.product_id || !log.quantity || !log.shift || !log.date || !log.planned || !log.manpower) {
+                                    if (!log.product_id || !log.quantity || !log.shift || !log.planned || !log.manpower) {
                                         // alert("Please fill all essential fields");
                                         setSnackbarContent({
                                             ...snackbarContent,
@@ -313,6 +313,12 @@ function ProductionLog({ product_id, task_id }) {
                                     // create a new log _id 
                                     log._id = uuidv4();
 
+                                    // set date to today in UTC+5:30, and keep only date as a string
+                                    log.date = new Date(new Date().getTime() + 5.5 * 60 * 60 * 1000);
+                                    // change format to DD-MM-YYYY
+                                    log.date = log.date.toLocaleDateString();
+                                    // log.date = log.date.toISOString().split('T')[0];
+
                                     // log.date = log.date.toLocaleDateString();
                                     const resp = await postToProductionLogs(log);
                                     // close modal
@@ -329,6 +335,8 @@ function ProductionLog({ product_id, task_id }) {
                                     setOpen(true);
                                     addLogsToTaskByID(task_id, log.quantity, log.rejected);
                                     setSubmitting(false);
+                                    // reset log
+                                    setLog({ shift: 'A' });
                                 }}
                             >
                                 Log Production
