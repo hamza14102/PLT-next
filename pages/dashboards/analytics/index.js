@@ -265,7 +265,7 @@ function Analytics() {
             {
               products.map((product) => {
                 return (
-                  <Grid item xs={12} md={6} lg={4} key={product.name}>
+                  <Grid item xs={12} md={6} lg={4} key={product.task_id}>
                     <MDBox mt={3}>
                       <BookingCard
                         // image={product.image_url ? <image src={product.image_url} alt={product.name} /> : product1}

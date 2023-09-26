@@ -130,8 +130,8 @@ function NewOrderForm({ product_id }) {
                             <Grid item xs={6}>
                                 <MDInput
                                     fullWidth
-                                    label="PO/OMS Number"
-                                    name="PO/OMS Number"
+                                    label="OMS Number"
+                                    name="OMS Number"
                                     type="text"
                                     variant="outlined"
                                     value={log['PO/OMS'] ? log['PO/OMS'] : ""}
