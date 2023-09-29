@@ -139,10 +139,12 @@ function Analytics() {
 
   useEffect(() => {
     // load images for products on page load
+    setLoading(true);
     async function fetchData() {
       await loadImages();
     }
     fetchData();
+    setLoading(false);
   }, [filteredProducts]);
 
 
@@ -366,12 +368,12 @@ function Analytics() {
               )
             } */}
             {
-              filteredProducts.map((product) => {
+              !loading && filteredProducts.map((product) => {
                 return (
                   <Grid item xs={12} md={6} lg={4} key={product.task_id}>
                     <MDBox mt={3}>
                       <BookingCard
-                        image={product.image ? product.image : product1}
+                        image={product.image && product.image.src && product.image.height ? product.image : product1}
                         // image={product1}
                         description="Product Description"
                         title={product.name}
