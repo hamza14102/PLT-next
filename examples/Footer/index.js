@@ -73,7 +73,7 @@ function Footer({ company, links }) {
           &nbsp;Marque Impex&nbsp;
         </MDTypography>
         {/* </Link> */}
-        by Cobalt
+        by Cognitive Business Analytics
       </MDBox>
       <MDBox
         component="ul"

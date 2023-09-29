@@ -1,7 +1,7 @@
 {
-  "name": "Production AI | Marque Impex",
-  "short_name": "Production AI",
-  "description": "Production AI | Marque Impex",
+  "name": "FactorySync | Marque Impex",
+  "short_name": "FactorySync",
+  "description": "FactorySync | Marque Impex",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
