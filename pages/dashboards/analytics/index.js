@@ -65,6 +65,7 @@ function Analytics() {
 
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const auth = useAuth();
   const getCurrentUserID = () => {
     if (!auth.isLoading && auth.user) {
@@ -91,7 +92,13 @@ function Analytics() {
   useEffect(() => {
     const start = page * productsPerPage;
     const end = start + productsPerPage;
-    setFilteredProducts(products.slice(start, end));
+
+    if (searchText === '') {
+      setFilteredProducts(products.slice(start, end));
+    } else {
+      setFilteredProducts(searchResults.slice(start, end));
+    }
+
   }, [page, productsPerPage]);
 
   useEffect(() => {
@@ -165,6 +172,8 @@ function Analytics() {
     if (searchText === '') {
       setLoading(true);
       setFilteredProducts(products.splice(page * productsPerPage, productsPerPage));
+      setPage(0);
+      setTotalPages(Math.ceil(products.length / productsPerPage));
     } else {
       // else, filter products by searchText
 
@@ -173,8 +182,11 @@ function Analytics() {
       }
       );
       // setProducts(filteredProducts);
-      setFilteredProducts(filteredProducts);
+      setSearchResults(filteredProducts);
+      setFilteredProducts(filteredProducts.slice(0, productsPerPage));
       // setLoading(false);
+      setPage(0);
+      setTotalPages(Math.ceil(filteredProducts.length / productsPerPage));
     }
   }, [searchText]);
 
