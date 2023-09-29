@@ -42,7 +42,7 @@ import reportsLineChartData from "/pagesComponents/dashboards/analytics/data/rep
 import product1 from "/assets/images/Luggage Rack.jpg";
 import product2 from "/assets/images/3 hook.jpg";
 import product3 from "/assets/images/Door Stopper.jpg";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useAuth } from "hooks/use-auth";
 // import { getFromProductsByAssignedUser } from "apiHelpers/products";
 import { getFromTasksByAssignedUser } from "apiHelpers/tasks";
@@ -54,6 +54,7 @@ import Card from "@mui/material/Card";
 import { CircularProgress } from "@mui/material";
 import ProductionLog from "/pagesComponents/dashboards/analytics/components/ProductionLog/index.js";
 import LogTable from "/pagesComponents/dashboards/analytics/components/LogTable";
+import MDPagination from "/components/MDPagination";
 
 function Analytics() {
   const { sales, tasks } = reportsLineChartData;
@@ -61,6 +62,7 @@ function Analytics() {
   const [modalContent, setModalContent] = useState({});
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const [productImageUrls, setProductImageUrls] = useState([]);
 
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -72,6 +74,13 @@ function Analytics() {
     return [];
   };
 
+  // MAKE PAGINATION WORK FOR THIS PRODUCTS
+  const [page, setPage] = useState(0);
+  const [productsPerPage, setProductsPerPage] = useState(21);
+  const [totalPages, setTotalPages] = useState(0);
+
+
+
   document.addEventListener('keydown', function (event) {
     if (event.key === "Escape" && modalOpen) {
       // code to close the modal
@@ -79,13 +88,29 @@ function Analytics() {
     }
   });
 
+  // trigger on page change and slice filteredProducts to get productsPerPage
+  useEffect(() => {
+    const start = page * productsPerPage;
+    const end = start + productsPerPage;
+    setFilteredProducts(products.slice(start, end));
+  }, [page, productsPerPage]);
+
   useEffect(() => {
     const userID = getCurrentUserID();
     getFromTasksByAssignedUser(userID).then((res) => {
       // change variable names to match your schema
+      // splice to get only 20 products
+
+      // set totalPages
+      setTotalPages(Math.ceil(res.length / productsPerPage));
+
       res = res.map((task) => {
-        // const presignedUrl = await getProductImagePresignedUrlFromImageKey(task.image_key);
+        // const presignedUrl = getProductImagePresignedUrlFromImageKey(task.image_key).then((url) => {
+        //   return url;
+        // });
+
         // console.log(presignedUrl);
+
         return {
           name: task.job_name,
           task_id: task._id,
@@ -104,18 +129,18 @@ function Analytics() {
       });
 
       setProducts(res);
-      setFilteredProducts(res);
-
+      setFilteredProducts(res.slice(0, productsPerPage));
+      setPage(0);
       setLoading(false);
     });
   }, []);
 
   useEffect(() => {
-    console.log('Dashboard - ' + searchText);
+    // console.log('Dashboard - ' + searchText);
     // if searchText is empty, then set products to all products
     if (searchText === '') {
       setLoading(true);
-      setFilteredProducts(products);
+      setFilteredProducts(products.splice(page * productsPerPage, productsPerPage));
     } else {
       // else, filter products by searchText
 
@@ -139,6 +164,37 @@ function Analytics() {
         )}
       </Modal>
       <MDBox py={3}>
+        {/* <MDButton
+          variant="gradient"
+          color="success"
+          size="medium"
+          sx={{
+            position: "absolute",
+            right: "1rem",
+            top: "5rem",
+          }}
+          onClick={() => {
+            console.log('Loading images');
+            // get presigned urls for all products
+            const promises = products.map((product) => {
+              return getProductImagePresignedUrlFromImageKey(product.image_key);
+            });
+            Promise.all(promises).then((values) => {
+              console.log('values are - ' + values);
+              setProductImageUrls(values);
+              // set image_url for each product
+              // const newProducts = products.map((product, index) => {
+              //   product.image_url = values[index];
+              //   return product;
+              // });
+              // setProducts(newProducts);
+              // setFilteredProducts(newProducts);
+            });
+          }}
+          iconOnly
+        >
+          <Icon>refresh</Icon>
+        </MDButton> */}
         {/* <Grid container>
           <SalesByCountry />
         </Grid> */}
@@ -293,6 +349,7 @@ function Analytics() {
                       <BookingCard
                         // image={product.image_url ? <image src={product.image_url} alt={product.name} /> : product1}
                         image={product1}
+                        description="Product Description"
                         title={product.name}
                         // description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
                         price={product.remaining + " units"}
@@ -346,6 +403,94 @@ function Analytics() {
             }
           </Grid>
         </MDBox>
+      </MDBox>
+      {/* center the pagination */}
+      <MDBox display="flex" justifyContent="center" mb={3}>
+
+        <MDPagination>
+          <MDPagination
+            item
+            onClick={() => {
+              if (page > 0) {
+                setPage(page - 1);
+              }
+            }
+            }
+          >
+            <Icon>keyboard_arrow_left</Icon>
+          </MDPagination>
+          {/* create totalPages number of MDPagination items */}
+          {/* if totalPages is more than 10 then only show three from current and end*/}
+          {/* add a disabled separator betweeen them also */}
+          {
+            [...Array(totalPages)].map((e, i) => {
+              if (totalPages > 10) {
+                if (i === 0 || i === 1 || i === 2 || i === totalPages - 1 || i === totalPages - 2 || i === totalPages - 3 || i === page || i === page - 1 || i === page + 1) {
+                  if (i == 2 && page > 3) {
+                    // return a disabled separator
+                    return (
+                      <MDPagination
+                        key={i}
+                        item
+                        disabled
+                      >
+                        ...
+                      </MDPagination>
+                    )
+                  }
+                  if (i == totalPages - 3 && page < totalPages - 4) {
+                    // return a disabled separator
+                    return (
+                      <MDPagination
+                        key={i}
+                        item
+                        disabled
+                      >
+                        ...
+                      </MDPagination>
+                    )
+                  }
+                  return (
+                    <MDPagination
+                      key={i}
+                      item
+                      active={page === i}
+                      onClick={() => {
+                        setPage(i);
+                      }}
+                    >
+                      {i + 1}
+                    </MDPagination>
+                  )
+                }
+              } else {
+                return (
+                  <MDPagination
+                    key={i}
+                    item
+                    active={page === i}
+                    onClick={() => {
+                      setPage(i);
+                    }}
+                  >
+                    {i + 1}
+                  </MDPagination>
+                )
+              }
+            })
+          }
+          <MDPagination
+            item
+            onClick={() => {
+              if (page < totalPages - 1) {
+                setPage(page + 1);
+              }
+            }
+            }
+          >
+            <Icon>keyboard_arrow_right</Icon>
+          </MDPagination>
+        </MDPagination>
       </MDBox>
       <Footer />
     </DashboardLayout>
