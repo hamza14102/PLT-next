@@ -132,7 +132,10 @@ function Analytics() {
 
   useEffect(() => {
     // load images for products on page load
-    loadImages();
+    async function fetchData() {
+      await loadImages();
+    }
+    fetchData();
   }, [filteredProducts]);
 
 
