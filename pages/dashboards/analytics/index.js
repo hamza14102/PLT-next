@@ -143,8 +143,12 @@ function Analytics() {
       if (!product.image_url) {
 
         getProductImagePresignedUrlFromImageKey(product.image_key).then((res) => {
-          console.log(res);
           product.image_url = res;
+          // get image from url
+          const image = new Image();
+          image.src = res;
+          product.image = image;
+          // console.log(product.image);
         });
       }
     }
@@ -352,8 +356,8 @@ function Analytics() {
                   <Grid item xs={12} md={6} lg={4} key={product.task_id}>
                     <MDBox mt={3}>
                       <BookingCard
-                        // image={product.image_url ? <image src={product.image_url} alt={product.name} /> : product1}
-                        image={product1}
+                        image={product.image ? product.image : product1}
+                        // image={product1}
                         description="Product Description"
                         title={product.name}
                         // description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.'
