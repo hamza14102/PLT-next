@@ -51,6 +51,7 @@
     "react-github-btn": "1.4.0",
     "react-images-viewer": "1.7.1",
     "react-quill": "2.0.0",
+    "react-scroll": "^1.8.9",
     "react-table": "7.8.0",
     "regenerator-runtime": "0.13.11",
     "stylis": "4.1.3",

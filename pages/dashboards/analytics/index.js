@@ -55,6 +55,7 @@ import { CircularProgress } from "@mui/material";
 import ProductionLog from "/pagesComponents/dashboards/analytics/components/ProductionLog/index.js";
 import LogTable from "/pagesComponents/dashboards/analytics/components/LogTable";
 import MDPagination from "/components/MDPagination";
+import { animateScroll as scroll } from "react-scroll";
 
 function Analytics() {
   const { sales, tasks } = reportsLineChartData;
@@ -104,10 +105,6 @@ function Analytics() {
   useEffect(() => {
     const userID = getCurrentUserID();
     getFromTasksByAssignedUser(userID).then((res) => {
-      // change variable names to match your schema
-      // splice to get only 20 products
-
-      // set totalPages
       setTotalPages(Math.ceil(res.length / productsPerPage));
 
       res = res.map((task) => {
@@ -117,19 +114,15 @@ function Analytics() {
           quantity: task.quantity,
           image_key: task.image_key,
           OMS: task['PO/OMS'],
-          // image_url: presignedUrl,
-          // total: product.price * product.quantity,
           'Shipment Date': task.shipment_date,
           Buyer: task.Buyer,
-          // Rejection: product.rejected ? product.rejected : "0%",
           remaining: task.remaining ? task.remaining : task.quantity,
-          // status: product.status,
-          // createdAt: product.createdAt,
         };
       });
 
       setProducts(res);
       setFilteredProducts(res.slice(0, productsPerPage));
+      loadImages();
       setLoading(false);
     }).then(() => {
       setPage(0);
@@ -161,6 +154,9 @@ function Analytics() {
           image.src = res;
           product.image = image;
           // console.log(product.image);
+        }).then(() => {
+          // trigger re-render
+          setFilteredProducts([...filteredProducts]);
         });
       }
     }
@@ -191,6 +187,18 @@ function Analytics() {
       setTotalPages(Math.ceil(filteredProducts.length / productsPerPage));
     }
   }, [searchText]);
+
+  const handleScrollToTop = () => {
+    // scroll to top of page on page change very smoothly and slowly
+    scroll.scrollToTop({
+      duration: 1000,
+      smooth: true,
+      offset: 50,
+    });
+
+
+  };
+
 
   return (
     <DashboardLayout>
@@ -439,6 +447,7 @@ function Analytics() {
             onClick={() => {
               if (page > 0) {
                 setPage(page - 1);
+                handleScrollToTop();
               }
             }
             }
@@ -483,6 +492,7 @@ function Analytics() {
                       active={page === i}
                       onClick={() => {
                         setPage(i);
+                        handleScrollToTop();
                       }}
                     >
                       {i + 1}
@@ -497,6 +507,7 @@ function Analytics() {
                     active={page === i}
                     onClick={() => {
                       setPage(i);
+                      handleScrollToTop();
                     }}
                   >
                     {i + 1}
@@ -510,6 +521,7 @@ function Analytics() {
             onClick={() => {
               if (page < totalPages - 1) {
                 setPage(page + 1);
+                handleScrollToTop();
               }
             }
             }
