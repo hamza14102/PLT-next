@@ -62,7 +62,6 @@ function Analytics() {
   const [modalContent, setModalContent] = useState({});
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const [productImageUrls, setProductImageUrls] = useState([]);
 
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -75,8 +74,8 @@ function Analytics() {
   };
 
   // MAKE PAGINATION WORK FOR THIS PRODUCTS
-  const [page, setPage] = useState(0);
-  const [productsPerPage, setProductsPerPage] = useState(21);
+  const [page, setPage] = useState(-1);
+  const [productsPerPage, setProductsPerPage] = useState(9);
   const [totalPages, setTotalPages] = useState(0);
 
 
@@ -105,12 +104,6 @@ function Analytics() {
       setTotalPages(Math.ceil(res.length / productsPerPage));
 
       res = res.map((task) => {
-        // const presignedUrl = getProductImagePresignedUrlFromImageKey(task.image_key).then((url) => {
-        //   return url;
-        // });
-
-        // console.log(presignedUrl);
-
         return {
           name: task.job_name,
           task_id: task._id,
@@ -130,10 +123,34 @@ function Analytics() {
 
       setProducts(res);
       setFilteredProducts(res.slice(0, productsPerPage));
-      setPage(0);
       setLoading(false);
-    });
+    }).then(() => {
+      setPage(0);
+    }
+    );
   }, []);
+
+  useEffect(() => {
+    // load images for products on page load
+    loadImages();
+  }, [filteredProducts]);
+
+
+
+  const loadImages = async () => {
+    filteredProducts.forEach((product) => {
+      // if image_url is not already present, then get it from image_key
+      if (!product.image_url) {
+
+        getProductImagePresignedUrlFromImageKey(product.image_key).then((res) => {
+          console.log(res);
+          product.image_url = res;
+        });
+      }
+    }
+    );
+  }
+
 
   useEffect(() => {
     // console.log('Dashboard - ' + searchText);
@@ -173,23 +190,11 @@ function Analytics() {
             right: "1rem",
             top: "5rem",
           }}
-          onClick={() => {
-            console.log('Loading images');
-            // get presigned urls for all products
-            const promises = products.map((product) => {
-              return getProductImagePresignedUrlFromImageKey(product.image_key);
-            });
-            Promise.all(promises).then((values) => {
-              console.log('values are - ' + values);
-              setProductImageUrls(values);
-              // set image_url for each product
-              // const newProducts = products.map((product, index) => {
-              //   product.image_url = values[index];
-              //   return product;
-              // });
-              // setProducts(newProducts);
-              // setFilteredProducts(newProducts);
-            });
+          onClick={async () => {
+            // print filteredProducts
+            // await loadImages();
+            console.log(filteredProducts);
+
           }}
           iconOnly
         >
