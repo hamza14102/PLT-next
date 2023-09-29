@@ -76,7 +76,7 @@ function Analytics() {
 
   // MAKE PAGINATION WORK FOR THIS PRODUCTS
   const [page, setPage] = useState(-1);
-  const [productsPerPage, setProductsPerPage] = useState(9);
+  const [productsPerPage, setProductsPerPage] = useState(12);
   const [totalPages, setTotalPages] = useState(0);
 
 
