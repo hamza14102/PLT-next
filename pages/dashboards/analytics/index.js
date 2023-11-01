@@ -105,7 +105,7 @@ function Analytics() {
   useEffect(() => {
     const userID = getCurrentUserID();
 
-    const all_access_user_ids = ['Shariq Ali', 'Hamza Husain', 'Abhinav Kala'];
+    const all_access_user_ids = ['Shariq Ali', 'Hamza Husain', 'Abhinav Kala', 'Nadeem Hussain'];
     // if userId in all_access_user_ids then get all products
     if (all_access_user_ids.includes(userID)) {
 
