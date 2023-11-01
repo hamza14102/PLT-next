@@ -22,6 +22,15 @@ function Process({ formData }) {
     ['Fabric']
   ];
 
+  const prefix = [
+    'M ',
+    'M2 ',
+    'W ',
+    '',
+    '',
+    ''
+  ];
+
   const departmentNames = ["Metal - I", "Metal - II", "Wood", "Packing", "Marble", "Fabric"];
 
   const [checked, setChecked] = useState(categories.map((category) => category.map(() => false)));
@@ -84,11 +93,12 @@ function Process({ formData }) {
         .filter((checkbox) => checkbox.checked);
       const checkedNames = [
         ...(groupChecked ? [`${departmentNames[categoryIndex]}`] : []),
-        ...groupCheckboxes.map((checkbox) => checkbox.name)
+        ...groupCheckboxes.map((checkbox) => `${prefix[categoryIndex]}` + checkbox.name)
       ];
       return [...new Set(checkedNames)];
     });
     values.password = listOfChecked;
+    console.log(listOfChecked);
   }, [checked]);
 
 
