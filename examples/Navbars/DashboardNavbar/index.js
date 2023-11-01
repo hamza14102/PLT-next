@@ -55,6 +55,7 @@ import {
   setMiniSidenav,
   setOpenConfigurator,
 } from "/context";
+import ProductAutocomplete from "/pagesComponents/dashboards/analytics/components/ProductAutocomplete";
 
 function DashboardNavbar({ absolute, light, isMini, setSearchText }) {
   const [navbarType, setNavbarType] = useState();
@@ -179,6 +180,10 @@ function DashboardNavbar({ absolute, light, isMini, setSearchText }) {
     },
   });
 
+  useEffect(() => {
+    console.log('Navbar - ' + tempText);
+  }, [tempText]);
+
   return (
     <AppBar
       position={absolute ? "absolute" : navbarType}
@@ -212,13 +217,20 @@ function DashboardNavbar({ absolute, light, isMini, setSearchText }) {
         </MDBox>
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
-            <MDBox pr={1}>
+            <MDBox pr={22}>
               {/* replace with OMS / Product name search to filter products */}
               {/* input searchText here */}
-              <MDInput label="Search here" value={tempText} onChange={(e) => {
+              {/* ADD AUTOCOMPLETE HERE */}
+              {/* <MDInput label="Search here" value={tempText} onChange={(e) => {
                 // setSearchText(e.target.value);
                 setTempText(e.target.value);
-              }} />
+              }} /> */}
+              <ProductAutocomplete
+                // setProductName={setTempText}
+                setSelectedProduct={tempText => setTempText(tempText)}
+              // setLog={() => { }
+              // }
+              />
             </MDBox>
             <MDBox>
               {/* icon for search */}

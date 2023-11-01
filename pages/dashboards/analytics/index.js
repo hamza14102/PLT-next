@@ -169,7 +169,7 @@ function Analytics() {
     // if searchText is empty, then set products to all products
     if (searchText === '') {
       setLoading(true);
-      setFilteredProducts(products.splice(page * productsPerPage, productsPerPage));
+      setFilteredProducts(products.slice(page * productsPerPage, page * productsPerPage + productsPerPage));
       setPage(0);
       setTotalPages(Math.ceil(products.length / productsPerPage));
     } else {
