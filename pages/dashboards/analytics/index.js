@@ -45,7 +45,7 @@ import product3 from "/assets/images/Door Stopper.jpg";
 import { use, useEffect, useState } from "react";
 import { useAuth } from "hooks/use-auth";
 // import { getFromProductsByAssignedUser } from "apiHelpers/products";
-import { getFromTasksByAssignedUser } from "apiHelpers/tasks";
+import { getFromTasksByAssignedUser, getAllTasks } from "apiHelpers/tasks";
 import { getProductImagePresignedUrlFromImageKey } from "apiHelpers/products";
 import { Modal } from "@mui/material";
 import MDButton from "/components/MDButton";
@@ -104,30 +104,63 @@ function Analytics() {
 
   useEffect(() => {
     const userID = getCurrentUserID();
-    getFromTasksByAssignedUser(userID).then((res) => {
-      setTotalPages(Math.ceil(res.length / productsPerPage));
 
-      res = res.map((task) => {
-        return {
-          name: task.job_name,
-          task_id: task._id,
-          quantity: task.quantity,
-          image_key: task.image_key,
-          OMS: task['PO/OMS'],
-          'Shipment Date': task.shipment_date,
-          Buyer: task.Buyer,
-          remaining: task.remaining ? task.remaining : task.quantity,
-        };
-      });
+    const all_access_user_ids = ['Shariq Ali', 'Hamza Husain', 'Abhinav Kala'];
+    // if userId in all_access_user_ids then get all products
+    if (all_access_user_ids.includes(userID)) {
 
-      setProducts(res);
-      setFilteredProducts(res.slice(0, productsPerPage));
-      loadImages();
-      setLoading(false);
-    }).then(() => {
-      setPage(0);
+      // get all tasks assigned to this user
+      getAllTasks().then((res) => {
+        setTotalPages(Math.ceil(res.length / productsPerPage));
+
+        res = res.map((task) => {
+          return {
+            name: task.job_name,
+            task_id: task._id,
+            quantity: task.quantity,
+            image_key: task.image_key,
+            OMS: task['PO/OMS'],
+            'Shipment Date': task.shipment_date,
+            Buyer: task.Buyer,
+            remaining: task.remaining ? task.remaining : task.quantity,
+          };
+        });
+
+        setProducts(res);
+        setFilteredProducts(res.slice(0, productsPerPage));
+        loadImages();
+        setLoading(false);
+      }).then(() => {
+        setPage(0);
+      }
+      );
+    } else {
+
+      getFromTasksByAssignedUser(userID).then((res) => {
+        setTotalPages(Math.ceil(res.length / productsPerPage));
+
+        res = res.map((task) => {
+          return {
+            name: task.job_name,
+            task_id: task._id,
+            quantity: task.quantity,
+            image_key: task.image_key,
+            OMS: task['PO/OMS'],
+            'Shipment Date': task.shipment_date,
+            Buyer: task.Buyer,
+            remaining: task.remaining ? task.remaining : task.quantity,
+          };
+        });
+
+        setProducts(res);
+        setFilteredProducts(res.slice(0, productsPerPage));
+        loadImages();
+        setLoading(false);
+      }).then(() => {
+        setPage(0);
+      }
+      );
     }
-    );
   }, []);
 
   useEffect(() => {
