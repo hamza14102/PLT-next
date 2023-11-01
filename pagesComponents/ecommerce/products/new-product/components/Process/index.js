@@ -17,7 +17,7 @@ function Process({ formData }) {
     ['Mach Shop', 'Fabrication', 'Finish', 'Outsourced', 'Others'],
     ['Mach Shop', 'Fabrication', 'Finish', 'Outsourced', 'Others'],
     ['Bandsaw', 'Mach Shop', 'Fabrication', 'Finish', 'Outsourced', 'Others'],
-    ['Fitting', 'Final Packing'],
+    ['Fitting', 'Hall 1', 'Hall 2', 'Hall 3'],
     ['Marble'],
     ['Fabric']
   ];
