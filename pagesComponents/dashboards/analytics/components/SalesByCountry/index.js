@@ -93,8 +93,10 @@ function SalesByCountry() {
       // });
 
       prod = Object.entries(prod).map(([key, product]) => {
+        const [name, job] = key.split("|");
         return {
-          name: key,
+          name: name,
+          job: job,
           quantity: product[0],
           planned: product[1],
           efficiency: (product[0] / product[1] * 100).toFixed(1) + "%",
