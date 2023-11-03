@@ -31,9 +31,13 @@ import SalesTable from "/examples/Tables/SalesTable";
 import salesTableData from "/pagesComponents/dashboards/analytics/components/SalesByCountry/data/salesTableData";
 
 import { getFromProductsByAssignedUser } from "apiHelpers/products";
+import { getFromTasksByAssignedUser } from "/apiHelpers/tasks";
+import { getProductionLogs } from "/apiHelpers/productionLogs.js";
+
 import { useAuth } from "hooks/use-auth";
 import { CircularProgress } from "@mui/material";
 import MDButton from "/components/MDButton";
+import MDPagination from "/components/MDPagination";
 
 function SalesByCountry() {
   const [products, setProducts] = useState([]);
@@ -54,25 +58,58 @@ function SalesByCountry() {
 
     const userID = getCurrentUserID();
 
-    getFromProductsByAssignedUser(userID).then((res) => {
+    getProductionLogs().then((res) => {
+      // console.log(res);
+      // group by product_id
+
+      let prod = res.reduce((acc, cur) => {
+        if (acc[cur.product_id]) {
+          acc[cur.product_id][0] += parseInt(cur.quantity);
+          acc[cur.product_id][1] += parseInt(cur.planned);
+        } else {
+          // split cur.job_name into product name and job name by '|'
+          // convert cur.quantity to int
+          // convert cur.planned to int
+          acc[cur.product_id] = [parseInt(cur.quantity), parseInt(cur.planned)];
+        }
+        return acc;
+      }, {});
+      console.log(prod);
 
       // change variable names to match your schema
-      res = res.map((product) => {
+      // res = res.map((product) => {
+      //   return {
+      //     name: product._id,
+      //     quantity: product.Quantity,
+      //     // total: product.price * product.quantity,
+      //     'Date': product['Ship By Date'],
+      //     Buyer: product.Buyer,
+      //     Rejection: product.rejected > 0 ? (product.rejected / (product.Quantity - product.remaining) * 100).toFixed(1) + "%" : "0%",
+      //     Progress: 100 - (product.remaining / product.Quantity * 100).toFixed(1) + "%",
+      //     // remaining: product.remaining,
+      //     // status: product.status,
+      //     // createdAt: product.createdAt,
+      //   };
+      // });
+
+      prod = Object.entries(prod).map(([key, product]) => {
         return {
-          name: product._id,
-          quantity: product.Quantity,
+          name: key,
+          quantity: product[0],
+          planned: product[1],
+          efficiency: (product[0] / product[1] * 100).toFixed(1) + "%",
           // total: product.price * product.quantity,
-          'Date': product['Ship By Date'],
-          Buyer: product.Buyer,
-          Rejection: product.rejected > 0 ? (product.rejected / (product.Quantity - product.remaining) * 100).toFixed(1) + "%" : "0%",
-          Progress: 100 - (product.remaining / product.Quantity * 100).toFixed(1) + "%",
+          // 'Date': product['Ship By Date'],
+          // Buyer: product.Buyer,
+          // Rejection: product.rejected > 0 ? (product.rejected / (product.Quantity - product.remaining) * 100).toFixed(1) + "%" : "0%",
+          // Progress: 100 - (product.remaining / product.Quantity * 100).toFixed(1) + "%",
           // remaining: product.remaining,
           // status: product.status,
-          // createdAt: product.createdAt,
         };
       });
-
-      setProducts(res);
+      prod.sort((a, b) => (b.quantity / b.planned) - (a.quantity / a.planned));
+      prod = prod.slice(0, 10);
+      setProducts(prod);
       setLoading(false);
     });
     // console.log(prod);
@@ -149,7 +186,7 @@ function SalesByCountry() {
           </Icon>
         </MDBox>
         <MDTypography variant="h6" sx={{ mt: 2, mb: 1, ml: 2 }}>
-          Production by Product
+          Top 10 Active Products
         </MDTypography>
         {
           loading ? (
@@ -190,6 +227,19 @@ function SalesByCountry() {
             <MDBox id="map" width="100%" height="100%" mt={-3} />
           </Grid>
         </Grid>
+        {/* <MDBox display="flex" justifyContent="center" alignItems="center">
+          <MDPagination>
+            <MDPagination item>
+              <Icon>keyboard_arrow_left</Icon>
+            </MDPagination>
+            <MDPagination item active>1</MDPagination>
+            <MDPagination item>2</MDPagination>
+            <MDPagination item>3</MDPagination>
+            <MDPagination item>
+              <Icon>keyboard_arrow_right</Icon>
+            </MDPagination>
+          </MDPagination>
+        </MDBox> */}
       </MDBox>
     </Card>
   );

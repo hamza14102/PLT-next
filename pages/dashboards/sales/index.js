@@ -51,6 +51,8 @@ import ComplexProjectCard from "/examples/Cards/ProjectCards/ComplexProjectCard"
 import profile1 from "assets/images/team-2.jpg";
 import profile2 from "assets/images/team-4.jpg";
 
+import SalesByCountry from "/pagesComponents/dashboards/analytics/components/SalesByCountry";
+
 function Sales() {
   // DefaultStatisticsCard state for the dropdown value
   const [salesDropdownValue, setSalesDropdownValue] = useState("6 May - 7 May");
@@ -104,10 +106,15 @@ function Sales() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox py={3}>
+        <Grid container>
+          <SalesByCountry />
+        </Grid>
+      </MDBox>
+      {/* <MDBox py={3}>
         <MDBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={4}>
-              {/* <DefaultStatisticsCard
+              <DefaultStatisticsCard
                 title="employee of the week"
                 count="Employee Name"
                 percentage={{
@@ -120,7 +127,7 @@ function Sales() {
               //   menu: renderMenu(salesDropdown, closeSalesDropdown),
               //   value: salesDropdownValue,
               // }}
-              /> */}
+              />
               <ComplexProjectCard
                 image={profile1.src}
                 title="employee of the week"
@@ -140,7 +147,7 @@ function Sales() {
               />
             </Grid>
             <Grid item xs={12} sm={4}>
-              {/* <DefaultStatisticsCard
+              <DefaultStatisticsCard
                 title="employee of the month"
                 count="Employee Name"
                 percentage={{
@@ -153,7 +160,7 @@ function Sales() {
               //   menu: renderMenu(customersDropdown, closeCustomersDropdown),
               //   value: customersDropdownValue,
               // }}
-              /> */}
+              />
               <ComplexProjectCard
                 image={profile2.src}
                 title="employee of the month"
@@ -191,7 +198,7 @@ function Sales() {
           </Grid>
         </MDBox>
         <MDBox mb={3}>
-          {/* <Grid container spacing={3}>
+          <Grid container spacing={3}>
             <Grid item xs={12} sm={6} lg={4}>
               <ChannelsChart />
             </Grid>
@@ -234,16 +241,16 @@ function Sales() {
                 chart={defaultLineChartData}
               />
             </Grid>
-          </Grid> */}
+          </Grid>
         </MDBox>
         <MDBox mb={3}>
           <Grid container spacing={3}>
-            {/* <Grid item xs={12} lg={8}>
+            <Grid item xs={12} lg={8}>
               <HorizontalBarChart
                 title="Sales by age"
                 chart={horizontalBarChartData}
               />
-            </Grid> */}
+            </Grid>
             <Grid item xs={12} lg={6}>
               <Card>
                 <MDBox pt={3} px={3}>
@@ -267,7 +274,7 @@ function Sales() {
             </Grid>
           </Grid>
         </MDBox>
-        {/* <Grid container spacing={3}>
+        <Grid container spacing={3}>
           <Grid item xs={12}>
             <Card>
               <MDBox pt={3} px={3}>
@@ -286,8 +293,8 @@ function Sales() {
               </MDBox>
             </Card>
           </Grid>
-        </Grid> */}
-      </MDBox>
+        </Grid>
+      </MDBox> */}
       <Footer />
     </DashboardLayout>
   );
