@@ -32,6 +32,7 @@ import { Autocomplete, CircularProgress, Grid, Icon, IconButton, TextField } fro
 import { Fragment, use, useEffect, useState } from "react";
 import MDSnackbar from "/components/MDSnackbar";
 import MiniStatisticsCard from "/examples/Cards/StatisticsCards/MiniStatisticsCard";
+import { getFromSupervisorSearch } from "/apiHelpers/supervisorSearch";
 
 function DataTables() {
   const [productName, setProductName] = useState("");
@@ -94,7 +95,7 @@ function DataTables() {
 
   useEffect(() => {
     if (data.length !== 0 && data !== undefined) {
-      console.log({ ...dataTableData, rows: data });
+      // console.log({ ...dataTableData, rows: data });
       // add data to table
       // console.log(data);
       // tableData.rows.forEach(element => {
@@ -120,9 +121,9 @@ function DataTables() {
   }, [productName]);
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (productName === "") {
+    if (productName === "" || manpower === 0) {
       toggleSnackbar2();
       return;
     }
@@ -138,74 +139,128 @@ function DataTables() {
 
     setSearching(true);
 
-    fetch(`${apiGatewayUrl}${resourcePath}?${queryParams}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        // console.log(data);
-        // rename data.lastNames to data.manpower
-        data.manpower = data.lastNames;
-        delete data.lastNames;
-        data.name = data.firstNames;
-        delete data.firstNames;
-        // console.log(data);
-        // 3600 seconds in an hour / number of seconds per product
-        setOutput(3600 / data.number);
+    // create a list of possible outputs
+    const outputs = [];
 
-        let queryParamsCopy = `firstNames=${firstNames.join(',')}&lastNames=${lastNames.join(',')}&number=${number - 2}`;
-        fetch(`${apiGatewayUrl}${resourcePath}?${queryParamsCopy}`)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then(data2 => {
-            // console.log(data2);
-            // rename data.lastNames to data.manpower
-            if (3600 / data2.number == output) {
-              // alert(`Suggested Ideal Manpower: ${number - 2} \nIdeal Output: ${3600 / data2.number}`);
-              setSnackTitle(`Suggested Ideal Manpower: ${number - 2} \nIdeal Output: ${3600 / data2.number}`);
-              toggleSnackbar();
-            } else {
-              queryParamsCopy = `firstNames=${firstNames.join(',')}&lastNames=${lastNames.join(',')}&number=${number - 1}`;
-              fetch(`${apiGatewayUrl}${resourcePath}?${queryParamsCopy}`)
-                .then(response => {
-                  if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                  }
-                  return response.json();
-                })
-                .then(data2 => {
-                  // console.log(data2);
-                  // rename data.lastNames to data.manpower
-                  if (3600 / data2.number == output) {
-                    // alert(`Suggested Ideal Manpower: ${number - 1} \nIdeal Output: ${3600 / data2.number}`);
-                    setSnackTitle(`Suggested Ideal Manpower: ${number - 1} \nIdeal Output: ${3600 / data2.number}`);
-                    toggleSnackbar();
-                  }
-                });
-            }
-          });
+    await getFromSupervisorSearch(firstNames, lastNames, number).then(data => {
+      outputs.push(data);
+      // console.log(data);
+      // console.log(outputs);
+    });
+    await getFromSupervisorSearch(firstNames, lastNames, number - 1).then(data => {
+      outputs.push(data);
+    });
+    await getFromSupervisorSearch(firstNames, lastNames, number - 2).then(data => {
+      outputs.push(data);
+    });
 
-        // combine two arrays into one
-        data = data.name.map((name, index) => {
-          return { name: name, manpower: data.manpower[index] };
-        });
-        // console.log(data);
-        setData(data);
-        setLoaded(true);
-        setSearching(false);
-      })
-      .catch(error => {
-        alert('There was an error submitting the form. Please try again later.');
-        setSearching(false);
-      });
+    // console.log(outputs);
 
+    const bestOutput = outputs.reduce((prev, current, index) => {
+      return (Math.abs(3600 / current.number - 3600 / number) <= Math.abs(3600 / prev.number - 3600 / number) ? { ...current, index } : { ...prev, index: prev.index });
+    });
+
+    console.log(bestOutput);
+    let temp = {}
+
+    temp.manpower = bestOutput.lastNames;
+    // delete data.lastNames;
+    temp.name = bestOutput.firstNames;
+    // delete data.firstNames;
+    setOutput(3600 / bestOutput.number);
+
+    temp = temp.name.map((name, index) => {
+      return { name: name, manpower: temp.manpower[index] };
+    });
+    setData(temp);
+    setLoaded(true);
+    setSearching(false);
+    if (!bestOutput.index) {
+      setSnackTitle(`Suggested Ideal Manpower: ${number} \nIdeal Output: ${Math.round(3600 / bestOutput.number)}`);
+    } else {
+      setSnackTitle(`Suggested Ideal Manpower: ${number - bestOutput.index} \nIdeal Output: ${Math.round(3600 / bestOutput.number)}`);
+    }
+
+    // if snackbar is close then open it
+    if (!show) {
+      toggleSnackbar();
+    }
+
+
+
+
+    // await fetch(`${apiGatewayUrl}${resourcePath}?${queryParams}`)
+    //   .then(response => {
+    //     if (!response.ok) {
+    //       throw new Error('Network response was not ok');
+    //     }
+    //     return response.json();
+    //   })
+    //   .then(data => {
+    //     // console.log(data);
+    //     // rename data.lastNames to data.manpower
+    //     data.manpower = data.lastNames;
+    //     delete data.lastNames;
+    //     data.name = data.firstNames;
+    //     delete datia.frstNames;
+    //     // console.log(data);
+    //     // 3600 seconds in an hour / number of seconds per product
+    //     setOutput(3600 / data.number);
+
+    //     // combine two arrays into one
+    //     data = data.name.map((name, index) => {
+    //       return { name: name, manpower: data.manpower[index] };
+    //     });
+    //     // console.log(data);
+    //     setData(data);
+    //     setLoaded(true);
+    //     setSearching(false);
+    //   })
+    //   .catch(error => {
+    //     alert('There was an error submitting the form. Please try again later.');
+    //     setSearching(false);
+    //   });
+
+
+    // let queryParamsCopy = `firstNames=${firstNames.join(',')}&lastNames=${lastNames.join(',')}&number=${number - 2}`;
+    // await fetch(`${apiGatewayUrl}${resourcePath}?${queryParamsCopy}`)
+    //   .then(response => {
+    //     if (!response.ok) {
+    //       throw new Error('Network response was not ok');
+    //     }
+    //     return response.json();
+    //   })
+    //   .then(data2 => {
+    //     // console.log(data2);
+    //     // rename data.lastNames to data.manpower
+    //     if (3600 / data2.number == output) {
+    //       // alert(`Suggested Ideal Manpower: ${number - 2} \nIdeal Output: ${3600 / data2.number}`);
+    //       setSnackTitle(`Suggested Ideal Manpower: ${number - 2} \nIdeal Output: ${3600 / data2.number}`);
+    //       toggleSnackbar();
+    //     } else {
+    //       queryParamsCopy = `firstNames=${firstNames.join(',')}&lastNames=${lastNames.join(',')}&number=${number - 1}`;
+    //       fetch(`${apiGatewayUrl}${resourcePath}?${queryParamsCopy}`)
+    //         .then(response => {
+    //           if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //           }
+    //           return response.json();
+    //         })
+    //         .then(data2 => {
+    //           // console.log(data2);
+    //           // rename data.lastNames to data.manpower
+    //           if (3600 / data2.number == output) {
+    //             // alert(`Suggested Ideal Manpower: ${number - 1} \nIdeal Output: ${3600 / data2.number}`);
+    //             setSnackTitle(`Suggested Ideal Manpower: ${number - 1} \nIdeal Output: ${3600 / data2.number}`);
+    //             toggleSnackbar();
+    //           }
+    //         });
+    //     }
+    //   })
+    //   .catch(error => {
+    //     alert('There was an error submitting the form. Please try again later.');
+    //     setSearching(false);
+    //   });
 
   };
 
