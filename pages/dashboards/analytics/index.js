@@ -411,7 +411,7 @@ function Analytics() {
             {
               !loading && filteredProducts.map((product) => {
                 return (
-                  <Grid item xs={4} md={4} lg={3} key={product.task_id}>
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={product.task_id}>
                     <MDBox mt={3}>
                       <BookingCard
                         image={product.image && product.image.src && product.image.height ? product.image : product1}
