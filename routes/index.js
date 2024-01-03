@@ -298,6 +298,44 @@ const routes = [
       // },
     ],
   },
+  {
+    type: "collapse",
+    name: "Wood Planning",
+    key: "wood-planning",
+    icon: <Icon fontSize="medium">forest</Icon>,
+    collapse: [
+      // {
+      //   name: "New Product",
+      //   key: "new-product",
+      //   route: "/ecommerce/products/new-product",
+      // },
+      {
+        name: "Inventory",
+        key: "wood-inventory",
+        route: "/wood/inventory",
+      },
+      {
+        name: "Gate Entry",
+        key: "gate-entry",
+        route: "/wood/entry",
+      },
+      {
+        name: "Wood Entry Log",
+        key: "log-entry",
+        route: "/wood/log",
+      },
+      // {
+      //   name: "Edit Product",
+      //   key: "edit-product",
+      //   route: "/ecommerce/products/edit-product",
+      // },
+      // {
+      //   name: "Product Page",
+      //   key: "product-page",
+      //   route: "/ecommerce/products/product-page",
+      // },
+    ],
+  },
   // {
   //   type: "collapse",
   //   name: "Ecommerce",
