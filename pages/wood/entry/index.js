@@ -36,7 +36,7 @@ import DashboardLayout from "/examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "/examples/Navbars/DashboardNavbar";
 import MDSnackbar from "/components/MDSnackbar";
 
-import NewOrderForm from "pagesComponents/wood/types/index"
+import EntryLog from "pagesComponents/wood/entry";
 
 
 function Cover() {
@@ -71,10 +71,10 @@ function Cover() {
                 />
 
                 <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-                    Create a New Plank Type
+                    New Entry Form
                 </MDTypography>
                 <MDTypography display="block" variant="button" color="white" my={1}>
-                    Fill in the form below to create a new plank type.
+                    Please enter details of the new entry
                 </MDTypography>
             </MDBox>
             <MDBox mb={2}>
@@ -86,26 +86,11 @@ function Cover() {
                 >
                     <Grid item xs={12} lg={8}>
                         {/* Add a form here  */}
-                        <NewOrderForm />
+                        <EntryLog />
 
                     </Grid>
                 </Grid>
             </MDBox>
-            {/* <MDBox mb={3} textAlign="center">
-                <MDTypography variant="button" color="text">
-                    Already have a Registered Product?{" "}
-                    <Link href="/ecommerce/products/edit-product">
-                        <MDTypography
-                            variant="button"
-                            color="light"
-                            fontWeight="medium"
-                            textGradient
-                        >
-                            Edit Product
-                        </MDTypography>
-                    </Link>
-                </MDTypography>
-            </MDBox> */}
             {/* </Card> */}
         </DashboardLayout>
     );
