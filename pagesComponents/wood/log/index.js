@@ -10,7 +10,7 @@ import MDButton from "/components/MDButton";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useEffect } from "react";
-import { postToProductionLogs } from "/apiHelpers/productionLogs.js";
+import { postToInspectionLogs } from "apiHelpers/wood";
 import { v4 as uuidv4 } from 'uuid';
 import MDDatePicker from "/components/MDDatePicker";
 import { Switch } from "@mui/material";
@@ -68,7 +68,13 @@ function WoodEntryForm({ product_id }) {
         console.log(planks);
         setSubmitting(true);
         // wait for 1 sec
-        await new Promise(r => setTimeout(r, 1000));
+        const report = {
+            'jobNo': orderNo,
+            'planks': planks,
+        }
+
+        // post to api
+        const response = await postToInspectionLogs(report);
         setSubmitting(false);
         setPlanks([]);
     }

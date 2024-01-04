@@ -15,6 +15,7 @@ import { Switch } from "@mui/material";
 import { useAuth } from "hooks/use-auth";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getProductionLogsByJobNo } from "apiHelpers/wood";
 
 
 
@@ -28,7 +29,14 @@ function InventoryView() {
     const handleSubmit = async () => {
         console.log('submitting');
         setSubmitting(true);
-        setInventory(tempInventory[orderNo]);
+        // setInventory(tempInventory[orderNo]);
+        const inventory = await getProductionLogsByJobNo(orderNo).then(
+            (data) => {
+                console.log(data);
+                setInventory(data[0]);
+                return data;
+            }
+        );
 
     }
 
@@ -42,6 +50,7 @@ function InventoryView() {
 
     const AnalyzeInventory = () => {
         if (inventory) {
+            console.log(inventory);
             const planks = inventory.planks;
             const analyzedPlanks = [];
             // get all planks that are not rejected
