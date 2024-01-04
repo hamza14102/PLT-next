@@ -55,3 +55,23 @@ export async function postToGateEntries(entry) {
     // check status code and return accordingly
     return data;
 }
+
+export async function getFromGateEntriesByPONumber(ponumber) {
+    const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
+    const params = new URLSearchParams({
+        TableName: 'GateEntries',
+        search_by: 'PONumber',
+        value: ponumber,
+    });
+    const response = await fetch(`${url}?${params}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
+    });
+    const data = await response.json();
+    // check status code and return accordingly
+    const new_data = data['Items'];
+    return new_data;
+}

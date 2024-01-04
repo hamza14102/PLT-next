@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Card, CircularProgress, FormControl, FormControlLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from "@mui/material";
+import { Button, ButtonGroup, Card, CircularProgress, FormControl, FormControlLabel, Icon, InputLabel, MenuItem, Radio, RadioGroup, Select } from "@mui/material";
 import MDBox from "/components/MDBox";
 import MDTypography from "/components/MDTypography";
 import Grid from "@mui/material/Grid";
@@ -10,7 +10,7 @@ import MDButton from "/components/MDButton";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useEffect } from "react";
-import { postToInspectionLogs } from "apiHelpers/wood";
+import { postToInspectionLogs, getFromGateEntriesByPONumber } from "apiHelpers/wood";
 import { v4 as uuidv4 } from 'uuid';
 import MDDatePicker from "/components/MDDatePicker";
 import { Switch } from "@mui/material";
@@ -21,11 +21,14 @@ import { LowPriority } from "@mui/icons-material";
 
 
 function WoodEntryForm({ product_id }) {
-    const [snackbarContent, setSnackbarContent] = useState({});
     const [submitting, setSubmitting] = useState(false);
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     const [orderNo, setOrderNo] = useState(0);
+    const [PONumber, setPONumber] = useState(0);
+
+    const [billNoOptions, setBillNoOptions] = useState([]);
+
     // for loop from 1 to 100
     const list = [];
     for (let i = 1; i <= 96; i++) {
@@ -69,7 +72,9 @@ function WoodEntryForm({ product_id }) {
         setSubmitting(true);
         // wait for 1 sec
         const report = {
-            'jobNo': orderNo,
+            'PONumber': PONumber,
+            'jobNo': uuidv4(),
+            'billNumber': orderNo,
             'planks': planks,
         }
 
@@ -91,18 +96,22 @@ function WoodEntryForm({ product_id }) {
     }, [length]);
 
 
-    useEffect(() => {
-        setSnackbarContent({
-            color: "success",
-            icon: "notifications",
-            title: "NEW TASK SUCCESSFUL",
-            content: "Successfully created new task",
-            autoHideDuration: 6000,
-            anchorOrigin: { vertical: 'top', horizontal: 'right' },
-            message: "Successfully created new task",
-            severity: "success"
-        });
-    }, []);
+
+    const searchForPo = async () => {
+        const response = await getFromGateEntriesByPONumber(PONumber);
+        console.log(response);
+
+        if (response.length === 0) {
+            setOpen(true);
+            return;
+        }
+        // extract bill numbers from response
+        const billNos = response.map((item) => item.billNumber);
+        setBillNoOptions(billNos);
+        console.log(billNos);
+    }
+
+
 
     const { isLoading, user } = useAuth();
 
@@ -115,19 +124,6 @@ function WoodEntryForm({ product_id }) {
 
     return (
         <div>
-            <MDSnackbar
-                open={open}
-                color={snackbarContent.color}
-                icon={snackbarContent.icon}
-                title={snackbarContent.title}
-                content={snackbarContent.content}
-                autoHideDuration={snackbarContent.autoHideDuration}
-                anchorOrigin={snackbarContent.anchorOrigin}
-                close={() => setOpen(!open)}
-                message={snackbarContent.message}
-
-            />
-
             {/* {modalContent} */}
             <Grid container spacing={1} justify="center">
                 <Grid item lg={8} sm={12}>
@@ -140,15 +136,52 @@ function WoodEntryForm({ product_id }) {
                             >
                                 <Grid container spacing={2} justify="center" style={{ margin: '1rem' }}>
                                     <Grid container spacing={2} justify="center" style={{ margin: '1rem' }}>
-                                        <Grid item xs={12}>
+                                        <Grid item xs={4}>
+                                            <MDTypography variant="h5" fontWeight="medium" color="white" mt={1}>
+                                                PO नंबर
+                                            </MDTypography>
+                                            <MDInput
+                                                fullWidth
+                                                onChange={(e) => setPONumber(e.target.value)}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            {/* search button */}
+                                            <MDButton
+                                                color="primary"
+                                                variant="gradient"
+                                                // justifyContent="center"
+                                                onClick={() => {
+                                                    console.log('search clicked');
+                                                    searchForPo();
+                                                }}
+                                                disabled={submitting}
+                                                style={{ marginTop: '2.25rem' }}
+                                            >
+                                                <Icon
+                                                >
+                                                    search
+                                                </Icon>
+                                            </MDButton>
+                                        </Grid>
+                                        <Grid item xs={6}>
                                             <MDTypography variant="h5" fontWeight="medium" color="white" mt={1}>
                                                 क्रम नंबर
                                             </MDTypography>
-                                            <MDInput
+                                            {/* <MDInput
                                                 fullWidth
                                                 // label="लकड़ी - प्रवेश सूचना"
                                                 // name="लकड़ी - प्रवेश सूचना"
                                                 onChange={(e) => setOrderNo(e.target.value)}
+                                            /> */}
+                                            <Autocomplete
+                                                fullWidth
+                                                id="combo-box-demo"
+                                                options={billNoOptions}
+                                                onChange={(event, newValue) => {
+                                                    setOrderNo(newValue);
+                                                }}
+                                                renderInput={(params) => <TextField {...params} />}
                                             />
                                         </Grid>
                                         {/* make a list of checkboxes with only one selection at a time */}
