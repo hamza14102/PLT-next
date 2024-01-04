@@ -15,7 +15,7 @@ import { Switch } from "@mui/material";
 import { useAuth } from "hooks/use-auth";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import MDDatePicker from "/components/MDDatePicker";
+import { postToGateEntries } from "apiHelpers/wood";
 
 
 
@@ -27,10 +27,23 @@ function EntryLog() {
     const handleSubmit = async () => {
         setSubmitting(true);
         // wait 2 seconds
-        console.log('submitting');
-        await new Promise((r) => setTimeout(r, 2000));
+        // make sure all fields are filled otherwise show error through toast
+        if (!entryDetails.billNumber || !entryDetails.billDate || !entryDetails.PONumber || !entryDetails.vehicleNumber || !entryDetails.inTime || !entryDetails.inDate) {
+            toast.error('Please fill all the fields');
+            setSubmitting(false);
+            return;
+        }
+
+        const entry = {
+            ...entryDetails,
+            _id: uuidv4(),
+            name: getCurrentUser(),
+        }
+        // console.log(entry);
+        const response = await postToGateEntries(entry);
+        // console.log(response);
+
         setSubmitting(false);
-        console.log('submitted');
     }
 
 
@@ -75,7 +88,7 @@ function EntryLog() {
                                     onChange={(e) => setEntryDetails({ ...entryDetails, billNumber: e.target.value })}
                                 />
                             </Grid>
-                            <Grid item xs={4}>
+                            {/* <Grid item xs={4}>
                                 <MDInput
                                     fullWidth
                                     label="Supplier Name"
@@ -83,7 +96,7 @@ function EntryLog() {
                                     size="large"
                                     onChange={(e) => setEntryDetails({ ...entryDetails, supplierName: e.target.value })}
                                 />
-                            </Grid>
+                            </Grid> */}
                             <Grid item xs={4}>
                                 <MDInput
                                     fullWidth
@@ -104,7 +117,7 @@ function EntryLog() {
                                     onChange={(e) => setEntryDetails({ ...entryDetails, PONumber: e.target.value })}
                                 />
                             </Grid>
-                            <Grid item xs={4}>
+                            {/* <Grid item xs={4}>
                                 <MDInput
                                     fullWidth
                                     label="Part Description"
@@ -112,8 +125,8 @@ function EntryLog() {
                                     size="large"
                                     onChange={(e) => setEntryDetails({ ...entryDetails, partDescription: e.target.value })}
                                 />
-                            </Grid>
-                            <Grid item xs={4}>
+                            </Grid> */}
+                            {/* <Grid item xs={4}>
                                 <MDInput
                                     fullWidth
                                     label="Quantity Received"
@@ -121,8 +134,8 @@ function EntryLog() {
                                     size="large"
                                     onChange={(e) => setEntryDetails({ ...entryDetails, qtyReceieved: e.target.value })}
                                 />
-                            </Grid>
-                            <Grid item xs={4}>
+                            </Grid> */}
+                            {/* <Grid item xs={4}>
                                 <MDInput
                                     fullWidth
                                     label="Quantity Unit"
@@ -130,7 +143,7 @@ function EntryLog() {
                                     size="large"
                                     onChange={(e) => setEntryDetails({ ...entryDetails, qtyUnit: e.target.value })}
                                 />
-                            </Grid>
+                            </Grid> */}
                             <Grid item xs={4}>
                                 <MDInput
                                     fullWidth
@@ -146,6 +159,8 @@ function EntryLog() {
                                     label="In Time"
                                     variant="outlined"
                                     size="large"
+                                    type="time"
+                                    value={entryDetails.inTime ? entryDetails.inTime : new Date()}
                                     onChange={(e) => setEntryDetails({ ...entryDetails, inTime: e.target.value })}
                                 />
                             </Grid>
@@ -155,12 +170,12 @@ function EntryLog() {
                                     fullWidth
                                     label="In Date"
                                     type="date"
-                                    value={entryDetails.billDate ? entryDetails.inDate : new Date()}
+                                    value={entryDetails.billDate ? entryDetails.inDate : new Date().toTimeString()}
                                     onChange={(e) => setEntryDetails({ ...entryDetails, inDate: e.target.value })}
                                 />
                             </Grid>
 
-                            <Grid item xs={4}>
+                            {/* <Grid item xs={4}>
                                 <MDInput
                                     fullWidth
                                     label="Rate Per CFT"
@@ -168,9 +183,9 @@ function EntryLog() {
                                     size="large"
                                     onChange={(e) => setEntryDetails({ ...entryDetails, rate: e.target.value })}
                                 />
-                            </Grid>
+                            </Grid> */}
 
-                            <Grid item xs={4}>
+                            {/* <Grid item xs={4}>
                                 <MDInput
                                     fullWidth
                                     label="Total Amount"
@@ -178,7 +193,7 @@ function EntryLog() {
                                     size="large"
                                     onChange={(e) => setEntryDetails({ ...entryDetails, totalAmount: e.target.value })}
                                 />
-                            </Grid>
+                            </Grid> */}
 
                             {/* submit button */}
                             <Grid item xs={12}>
