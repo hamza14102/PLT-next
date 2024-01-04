@@ -197,9 +197,11 @@ function WoodEntryForm({ product_id }) {
                                                     onChange={handleHeightChange}
                                                     style={{ height: '40px' }}
                                                 >
-                                                    <MenuItem value={10}>Ten</MenuItem>
-                                                    <MenuItem value={20}>Twenty</MenuItem>
-                                                    <MenuItem value={30}>Thirty</MenuItem>
+                                                    <MenuItem value={1}>1&quot;</MenuItem>
+                                                    <MenuItem value={1.5}>1.5&quot;</MenuItem>
+                                                    <MenuItem value={2}>2&quot;</MenuItem>
+                                                    <MenuItem value={2.5}>2.5&quot;</MenuItem>
+                                                    <MenuItem value={3}>3&quot;</MenuItem>
                                                 </Select>
                                             </FormControl>
 
