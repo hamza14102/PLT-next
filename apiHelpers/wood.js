@@ -17,7 +17,7 @@ export async function postToInspectionLogs(report) {
 }
 
 
-export async function getProductionLogsByJobNo(jobNo) {
+export async function getInventoryByJobNo(jobNo) {
     const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
     const params = new URLSearchParams({
         TableName: 'WoodInspections',

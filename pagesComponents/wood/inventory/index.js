@@ -15,7 +15,7 @@ import { Switch } from "@mui/material";
 import { useAuth } from "hooks/use-auth";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getProductionLogsByJobNo } from "apiHelpers/wood";
+import { getInventoryByJobNo } from "apiHelpers/wood";
 
 
 
@@ -30,7 +30,7 @@ function InventoryView() {
         console.log('submitting');
         setSubmitting(true);
         // setInventory(tempInventory[orderNo]);
-        const inventory = await getProductionLogsByJobNo(orderNo).then(
+        const inventory = await getInventoryByJobNo(orderNo).then(
             (data) => {
                 console.log(data);
                 setInventory(data[0]);
