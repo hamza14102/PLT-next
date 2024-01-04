@@ -15,7 +15,7 @@ import { Switch } from "@mui/material";
 import { useAuth } from "hooks/use-auth";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getInventoryByJobNo } from "apiHelpers/wood";
+import { getInventoryByPONo } from "apiHelpers/wood";
 
 
 
@@ -24,27 +24,41 @@ function InventoryView() {
     const [orderNo, setOrderNo] = useState(0);
     const [inventory, setInventory] = useState(null);
     const [analyzedInventory, setAnalyzedInventory] = useState(null);
+    const [billNoOptions, setBillNoOptions] = useState([]);
+    const [billNo, setBillNo] = useState(null);
 
 
     const handleSubmit = async () => {
         console.log('submitting');
         setSubmitting(true);
         // setInventory(tempInventory[orderNo]);
-        const inventory = await getInventoryByJobNo(orderNo).then(
+        const inventory = await getInventoryByPONo(orderNo).then(
             (data) => {
                 console.log(data);
-                setInventory(data[0]);
+                // setInventory(data[0]);
                 return data;
             }
         );
 
+        const billNos = inventory.map((inv) => inv.billNumber);
+        console.log(billNos);
+        setBillNoOptions(billNos);
+        setSubmitting(false);
+
     }
+
+    useEffect(() => {
+        if (billNo) {
+            const inventory = tempInventory[billNo];
+            setInventory(inventory);
+        }
+    }, [billNo])
+
 
     useEffect(() => {
         const analyzed = AnalyzeInventory();
         console.log(analyzed);
         setAnalyzedInventory(analyzed);
-        setSubmitting(false);
 
     }, [inventory])
 
@@ -171,9 +185,9 @@ function InventoryView() {
                         justifyContent="space-between"
                     >
                         <Grid container spacing={2} justify="center" style={{ margin: '1rem' }}>
-                            <Grid item xs={11}>
+                            <Grid item xs={7}>
                                 <MDTypography variant="h5" fontWeight="medium" color="white" mt={1}>
-                                    Job Number
+                                    PO Number
                                 </MDTypography>
                                 <MDInput
                                     fullWidth
@@ -213,6 +227,21 @@ function InventoryView() {
                                             </Icon>
                                         </MDButton>
                                 }
+                            </Grid>
+
+                            <Grid item xs={4}>
+                                <MDTypography variant="h5" fontWeight="medium" color="white" mt={1}>
+                                    Bill Number
+                                </MDTypography>
+                                <Autocomplete
+                                    fullWidth
+                                    id="combo-box-demo"
+                                    options={billNoOptions}
+                                    onChange={(event, newValue) => {
+                                        setBillNo(newValue);
+                                    }}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
                             </Grid>
 
 

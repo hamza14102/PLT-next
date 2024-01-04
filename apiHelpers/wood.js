@@ -17,12 +17,12 @@ export async function postToInspectionLogs(report) {
 }
 
 
-export async function getInventoryByJobNo(jobNo) {
+export async function getInventoryByPONo(PONo) {
     const url = `https://kbet2pop50.execute-api.us-east-2.amazonaws.com/default/ProductsAPILambda/`;
     const params = new URLSearchParams({
         TableName: 'WoodInspections',
-        search_by: 'jobNo',
-        value: jobNo,
+        search_by: 'PONumber',
+        value: PONo,
     });
     const response = await fetch(`${url}?${params}`, {
         method: 'GET',
