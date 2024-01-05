@@ -45,7 +45,7 @@ function WoodEntryForm({ product_id }) {
         setSelectedValue(event.target.value);
     };
 
-    const [height, setHeight] = useState(10);
+    const [height, setHeight] = useState(1);
     const [width, setWidth] = useState(1);
     const [length, setLength] = useState(0);
 
@@ -166,7 +166,7 @@ function WoodEntryForm({ product_id }) {
                                         </Grid>
                                         <Grid item xs={6}>
                                             <MDTypography variant="h5" fontWeight="medium" color="white" mt={1}>
-                                                क्रम नंबर
+                                                बिल नंबर
                                             </MDTypography>
                                             {/* <MDInput
                                                 fullWidth

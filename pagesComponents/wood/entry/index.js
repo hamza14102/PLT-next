@@ -175,15 +175,15 @@ function EntryLog() {
                                 />
                             </Grid>
 
-                            {/* <Grid item xs={4}>
+                            <Grid item xs={4}>
                                 <MDInput
                                     fullWidth
-                                    label="Rate Per CFT"
+                                    label="DL Number"
                                     variant="outlined"
                                     size="large"
-                                    onChange={(e) => setEntryDetails({ ...entryDetails, rate: e.target.value })}
+                                    onChange={(e) => setEntryDetails({ ...entryDetails, DLNumber: e.target.value })}
                                 />
-                            </Grid> */}
+                            </Grid>
 
                             {/* <Grid item xs={4}>
                                 <MDInput

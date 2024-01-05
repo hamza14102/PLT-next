@@ -26,6 +26,7 @@ function InventoryView() {
     const [analyzedInventory, setAnalyzedInventory] = useState(null);
     const [billNoOptions, setBillNoOptions] = useState([]);
     const [billNo, setBillNo] = useState(null);
+    const [poInfo, setPoInfo] = useState(null);
 
 
     const handleSubmit = async () => {
@@ -35,13 +36,13 @@ function InventoryView() {
         const inventory = await getInventoryByPONo(orderNo).then(
             (data) => {
                 console.log(data);
-                // setInventory(data[0]);
+                setPoInfo(data);
                 return data;
             }
         );
 
         const billNos = inventory.map((inv) => inv.billNumber);
-        console.log(billNos);
+        // console.log(billNos);
         setBillNoOptions(billNos);
         setSubmitting(false);
 
@@ -49,7 +50,10 @@ function InventoryView() {
 
     useEffect(() => {
         if (billNo) {
-            const inventory = tempInventory[billNo];
+            console.log('billNo changed');
+            console.log(poInfo);
+            const inventory = poInfo.find((inv) => inv.billNumber === billNo);
+            console.log(inventory);
             setInventory(inventory);
         }
     }, [billNo])
@@ -71,13 +75,13 @@ function InventoryView() {
             const goodPlanks = planks.filter((plank) => !plank.rejectionReason);
             // get total CFT of good planks
             const totalCFT = goodPlanks.reduce((total, plank) => {
-                return total + plank.H * plank.W * plank.L / 12;
+                return total + plank.H * plank.W * plank.L / 1728;
             }, 0);
             // get rejected planks
             const rejectedPlanks = planks.filter((plank) => plank.rejectionReason);
             // get total CFT of rejected planks
             const rejectedCFT = rejectedPlanks.reduce((total, plank) => {
-                return total + plank.H * plank.W * plank.L / 12;
+                return total + plank.H * plank.W * plank.L / 1728;
             }, 0);
             // get rejection percentage
             const rejectionPercentage = rejectedCFT / (totalCFT + rejectedCFT) * 100;
