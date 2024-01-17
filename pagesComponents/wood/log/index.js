@@ -60,6 +60,10 @@ function WoodEntryForm({ product_id }) {
     }
     const handleLengthChange = (event) => {
         setLength(event);
+        if (length === 0) {
+            return;
+        }
+        setPlanks([...planks, { 'H': height, 'W': width, 'L': length }]);
     }
 
     const handleRejectReasonChange = (index, value) => {
@@ -86,14 +90,11 @@ function WoodEntryForm({ product_id }) {
 
     const [planks, setPlanks] = useState([]);
 
-    useEffect(() => {
-        // console.log([height, width, length]);
-        // append {height, width, length} to planks
-        if (length === 0) {
-            return;
-        }
-        setPlanks([...planks, { 'H': height, 'W': width, 'L': length }]);
-    }, [length]);
+    // useEffect(() => {
+    //     // console.log([height, width, length]);
+    //     // append {height, width, length} to planks
+
+    // }, [length]);
 
 
 
