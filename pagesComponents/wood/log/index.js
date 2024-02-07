@@ -161,7 +161,7 @@ function WoodEntryForm({ product_id }) {
                                             >
                                                 <Icon
                                                 >
-                                                    search
+                                                    Search
                                                 </Icon>
                                             </MDButton>
                                         </Grid>
