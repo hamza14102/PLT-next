@@ -22,7 +22,9 @@ import { getInventoryByPONo } from "apiHelpers/wood";
 function InventoryView() {
     const [submitting, setSubmitting] = useState(false);
     const [orderNo, setOrderNo] = useState(0);
-    const [inventory, setInventory] = useState(null);
+    // const [inventory, setInventory] = useState(null);
+    const [inventories, setInventories] = useState([]);
+    const [analyzedInventories, setAnalyzedInventories] = useState([]);
     const [analyzedInventory, setAnalyzedInventory] = useState(null);
     const [billNoOptions, setBillNoOptions] = useState([]);
     const [billNo, setBillNo] = useState(null);
@@ -35,13 +37,18 @@ function InventoryView() {
         // setInventory(tempInventory[orderNo]);
         const inventory = await getInventoryByPONo(orderNo).then(
             (data) => {
-                console.log(data);
+                // console.log(data);
                 setPoInfo(data);
                 return data;
             }
         );
 
-        const billNos = inventory.map((inv) => inv.billNumber);
+        let billNos = inventory.map((inv) => inv.billNumber);
+        // console.log(billNos);
+        // make billNos a set to remove duplicates
+        const uniqueBillNos = new Set(billNos);
+        // convert set back to array
+        billNos = [...uniqueBillNos];
         // console.log(billNos);
         setBillNoOptions(billNos);
         setSubmitting(false);
@@ -51,24 +58,36 @@ function InventoryView() {
     useEffect(() => {
         if (billNo) {
             console.log('billNo changed');
-            console.log(poInfo);
-            const inventory = poInfo.find((inv) => inv.billNumber === billNo);
-            console.log(inventory);
-            setInventory(inventory);
+            // console.log(poInfo);
+            const inventories = poInfo.filter((inv) => inv.billNumber === billNo);
+            setInventories(inventories);
+            // const inventory = inventories[0];
+            // console.log(inventory);
+            // setInventory(inventory);
         }
     }, [billNo])
 
 
-    useEffect(() => {
-        const analyzed = AnalyzeInventory();
-        console.log(analyzed);
-        setAnalyzedInventory(analyzed);
+    // useEffect(() => {
+    //     const analyzed = AnalyzeInventory();
+    //     console.log(analyzed);
+    //     setAnalyzedInventory(analyzed);
 
-    }, [inventory])
+    // }, [inventory])
 
-    const AnalyzeInventory = () => {
+    // useEffect(() => {
+    //     console.log('Inventories changed');
+
+    //     const analyzedInventories = inventories.map((inv) => {
+    //         return AnalyzeInventory(inv);
+    //     });
+    //     console.log(analyzedInventories);
+    //     setAnalyzedInventories(analyzedInventories);
+    // }, [inventories])
+
+    const AnalyzeInventory = (inventory) => {
         if (inventory) {
-            console.log(inventory);
+            // console.log(inventory);
             const planks = inventory.planks;
             const analyzedPlanks = [];
             // get all planks that are not rejected
@@ -248,8 +267,59 @@ function InventoryView() {
                                 />
                             </Grid>
 
-
+                            {/* for inventory in inventories */}
                             {
+                                inventories && inventories.map((inventory, index) => {
+                                    const analyzedInventory = AnalyzeInventory(inventory);  // Assuming you have a function to analyze each inventory
+                                    // console.log(analyzedInventory);
+                                    inventory['totalCFT'] = analyzedInventory.totalCFT;
+                                    inventory['rejectedCFT'] = analyzedInventory.rejectedCFT;
+                                    inventory['rejectionPercentage'] = analyzedInventory.rejectionPercentage;
+                                    return (
+                                        <Grid item xs={12} key={index}>
+                                            <MDTypography variant="h5" fontWeight="medium" color="white" mt={1}>
+                                                Logged at {inventory.createdAt ? inventory.createdAt : 'N/A'}
+                                            </MDTypography>
+                                            <MDBox
+                                                variant="gradient"
+                                                bgColor="dark"
+                                                borderRadius="lg"
+                                                coloredShadow="dark"
+                                                mx={2}
+                                                mt={3}
+                                                p={3}
+                                                mb={1}
+                                                textAlign="center"
+                                            >
+                                                <Grid container spacing={1} justify="center" >
+                                                    <Grid item xs={12} sm={6} >
+                                                        <MDTypography variant="h5" fontWeight="medium" color="white" align="center" style={{ border: '1px solid white', borderRadius: '10px', }}>
+                                                            Planks - {inventory.planks.length.toFixed(2)}
+                                                        </MDTypography>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={6} >
+                                                        <MDTypography variant="h5" fontWeight="medium" color="white" align="center" style={{ border: '1px solid white', borderRadius: '10px', }}>
+                                                            Usable CFT - {inventory.totalCFT.toFixed(2)}
+                                                        </MDTypography>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={6} >
+                                                        <MDTypography variant="h5" fontWeight="medium" color="white" align="center" style={{ border: '1px solid white', borderRadius: '10px', }}>
+                                                            Rejected CFT - {inventory.rejectedCFT.toFixed(2)}
+                                                        </MDTypography>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={6} >
+                                                        <MDTypography variant="h5" fontWeight="medium" color="white" align="center" style={{ border: '1px solid white', borderRadius: '10px', }}>
+                                                            Rejection % - {inventory.rejectionPercentage.toFixed(2)}
+                                                        </MDTypography>
+                                                    </Grid>
+                                                </Grid>
+                                            </MDBox>
+                                        </Grid>
+                                    );
+                                })
+                            }
+
+                            {/* {
                                 inventory && analyzedInventory &&
                                 <Grid item xs={12}>
                                     <MDTypography variant="h5" fontWeight="medium" color="white" mt={1}>
@@ -290,7 +360,7 @@ function InventoryView() {
                                         </Grid>
                                     </MDBox>
                                 </Grid>
-                            }
+                            } */}
                         </Grid>
                     </MDBox>
                 </MDBox>

@@ -80,6 +80,7 @@ function WoodEntryForm({ product_id }) {
             'jobNo': uuidv4(),
             'billNumber': orderNo,
             'planks': planks,
+            'createdAt': new Date().toISOString(),
         }
 
         // post to api
