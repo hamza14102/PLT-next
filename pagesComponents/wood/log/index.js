@@ -26,7 +26,7 @@ import SearchIcon from '@mui/icons-material/Search';
 function WoodEntryForm({ product_id }) {
     const [submitting, setSubmitting] = useState(false);
     const [open, setOpen] = useState(false);
-    const [options, setOptions] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    const [options, setOptions] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
     const [orderNo, setOrderNo] = useState(0);
     const [PONumber, setPONumber] = useState(0);
 
@@ -34,7 +34,7 @@ function WoodEntryForm({ product_id }) {
 
     // for loop from 1 to 100
     const list = [];
-    for (let i = 1; i <= 132; i++) {
+    for (let i = 1; i <= 138; i++) {
         list.push(i);
     }
 
