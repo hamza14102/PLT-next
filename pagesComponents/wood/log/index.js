@@ -18,6 +18,9 @@ import { useAuth } from "hooks/use-auth";
 import MDSnackbar from "/components/MDSnackbar";
 import { LowPriority } from "@mui/icons-material";
 
+import { IconButton } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+
 
 
 function WoodEntryForm({ product_id }) {
@@ -31,7 +34,7 @@ function WoodEntryForm({ product_id }) {
 
     // for loop from 1 to 100
     const list = [];
-    for (let i = 1; i <= 96; i++) {
+    for (let i = 1; i <= 132; i++) {
         list.push(i);
     }
 
@@ -149,7 +152,7 @@ function WoodEntryForm({ product_id }) {
                                         </Grid>
                                         <Grid item xs={2}>
                                             {/* search button */}
-                                            <MDButton
+                                            {/* <MDButton
                                                 color="primary"
                                                 variant="gradient"
                                                 // justifyContent="center"
@@ -164,7 +167,18 @@ function WoodEntryForm({ product_id }) {
                                                 >
                                                     Search
                                                 </Icon>
-                                            </MDButton>
+                                            </MDButton> */}
+                                            <IconButton
+                                                color="primary"
+                                                onClick={() => {
+                                                    console.log('search clicked');
+                                                    searchForPo();
+                                                }}
+                                                disabled={submitting}
+                                                style={{ marginTop: '2.25rem' }}
+                                            >
+                                                <SearchIcon />
+                                            </IconButton>
                                         </Grid>
                                         <Grid item xs={6}>
                                             <MDTypography variant="h5" fontWeight="medium" color="white" mt={1}>
@@ -214,7 +228,7 @@ function WoodEntryForm({ product_id }) {
                                             <MDTypography variant="h5" fontWeight="medium" color="white" mt={1}>
                                                 चौड़ाई
                                             </MDTypography>
-                                            <Grid container spacing={1}>
+                                            <Grid container spacing={1} >
                                                 {options.map((option, index) => (
                                                     <Grid item key={index}>
                                                         <Button
